@@ -13,8 +13,13 @@
     "lib": ["es2017", "dom"],
     "skipLibCheck": true,
     "skipDefaultLibCheck": true,
-    "baseUrl": ".",
-    "paths": {}
+    "baseUrl": "./",
+    "paths": {
+      "@utils": ["libs/utils/src/index.ts"],
+      "@pub/*": ["apps/hojo-public-api/src/*"],
+      "@types": ["libs/types/src/index.ts"],
+      "@user/*": ["apps/user-service/src/*"]
+    }
   },
   "exclude": ["node_modules", "tmp"]
 }

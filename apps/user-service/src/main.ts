@@ -3,10 +3,10 @@
  * This is only a minimal backend to get started.
  */
 
-import { Logger } from '@nestjs/common';
-import { NestFactory } from '@nestjs/core';
+import { Logger } from "@nestjs/common";
+import { NestFactory } from "@nestjs/core";
 
-import { AppModule } from '@pub/app/app.module';
+import { AppModule } from "@user/app/app.module";
 
 import * as dotenvConf from "dotenv";
 dotenvConf.config();
@@ -16,9 +16,7 @@ async function bootstrap() {
 
   const port = process.env.PORT;
   await app.listen(port);
-  Logger.log(
-    `🚀 Application is running on: http://localhost:${port}`
-  );
+  Logger.log(`🚀 Application is running on: http://localhost:${port}`);
 }
 
 bootstrap();
