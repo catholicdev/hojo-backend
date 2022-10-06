@@ -15,10 +15,11 @@
     "skipDefaultLibCheck": true,
     "baseUrl": "./",
     "paths": {
-      "@utils": ["libs/utils/src/index.ts"],
-      "@pub/*": ["apps/hojo-public-api/src/*"],
+      "@dto": ["libs/dto/src/index.ts"],
       "@types": ["libs/types/src/index.ts"],
-      "@user/*": ["apps/user-service/src/*"]
+      "@utils": ["libs/utils/src/index.ts"],
+      "@user/*": ["apps/user-service/src/*"],
+      "@pub/*": ["apps/hojo-public-api/src/*"]
     }
   },
   "exclude": ["node_modules", "tmp"]

@@ -11,4 +11,9 @@ export class UserController {
     const { email, password } = payload;
     return this.userAuthenService.authenticateUserPassword(email, password);
   }
+
+  @Post("guest")
+  async guest() {
+    return this.userAuthenService.loginGuest();
+  }
 }

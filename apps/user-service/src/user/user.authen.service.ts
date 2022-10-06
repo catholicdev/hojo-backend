@@ -14,4 +14,8 @@ export class UserAuthenService {
 
     return { message: "Welcome to user-service!" };
   }
+
+  async loginGuest() {
+    return this.userRepo.createUserGuest();
+  }
 }
