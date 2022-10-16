@@ -16,10 +16,11 @@
     "baseUrl": "./",
     "paths": {
       "@dto": ["libs/dto/src/index.ts"],
+      "@pub/*": ["apps/hojo-public-api/src/*"],
       "@types": ["libs/types/src/index.ts"],
-      "@utils": ["libs/utils/src/index.ts"],
       "@user/*": ["apps/user-service/src/*"],
-      "@pub/*": ["apps/hojo-public-api/src/*"]
+      "@utils": ["libs/utils/src/index.ts"],
+      "@bible/*": ["apps/bible-service/src/*"]
     }
   },
   "exclude": ["node_modules", "tmp"]

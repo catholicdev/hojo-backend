@@ -1,4 +1,4 @@
-import { Column, Entity, PrimaryGeneratedColumn } from "typeorm";
+import { Column, Entity, PrimaryGeneratedColumn, CreateDateColumn, UpdateDateColumn } from "typeorm";
 
 import { UserStatusEnum } from "@types";
 @Entity()
@@ -21,10 +21,21 @@ export class User {
   @Column({ name: "password", nullable: true })
   public password?: string;
 
-  @Column({ name: "created_date", nullable: true })
+  @CreateDateColumn({
+    type: "timestamp",
+    default: () => "CURRENT_TIMESTAMP",
+    precision: null,
+    name: "created_date",
+  })
   public createdDate: Date;
 
-  @Column({ name: "updated_date", nullable: true })
+  @UpdateDateColumn({
+    type: "timestamp",
+    default: () => "CURRENT_TIMESTAMP",
+    onUpdate: "CURRENT_TIMESTAMP",
+    precision: null,
+    name: "updated_date",
+  })
   public updatedDate: Date;
 
   @Column({ name: "user_status", type: "enum", enum: UserStatusEnum })
