@@ -6,17 +6,23 @@ import { UserPasswordLoginDto } from "@dto";
 
 @Injectable()
 export class UsersService {
-  private readonly userService = userServiceConsumer() as AxiosInstance;
+  private readonly userServiceClient = userServiceConsumer() as AxiosInstance;
 
   async loginApp(loginDTO: UserPasswordLoginDto) {
-    const result = await this.userService.post("user/login", {
+    const result = await this.userServiceClient.post("user/login", {
       ...loginDTO,
     });
     return result.data;
   }
 
   async loginGuest() {
-    const result = await this.userService.post("user/guest");
+    const result = await this.userServiceClient.post("user/guest");
+
+    return result.data;
+  }
+
+  async receiveDailyBible(userId: string) {
+    const result = await this.userServiceClient.post("user/daily-bible", { userId });
 
     return result.data;
   }

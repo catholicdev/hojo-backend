@@ -16,7 +16,7 @@ export class Book {
   @Column({ name: "book_code", nullable: true })
   public code?: string;
 
-  @Column({ name: "book_name" })
+  @Column({ name: "book_name", type: "text" })
   public name: string;
 
   @Column({ name: "abbreviation" })
@@ -28,7 +28,7 @@ export class Book {
   @Column({ name: "total_pillar", nullable: true })
   public totalPillar?: number;
 
-  @Column({ name: "book_summary" })
+  @Column({ name: "book_summary", type: "text" })
   public summary: string;
 
   @Column({ name: "book_group", type: "enum", enum: BookGroupEnum })

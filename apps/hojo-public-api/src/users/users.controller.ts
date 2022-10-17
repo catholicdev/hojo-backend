@@ -16,4 +16,10 @@ export class UsersController {
   async loginGuest() {
     return this.usersService.loginGuest();
   }
+
+  @Post("daily/bible")
+  async receiveDailyBible(@Body() payload) {
+    const { userId } = payload;
+    return this.usersService.receiveDailyBible(userId);
+  }
 }

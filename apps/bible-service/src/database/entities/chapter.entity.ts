@@ -17,15 +17,15 @@ export class Chapter {
   @Column({ name: "chapter_sequence" })
   public sequence: string;
 
-  @Column({ name: "chapter_name" })
-  public name: string;
+  @Column({ name: "chapter_name", type: "text", nullable: true })
+  public name?: string;
 
-  @Column({ name: "chapter_summary" })
-  public summary: string;
+  @Column({ name: "chapter_summary", type: "text", nullable: true })
+  public summary?: string;
 
   // Relationship
   @ManyToOne(() => Book)
-  @JoinColumn({ name: "book_id", referencedColumnName: "bookId" })
+  @JoinColumn({ name: "book_id", referencedColumnName: "id" })
   readonly book: Book;
 
   @OneToMany(() => Sentence, (sentence) => sentence.chapter)
