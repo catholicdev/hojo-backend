@@ -6,7 +6,9 @@
     "start": "nx serve",
     "build": "nx build",
     "test": "nx test",
-    "build-all": "nx run-many --target=build --all"
+    "build-all": "nx run-many --target=build --all",
+    "user": "nx serve user-service",
+    "bible": "nx serve bible-service"
   },
   "private": true,
   "dependencies": {
