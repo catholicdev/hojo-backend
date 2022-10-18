@@ -20,13 +20,13 @@ export class UserController {
 
   @Post("guest")
   async guest() {
+    this.logger.log(`start guest login`);
     return this.userAuthenService.loginGuest();
   }
 
   @Post("daily-bible")
   async dailyBible(@Body() payload) {
     this.logger.log(`daily-bible: ${JSON.stringify(payload)}`);
-
     const { userId } = payload;
     return this.userBibleService.dailyBible(userId);
   }
