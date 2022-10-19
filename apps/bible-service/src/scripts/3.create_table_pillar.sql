@@ -8,4 +8,4 @@ CREATE TABLE `pillar` (
   PRIMARY KEY (`id`),
   KEY `FK_d36ed20a834f4a9d57c81ce062a` (`book_id`),
   CONSTRAINT `FK_d36ed20a834f4a9d57c81ce062a` FOREIGN KEY (`book_id`) REFERENCES `book` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;

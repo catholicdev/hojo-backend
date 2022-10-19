@@ -6,7 +6,7 @@ import { UserPasswordLoginDto } from "@dto";
 
 @Injectable()
 export class UsersService {
-  private readonly userServiceClient = userServiceConsumer() as AxiosInstance;
+  private readonly userServiceClient: AxiosInstance = userServiceConsumer();
 
   async loginApp(loginDTO: UserPasswordLoginDto) {
     const result = await this.userServiceClient.post("user/login", {

@@ -9,4 +9,4 @@ CREATE TABLE `book` (
   `book_name` text NOT NULL,
   `book_summary` text NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;

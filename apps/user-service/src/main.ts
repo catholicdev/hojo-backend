@@ -17,6 +17,8 @@ async function bootstrap() {
   const port = process.env.PORT;
   await app.listen(port);
   Logger.log(`🚀 Application is running on: http://localhost:${port}`);
+  Logger.log(`BIBLE_SERVICE_HOST: ${process.env.BIBLE_SERVICE_HOST}`);
+  Logger.log(`BIBLE_SERVICE_PORT: ${process.env.BIBLE_SERVICE_PORT}`);
 }
 
 bootstrap();
