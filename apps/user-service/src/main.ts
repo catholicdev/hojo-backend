@@ -5,6 +5,7 @@
 
 import { Logger } from "@nestjs/common";
 import { NestFactory } from "@nestjs/core";
+import { ConfigService } from "@nestjs/config";
 
 import { AppModule } from "@user/app/app.module";
 
@@ -14,11 +15,19 @@ dotenvConf.config();
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
 
+  const configService: ConfigService<Record<string, unknown>, true> = app.get(ConfigService);
+
+  const corsOrigin = configService.get("CORS_ORIGIN");
+
+  app.enableCors({
+    methods: "GET,HEAD,PUT,PATCH,POST,DELETE,OPTIONS",
+    credentials: true,
+    origin: corsOrigin ? corsOrigin.split(",") : [],
+  });
+
   const port = process.env.PORT;
   await app.listen(port);
-  Logger.log(`🚀 Application is running on: http://localhost:${port}`);
-  Logger.log(`BIBLE_SERVICE_HOST: ${process.env.BIBLE_SERVICE_HOST}`);
-  Logger.log(`BIBLE_SERVICE_PORT: ${process.env.BIBLE_SERVICE_PORT}`);
+  Logger.log(`🚀 User Service is running on: http://localhost:${port}`);
 }
 
 bootstrap();

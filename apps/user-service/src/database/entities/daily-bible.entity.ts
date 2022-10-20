@@ -1,6 +1,6 @@
 import { Column, Entity, PrimaryGeneratedColumn, CreateDateColumn, ManyToOne, JoinColumn } from "typeorm";
 
-import { User } from "./user.entity";
+import { User } from "@user/database/entities/user.entity";
 
 @Entity()
 export class DailyBible {

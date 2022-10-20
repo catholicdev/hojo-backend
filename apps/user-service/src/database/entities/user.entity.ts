@@ -1,7 +1,8 @@
 import { Column, Entity, PrimaryGeneratedColumn, CreateDateColumn, UpdateDateColumn, OneToMany } from "typeorm";
 
 import { LocationInterface, UserStatusEnum } from "@types";
-import { DailyBible } from "./daily-bible.entity";
+
+import { DailyBible } from "@user/database/entities/daily-bible.entity";
 @Entity()
 export class User {
   @PrimaryGeneratedColumn("uuid")
