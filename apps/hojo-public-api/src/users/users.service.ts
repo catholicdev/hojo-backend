@@ -1,7 +1,7 @@
 import { Injectable } from "@nestjs/common";
 import { AxiosInstance } from "axios";
 
-import { userServiceConsumer } from "@utils";
+import { userServiceConsumer } from "@util";
 import { UserPasswordLoginDto } from "@dto";
 
 @Injectable()

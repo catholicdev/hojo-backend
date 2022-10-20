@@ -4,7 +4,7 @@ import * as dayjs from "dayjs";
 import { AxiosInstance } from "axios";
 
 import { DailyBibleRepository } from "@user/database/repositories";
-import { bibleServiceConsumer } from "@utils";
+import { bibleServiceConsumer } from "@util";
 
 @Injectable()
 export class UserBibleService {

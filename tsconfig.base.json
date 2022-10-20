@@ -15,12 +15,12 @@
     "skipDefaultLibCheck": true,
     "baseUrl": "./",
     "paths": {
-      "@dto": ["libs/dto/src/index.ts"],
-      "@types": ["libs/types/src/index.ts"],
-      "@utils": ["libs/utils/src/index.ts"],
       "@pub/*": ["apps/hojo-public-api/src/*"],
       "@user/*": ["apps/user-service/src/*"],
-      "@bible/*": ["apps/bible-service/src/*"]
+      "@bible/*": ["apps/bible-service/src/*"],
+      "@dto": ["libs/dto/src/index.ts"],
+      "@type": ["libs/types/src/index.ts"],
+      "@util": ["libs/utils/src/index.ts"]
     }
   },
   "exclude": ["node_modules", "tmp"]

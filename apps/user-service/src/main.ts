@@ -9,6 +9,9 @@ import { ConfigService } from "@nestjs/config";
 
 import { AppModule } from "@user/app/app.module";
 
+import * as dotenvConf from "dotenv";
+dotenvConf.config();
+
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
 

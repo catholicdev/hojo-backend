@@ -2,7 +2,7 @@ import { Column, Entity, PrimaryGeneratedColumn, CreateDateColumn, ManyToOne, Jo
 
 import { User } from "@user/database/entities/user.entity";
 
-@Entity()
+@Entity("daily_bible")
 export class DailyBible {
   @PrimaryGeneratedColumn("increment")
   public id: number;

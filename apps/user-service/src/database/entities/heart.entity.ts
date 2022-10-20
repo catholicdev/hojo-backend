@@ -10,7 +10,7 @@ import {
 
 import { User } from "@user/database/entities/user.entity";
 
-@Entity()
+@Entity("heart")
 export class Heart {
   @PrimaryGeneratedColumn("uuid")
   public id: string;
@@ -35,6 +35,7 @@ export class Heart {
   @UpdateDateColumn({
     type: "timestamp",
     default: () => "CURRENT_TIMESTAMP",
+    onUpdate: "CURRENT_TIMESTAMP",
     precision: null,
     name: "updated_date",
   })

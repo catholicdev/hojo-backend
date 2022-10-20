@@ -1,9 +1,9 @@
 import { Column, Entity, PrimaryGeneratedColumn, OneToMany } from "typeorm";
 
-import { BookGroupEnum, BookTypeEnum } from "@types";
+import { BookGroupEnum, BookTypeEnum } from "@type";
 
-import { Chapter } from "./chapter.entity";
-import { Pillar } from "./pillar.entity";
+import { Chapter } from "@bible/database/entities/chapter.entity";
+import { Pillar } from "@bible/database/entities/pillar.entity";
 
 @Entity()
 export class Book {

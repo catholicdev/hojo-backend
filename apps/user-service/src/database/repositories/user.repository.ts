@@ -4,7 +4,7 @@ import * as shortid from "short-uuid";
 import * as dayjs from "dayjs";
 
 import { User } from "@user/database/entities";
-import { UserStatusEnum } from "@types";
+import { UserStatusEnum } from "@type";
 
 @EntityRepository(User)
 export class UserRepository extends Repository<User> {

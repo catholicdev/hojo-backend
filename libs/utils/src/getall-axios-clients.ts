@@ -1,6 +1,9 @@
 import { HttpException, ServiceUnavailableException } from "@nestjs/common";
 import axios, { AxiosInstance } from "axios";
 
+import * as dotenvConf from "dotenv";
+dotenvConf.config();
+
 const { USER_SERVICE_HOST, USER_SERVICE_PORT, BIBLE_SERVICE_HOST, BIBLE_SERVICE_PORT } = process.env;
 
 const api = (baseUrl: string, token = ""): AxiosInstance => {
