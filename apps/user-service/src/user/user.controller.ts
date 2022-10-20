@@ -14,13 +14,14 @@ export class UserController {
 
   @Post("login")
   async login(@Body() payload) {
+    this.logger.log(`login: ${JSON.stringify(payload)}`);
     const { email, password } = payload;
     return this.userAuthenService.authenticateUserPassword(email, password);
   }
 
   @Post("guest")
   async guest() {
-    this.logger.log(`start guest login`);
+    this.logger.log(`guest: start guest login`);
     return this.userAuthenService.loginGuest();
   }
 

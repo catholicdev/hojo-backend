@@ -16,13 +16,11 @@ export class UsersController {
 
   @Post("app/guest")
   async loginGuest() {
-    this.logger.log(`Start Guest Login`);
     return this.usersService.loginGuest();
   }
 
   @Post("daily/bible")
   async receiveDailyBible(@Body() payload) {
-    this.logger.log(`Start get Daily Bible`);
     const { userId } = payload;
     return this.usersService.receiveDailyBible(userId);
   }

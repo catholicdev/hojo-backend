@@ -17,13 +17,11 @@ export class UsersService {
 
   async loginGuest() {
     const result = await this.userServiceClient.post("user/guest");
-
     return result.data;
   }
 
   async receiveDailyBible(userId: string) {
     const result = await this.userServiceClient.post("user/daily-bible", { userId });
-
     return result.data;
   }
 }
