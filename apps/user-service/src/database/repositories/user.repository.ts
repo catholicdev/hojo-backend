@@ -27,6 +27,6 @@ export class UserRepository extends Repository<User> {
     });
 
     const userRes = await this.insert(newUser);
-    return { id: userRes.identifiers[0].id, ...newUser };
+    return { id: userRes.identifiers[0].id, appId: newUser.appId };
   }
 }

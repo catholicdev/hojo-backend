@@ -2,8 +2,8 @@
   "name": "hojo-backend",
   "version": "1.0.0",
   "license": "MIT",
-  "engines" : {
-    "node" : "14.x"
+  "engines": {
+    "node": "14.x"
   },
   "scripts": {
     "start": "nx serve",
@@ -22,6 +22,7 @@
     "@nestjs/jwt": "^9.0.0",
     "@nestjs/passport": "^9.0.0",
     "@nestjs/platform-express": "^9.0.0",
+    "@nestjs/swagger": "^6.1.2",
     "@nestjs/typeorm": "8.0.3",
     "axios": "^0.27.2",
     "class-transformer": "^0.5.1",
@@ -31,6 +32,8 @@
     "express": "^4.18.1",
     "jwt-decode": "^3.1.2",
     "mysql2": "^2.3.3",
+    "nest-winston": "^1.8.0",
+    "passport": "^0.6.0",
     "passport-custom": "^1.1.1",
     "passport-jwt": "^4.0.0",
     "passport-local": "^1.0.0",
@@ -38,7 +41,8 @@
     "rxjs": "^7.0.0",
     "short-uuid": "^4.2.0",
     "tslib": "^2.3.0",
-    "typeorm": "0.2.44"
+    "typeorm": "0.2.44",
+    "winston": "^3.8.2"
   },
   "devDependencies": {
     "@nestjs/schematics": "^9.0.0",

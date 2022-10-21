@@ -25,6 +25,13 @@ export class UserController {
     return this.userAuthenService.loginGuest();
   }
 
+  @Post("auth/verify-guest")
+  async verifyGuest(@Body() payload) {
+    this.logger.log(`verify-guest: ${JSON.stringify(payload)}`);
+    const { id, appId } = payload;
+    return this.userAuthenService.verifyGuest(id, appId);
+  }
+
   @Post("daily-bible")
   async dailyBible(@Body() payload) {
     this.logger.log(`daily-bible: ${JSON.stringify(payload)}`);

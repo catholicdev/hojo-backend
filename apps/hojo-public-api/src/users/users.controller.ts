@@ -1,8 +1,12 @@
-import { Controller, Body, Post, Logger } from "@nestjs/common";
+import { Controller, Body, Post, Logger, UseGuards } from "@nestjs/common";
+import { ApiTags } from "@nestjs/swagger";
 
-import { UsersService } from "@pub/users/users.service";
+import { GuestAuthGuard } from "@pub/auth/guards";
 import { UserPasswordLoginDto } from "@dto";
 
+import { UsersService } from "@pub/users/users.service";
+
+@ApiTags("Users")
 @Controller("users")
 export class UsersController {
   private readonly logger = new Logger(this.constructor.name);
@@ -19,9 +23,10 @@ export class UsersController {
     return this.usersService.loginGuest();
   }
 
-  @Post("daily/bible")
+  @Post("guest/daily-bible")
+  @UseGuards(GuestAuthGuard)
   async receiveDailyBible(@Body() payload) {
-    const { userId } = payload;
-    return this.usersService.receiveDailyBible(userId);
+    const { id } = payload;
+    return this.usersService.receiveDailyBible(id);
   }
 }

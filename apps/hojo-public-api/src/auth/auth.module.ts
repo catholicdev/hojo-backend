@@ -3,7 +3,7 @@ import { PassportModule } from "@nestjs/passport";
 import { ConfigModule, ConfigService } from "@nestjs/config";
 import { JwtModule } from "@nestjs/jwt";
 
-import { JwtStrategy, FirebaseStrategy, CustomerStrategy } from "@pub/auth/strategies";
+import { GuestStrategy } from "@pub/auth/strategies";
 import { AuthService } from "@pub/auth/auth.service";
 
 @Module({
@@ -21,7 +21,7 @@ import { AuthService } from "@pub/auth/auth.service";
       }),
     }),
   ],
-  providers: [AuthService, JwtStrategy, FirebaseStrategy, CustomerStrategy],
+  providers: [AuthService, GuestStrategy],
   exports: [AuthService],
 })
 export class AuthModule {}
