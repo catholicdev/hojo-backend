@@ -3,8 +3,10 @@ import { BadRequestException, Injectable } from "@nestjs/common";
 import * as dayjs from "dayjs";
 import { AxiosInstance } from "axios";
 
-import { DailyBibleRepository } from "@user/database/repositories";
 import { bibleServiceConsumer } from "@util";
+import { ErrorMessageConstant } from "@type";
+
+import { DailyBibleRepository } from "@user/database/repositories";
 
 @Injectable()
 export class UserBibleService {
@@ -16,7 +18,7 @@ export class UserBibleService {
     const todayBible = await this.dailyBibleRepo.findByUserId(userId);
 
     if (todayBible && dayjs().isSame(dayjs(todayBible.receiveDate), "day")) {
-      return new BadRequestException("Bạn đã lấy Lời Chúa hôm nay rồi.");
+      return new BadRequestException(ErrorMessageConstant.DAILY_BIBLE_EXISTED);
     }
 
     const dailyBible = (await this.bibleServiceClient.post("daily/bible")).data;
