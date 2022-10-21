@@ -1,9 +1,9 @@
 import { Column, Entity, PrimaryGeneratedColumn, ManyToOne, JoinColumn } from "typeorm";
 
-import { Chapter } from "./chapter.entity";
-import { Pillar } from "./pillar.entity";
+import { Chapter } from "@bible/database/entities/chapter.entity";
+import { Pillar } from "@bible/database/entities/pillar.entity";
 
-@Entity()
+@Entity("sentence")
 export class Sentence {
   @PrimaryGeneratedColumn("increment")
   public id: number;

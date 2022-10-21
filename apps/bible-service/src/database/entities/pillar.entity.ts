@@ -1,8 +1,9 @@
 import { Column, Entity, PrimaryGeneratedColumn, ManyToOne, JoinColumn, OneToMany } from "typeorm";
-import { Book } from "./book.entity";
-import { Sentence } from "./sentence.entity";
 
-@Entity()
+import { Book } from "@bible/database/entities/book.entity";
+import { Sentence } from "@bible/database/entities/sentence.entity";
+
+@Entity("pillar")
 export class Pillar {
   @PrimaryGeneratedColumn("uuid")
   public id: string;

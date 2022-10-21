@@ -5,7 +5,7 @@ import { BookGroupEnum, BookTypeEnum } from "@type";
 import { Chapter } from "@bible/database/entities/chapter.entity";
 import { Pillar } from "@bible/database/entities/pillar.entity";
 
-@Entity()
+@Entity("book")
 export class Book {
   @PrimaryGeneratedColumn("uuid")
   public id: string;

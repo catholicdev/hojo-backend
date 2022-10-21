@@ -18,8 +18,6 @@ async function bootstrap() {
   await app.listen(port);
 
   Logger.log(`🚀 Public api is running on: http://localhost:${port}`);
-  Logger.log(`USER_SERVICE_HOST: ${process.env.USER_SERVICE_HOST}`);
-  Logger.log(`USER_SERVICE_PORT: ${process.env.USER_SERVICE_PORT}`);
 }
 
 bootstrap();
