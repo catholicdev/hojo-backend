@@ -17,11 +17,11 @@
     "paths": {
       "@bible/*": ["apps/bible-service/src/*"],
       "@dto": ["libs/dto/src/index.ts"],
+      "@game/*": ["apps/game-service/src/*"],
       "@pub/*": ["apps/hojo-public-api/src/*"],
       "@type": ["libs/types/src/index.ts"],
       "@user/*": ["apps/user-service/src/*"],
-      "@util": ["libs/utils/src/index.ts"],
-      "@game/*": ["apps/game-service/src/*"]
+      "@util": ["libs/utils/src/index.ts"]
     }
   },
   "exclude": ["node_modules", "tmp"]

@@ -3,7 +3,6 @@ import { ApiOkResponse, ApiTags } from "@nestjs/swagger";
 
 import { GuestAuthGuard } from "@pub/auth/guards";
 import { BibleSentenceResponse, UserPasswordLoginDto } from "@dto";
-import { Serialize } from "@util";
 
 import { UsersService } from "@pub/users/users.service";
 

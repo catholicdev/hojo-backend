@@ -1,10 +1,9 @@
-import { HttpException, HttpStatus, Injectable } from "@nestjs/common";
+import { Injectable } from "@nestjs/common";
 
 import * as dayjs from "dayjs";
 import { AxiosInstance } from "axios";
 
 import { bibleServiceConsumer } from "@util";
-import { ErrorMessageConstant } from "@type";
 
 import { DailyBibleRepository } from "@user/database/repositories";
 
@@ -18,7 +17,12 @@ export class UserBibleService {
     const todayBible = await this.dailyBibleRepo.findByUserId(userId);
 
     if (todayBible && dayjs().isSame(dayjs(todayBible.receiveDate), "day")) {
-      return new HttpException(ErrorMessageConstant.DAILY_BIBLE_EXISTED, HttpStatus.BAD_REQUEST);
+      return {
+        sentence: todayBible.sentence,
+        sequence: todayBible.sequence,
+        chapterSequence: todayBible.chapterSequence,
+        bookAbbreviation: todayBible.bookAbbreviation,
+      };
     }
 
     const dailyBible = (await this.bibleServiceClient.post("daily/bible")).data;

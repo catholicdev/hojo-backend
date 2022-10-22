@@ -7,9 +7,10 @@ import { AppService } from "@bible/app/app.service";
 
 import { DatabaseModule } from "@bible/database/database.module";
 import { DailyBibleModule } from "@bible/daily-bible/daily-bible.module";
+import { BookModule } from "@bible/book/book.module";
 
 @Module({
-  imports: [ConfigModule.forRoot(), HttpModule, DatabaseModule, DailyBibleModule],
+  imports: [ConfigModule.forRoot(), HttpModule, DatabaseModule, DailyBibleModule, BookModule],
   controllers: [AppController],
   providers: [AppService],
 })

@@ -12,8 +12,7 @@
         "compiler": "tsc",
         "outputPath": "dist/apps/bible-service",
         "main": "apps/bible-service/src/main.ts",
-        "tsConfig": "apps/bible-service/tsconfig.app.json",
-        "assets": ["apps/bible-service/src/assets"]
+        "tsConfig": "apps/bible-service/tsconfig.app.json"
       },
       "configurations": {
         "production": {

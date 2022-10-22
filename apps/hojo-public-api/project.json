@@ -13,8 +13,7 @@
         "compiler": "tsc",
         "outputPath": "dist/apps/hojo-public-api",
         "main": "apps/hojo-public-api/src/main.ts",
-        "tsConfig": "apps/hojo-public-api/tsconfig.app.json",
-        "assets": ["apps/hojo-public-api/src/assets"]
+        "tsConfig": "apps/hojo-public-api/tsconfig.app.json"
       },
       "configurations": {
         "production": {
