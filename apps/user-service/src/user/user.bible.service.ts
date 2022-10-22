@@ -1,4 +1,4 @@
-import { BadRequestException, Injectable } from "@nestjs/common";
+import { HttpException, HttpStatus, Injectable } from "@nestjs/common";
 
 import * as dayjs from "dayjs";
 import { AxiosInstance } from "axios";
@@ -18,7 +18,7 @@ export class UserBibleService {
     const todayBible = await this.dailyBibleRepo.findByUserId(userId);
 
     if (todayBible && dayjs().isSame(dayjs(todayBible.receiveDate), "day")) {
-      return new BadRequestException(ErrorMessageConstant.DAILY_BIBLE_EXISTED);
+      return new HttpException(ErrorMessageConstant.DAILY_BIBLE_EXISTED, HttpStatus.BAD_REQUEST);
     }
 
     const dailyBible = (await this.bibleServiceClient.post("daily/bible")).data;
@@ -33,6 +33,11 @@ export class UserBibleService {
 
     await this.dailyBibleRepo.insert(userDailyBible);
 
-    return userDailyBible;
+    return {
+      sentence: userDailyBible.sentence,
+      sequence: userDailyBible.sequence,
+      chapterSequence: userDailyBible.chapterSequence,
+      bookAbbreviation: userDailyBible.bookAbbreviation,
+    };
   }
 }

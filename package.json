@@ -9,9 +9,11 @@
     "start": "nx serve",
     "build": "nx build",
     "test": "nx test",
+    "run-all": "nx run-many --target=serve --inspect=false --all",
     "build-all": "nx run-many --target=build --all",
     "user": "nx serve user-service",
-    "bible": "nx serve bible-service"
+    "bible": "nx serve bible-service",
+    "game": "nx serve game-service"
   },
   "private": true,
   "dependencies": {
@@ -31,6 +33,7 @@
     "dotenv": "^16.0.3",
     "express": "^4.18.1",
     "jwt-decode": "^3.1.2",
+    "lodash": "^4.17.21",
     "mysql2": "^2.3.3",
     "nest-winston": "^1.8.0",
     "passport": "^0.6.0",

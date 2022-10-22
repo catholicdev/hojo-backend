@@ -1,8 +1,9 @@
 import { Controller, Body, Post, Logger, UseGuards } from "@nestjs/common";
-import { ApiTags } from "@nestjs/swagger";
+import { ApiOkResponse, ApiTags } from "@nestjs/swagger";
 
 import { GuestAuthGuard } from "@pub/auth/guards";
-import { UserPasswordLoginDto } from "@dto";
+import { BibleSentenceResponse, UserPasswordLoginDto } from "@dto";
+import { Serialize } from "@util";
 
 import { UsersService } from "@pub/users/users.service";
 
@@ -25,6 +26,7 @@ export class UsersController {
 
   @Post("guest/daily-bible")
   @UseGuards(GuestAuthGuard)
+  @ApiOkResponse({ type: BibleSentenceResponse })
   async receiveDailyBible(@Body() payload) {
     const { id } = payload;
     return this.usersService.receiveDailyBible(id);

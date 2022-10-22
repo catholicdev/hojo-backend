@@ -22,6 +22,7 @@ export class UsersService {
 
   async receiveDailyBible(id: string) {
     const result = await this.userServiceClient.post("user/daily-bible", { userId: id });
+    console.log(result.data);
     return result.data;
   }
 }
