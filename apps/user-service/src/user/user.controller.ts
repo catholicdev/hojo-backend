@@ -38,4 +38,11 @@ export class UserController {
     const { userId } = payload;
     return this.userBibleService.dailyBible(userId);
   }
+
+  @Post("guest/auth.verify-token")
+  async validateToken(@Body() messase) {
+    this.logger.log(`guest/auth.verify-token: ${JSON.stringify(messase)}`);
+    const { token } = messase;
+    return this.userAuthenService.verifyGuestToken(token);
+  }
 }

@@ -20,8 +20,8 @@ export class UsersService {
     return result.data;
   }
 
-  async receiveDailyBible(id: string) {
-    const result = await this.userServiceClient.post("user/daily-bible", { userId: id });
+  async receiveDailyBible(userId: string) {
+    const result = await this.userServiceClient.post("user/daily-bible", { userId });
     return result.data;
   }
 }

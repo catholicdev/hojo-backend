@@ -1,9 +1,11 @@
 import { Controller, Body, Post, Logger, UseGuards } from "@nestjs/common";
 import { ApiOkResponse, ApiTags } from "@nestjs/swagger";
 
-import { GuestAuthGuard } from "@pub/auth/guards";
 import { BibleSentenceResponse, UserPasswordLoginDto } from "@dto";
+import { GuestInterface } from "@type";
+import { Guest, Serialize } from "@util";
 
+import { GuestJwtAuthGuard } from "@pub/auth/guards";
 import { UsersService } from "@pub/users/users.service";
 
 @ApiTags("Users")
@@ -23,11 +25,17 @@ export class UsersController {
     return this.usersService.loginGuest();
   }
 
+  @Post("app/relogin-guest")
+  async reloginGuest() {
+    return this.usersService.loginGuest();
+  }
+
   @Post("guest/daily-bible")
-  @UseGuards(GuestAuthGuard)
+  @UseGuards(GuestJwtAuthGuard)
   @ApiOkResponse({ type: BibleSentenceResponse })
-  async receiveDailyBible(@Body() payload) {
-    const { id } = payload;
-    return this.usersService.receiveDailyBible(id);
+  // @Serialize(BibleSentenceResponse)
+  async receiveDailyBible(@Guest() guest: GuestInterface) {
+    const { userId } = guest;
+    return this.usersService.receiveDailyBible(userId);
   }
 }

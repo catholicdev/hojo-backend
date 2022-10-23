@@ -16,7 +16,11 @@ export class AuthService {
     };
 
     const result = await this.userServiceClient.post("user/auth/verify-guest", { id, appId });
-
     return result.data as Response;
+  }
+
+  public async verifyGuestToken(token: string) {
+    const result = await this.userServiceClient.post("user/guest/auth.verify-token", { token });
+    return result.data;
   }
 }

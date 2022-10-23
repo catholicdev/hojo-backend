@@ -4,7 +4,7 @@ CREATE TABLE `answer` (
   `answer` text NOT NULL,
   `is_answer` tinyint NOT NULL,
   `is_show_fifty_fifty` tinyint NOT NULL,
-  `answer_detail` text NOT NULL,
+  `answer_detail` text,
   `created_date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `updated_date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   `updated_by` varchar(255) DEFAULT NULL,

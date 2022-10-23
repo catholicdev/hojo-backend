@@ -27,8 +27,8 @@ export class Answer {
   @Column({ name: "is_show_fifty_fifty" })
   public isShowFiftyFifty: boolean;
 
-  @Column({ name: "answer_detail", type: "text" })
-  public answerDetail: string;
+  @Column({ name: "answer_detail", type: "text", nullable: true })
+  public answerDetail?: string;
 
   @CreateDateColumn({
     type: "timestamp",

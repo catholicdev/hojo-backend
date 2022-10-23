@@ -3,6 +3,8 @@ import { Column, Entity, PrimaryGeneratedColumn, CreateDateColumn, UpdateDateCol
 import { LocationInterface, UserStatusEnum } from "@type";
 
 import { DailyBible } from "@user/database/entities/daily-bible.entity";
+import { Token } from "@user/database/entities/token.entity";
+
 @Entity("user")
 export class User {
   @PrimaryGeneratedColumn("uuid")
@@ -61,4 +63,7 @@ export class User {
   // Relationship
   @OneToMany(() => DailyBible, (daily) => daily.user)
   public dailyBibles?: DailyBible[];
+
+  @OneToMany(() => Token, (token) => token.user)
+  public tokens?: Token[];
 }
