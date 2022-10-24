@@ -4,6 +4,7 @@ import { v4 as uuidv4 } from "uuid";
 
 import { StageRepository, StageSettingRepository } from "@game/database/repositories";
 import { CurrentGameRepository } from "@game/database/repositories/current-game.repository";
+import { GameHelpEnum } from "@type";
 
 @Injectable()
 export class StageService {
@@ -34,6 +35,30 @@ export class StageService {
       currentGame = newGame;
     }
 
-    return { currentGame, nextStageId: stageSetting.nextStageId, stageHelps: stageSetting.helps };
+    return {
+      currentGame: {
+        id: currentGame.id,
+        helpUsed: currentGame.helpUsed,
+        isPassed: currentGame.isPassed,
+        isCompleted: currentGame.isCompleted,
+      },
+      nextStageId: stageSetting.nextStageId,
+      stageHelps: stageSetting.helps,
+    };
+  }
+
+  async useHelp(gameId: string, help: GameHelpEnum) {
+    if (!gameId) throw new HttpException("incorrect-input", HttpStatus.BAD_REQUEST);
+
+    const currentGame = await this.currentGameRepo.findOne({ where: { id: gameId } });
+    if (!currentGame) throw new HttpException("game-notfound", HttpStatus.NOT_FOUND);
+
+    if (currentGame.helpUsed && currentGame.helpUsed.includes(help))
+      return new HttpException("duplicate-help", HttpStatus.BAD_REQUEST);
+
+    this.currentGameRepo.merge(currentGame, { helpUsed: [...(currentGame.helpUsed ?? []), help] });
+    await this.currentGameRepo.save(currentGame);
+
+    return true;
   }
 }

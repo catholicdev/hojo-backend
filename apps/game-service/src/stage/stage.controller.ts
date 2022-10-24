@@ -14,4 +14,11 @@ export class StageController {
     const { stageId, userId } = message;
     return this.stageService.startGame(stageId, userId);
   }
+
+  @Post("use-help")
+  async useHelp(@Body() message) {
+    this.logger.log(`use-help: ${JSON.stringify(message)}`);
+    const { gameId, help } = message;
+    return this.stageService.useHelp(gameId, help);
+  }
 }

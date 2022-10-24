@@ -2,6 +2,7 @@ import { Injectable } from "@nestjs/common";
 import { AxiosInstance } from "axios";
 
 import { gameServiceConsumer } from "@util";
+import { UserHelpDto } from "@dto";
 
 @Injectable()
 export class GameService {
@@ -19,6 +20,11 @@ export class GameService {
 
   async getStageQuestions(stageId: string) {
     const result = await this.gameServiceClient.post("question/stage-questions", { stageId });
+    return result.data;
+  }
+
+  async guestUseHelp(useHelp: UserHelpDto) {
+    const result = await this.gameServiceClient.post("stage/use-help", { ...useHelp });
     return result.data;
   }
 }

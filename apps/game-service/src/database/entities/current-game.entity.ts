@@ -17,7 +17,7 @@ export class CurrentGame {
   public stageId: string;
 
   @Column("simple-json", { name: "help_used", nullable: true })
-  public helpUsed?: HelpUsedInterface[];
+  public helpUsed?: string[];
 
   @CreateDateColumn({
     type: "timestamp",

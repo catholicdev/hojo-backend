@@ -1,12 +1,12 @@
 import { Controller, Post, Body, Param, Get, UseGuards } from "@nestjs/common";
-import { ApiOkResponse, ApiTags } from "@nestjs/swagger";
+import { ApiTags } from "@nestjs/swagger";
 
 import { Guest, Serialize } from "@util";
 import { GuestInterface } from "@type";
 
 import { GuestJwtAuthGuard } from "@pub/auth/guards";
 import { GameService } from "@pub/game/game.service";
-import { StageQuestionResponse } from "@dto";
+import { StageQuestionResponse, UserHelpDto } from "@dto";
 
 @ApiTags("Game")
 @Controller("game")
@@ -18,6 +18,13 @@ export class GameController {
     return this.gameServivce.getStages(roundId);
   }
 
+  @Get(":stageId/questions")
+  @UseGuards(GuestJwtAuthGuard)
+  @Serialize(StageQuestionResponse)
+  async getStageQuestions(@Param("stageId") stageId: string) {
+    return this.gameServivce.getStageQuestions(stageId);
+  }
+
   @Post("guest/start-game")
   @UseGuards(GuestJwtAuthGuard)
   async startGuestGame(@Guest() guest: GuestInterface, @Body() payload) {
@@ -25,10 +32,9 @@ export class GameController {
     return this.gameServivce.startGame(guest.userId, stageId);
   }
 
-  @Get(":stageId/questions")
+  @Post("guest/use-help")
   @UseGuards(GuestJwtAuthGuard)
-  @Serialize(StageQuestionResponse)
-  async getStageQuestions(@Param("stageId") stageId: string) {
-    return this.gameServivce.getStageQuestions(stageId);
+  async guestUseHelp(@Body() useHelp: UserHelpDto) {
+    return this.gameServivce.guestUseHelp(useHelp);
   }
 }
