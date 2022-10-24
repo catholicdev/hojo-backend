@@ -20,22 +20,22 @@ export class UsersController {
     return this.usersService.loginApp(userPasswordLoginDto);
   }
 
-  @Post("app/guest")
-  async loginGuest() {
-    return this.usersService.loginGuest();
-  }
+  // @Post("app/guest")
+  // async loginGuest() {
+  //   return this.usersService.loginGuest();
+  // }
 
-  @Post("app/relogin-guest")
-  async reloginGuest() {
-    return this.usersService.loginGuest();
-  }
+  // @Post("app/relogin-guest")
+  // async reloginGuest() {
+  //   return this.usersService.loginGuest();
+  // }
 
-  @Post("guest/daily-bible")
-  @UseGuards(GuestJwtAuthGuard)
-  @ApiOkResponse({ type: BibleSentenceResponse })
-  // @Serialize(BibleSentenceResponse)
-  async receiveDailyBible(@Guest() guest: GuestInterface) {
-    const { userId } = guest;
-    return this.usersService.receiveDailyBible(userId);
-  }
+  // @Post("guest/daily-bible")
+  // @UseGuards(GuestJwtAuthGuard)
+  // @ApiOkResponse({ type: BibleSentenceResponse })
+  // // @Serialize(BibleSentenceResponse)
+  // async receiveDailyBible(@Guest() guest: GuestInterface) {
+  //   const { userId } = guest;
+  //   return this.usersService.receiveDailyBible(userId);
+  // }
 }

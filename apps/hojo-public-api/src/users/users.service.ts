@@ -16,7 +16,12 @@ export class UsersService {
   }
 
   async loginGuest() {
-    const result = await this.userServiceClient.post("user/guest");
+    const result = await this.userServiceClient.post("user/guest/auth.login");
+    return result.data;
+  }
+
+  async reloginGuest(userId: string, appId: string) {
+    const result = await this.userServiceClient.post("user/guest/auth.relogin", { userId, appId });
     return result.data;
   }
 

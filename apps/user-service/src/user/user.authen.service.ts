@@ -39,6 +39,24 @@ export class UserAuthenService {
     return { token, appId: newGuest.appId, userId: newGuest.id };
   }
 
+  async reloginGuest(userId: string, appId: string) {
+    const verifiedGuest = await this.verifyGuest(userId, appId);
+
+    if (!verifiedGuest.status) return verifiedGuest;
+
+    const newToken = this.tokenRepo.create({
+      userId: userId,
+      expiredAt: dayjs().add(24, "hours").format("MM/DD/YYYY HH:mm:ss"),
+    });
+
+    const tokenId = (await this.tokenRepo.insert(newToken)).identifiers[0].id;
+
+    const payload = { userId, appId, tokenId: tokenId };
+    const token = this.userHelperService.encodeToken(payload);
+
+    return { token };
+  }
+
   async verifyGuest(id: string, appId: string) {
     type Response = {
       status: boolean;

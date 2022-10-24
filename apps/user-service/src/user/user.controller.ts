@@ -19,10 +19,17 @@ export class UserController {
     return this.userAuthenService.authenticateUserPassword(email, password);
   }
 
-  @Post("guest")
-  async guest() {
-    this.logger.log(`guest: start guest login`);
+  @Post("guest/auth.login")
+  async loginGuest() {
+    this.logger.log(`guest/auth.login: start guest login`);
     return this.userAuthenService.loginGuest();
+  }
+
+  @Post("guest/auth.relogin")
+  async reloginGuest(@Body() message) {
+    this.logger.log(`guest/auth.relogin: ${JSON.stringify(message)}`);
+    const { userId, appId } = message;
+    return this.userAuthenService.reloginGuest(userId, appId);
   }
 
   @Post("auth/verify-guest")
