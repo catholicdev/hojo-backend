@@ -1,15 +1,20 @@
 import { ApiProperty } from "@nestjs/swagger";
+import { Expose } from "class-transformer";
 
 export class BibleSentenceResponse {
+  @Expose()
   @ApiProperty()
-  sentence: string;
+  public sentence: string;
 
+  @Expose()
   @ApiProperty()
-  sequence: number;
+  public sequence: number;
 
+  @Expose()
   @ApiProperty()
-  chapterSequence: number;
+  public chapterSequence: number;
 
+  @Expose()
   @ApiProperty()
-  bookAbbreviation: string;
+  public bookAbbreviation: string;
 }

@@ -24,7 +24,7 @@ export class StageSetting {
   @Column({ name: "stage_reward_id", nullable: true })
   public rewardId?: string;
 
-  @Column("simple-json", { name: "helps", nullable: true })
+  @Column("simple-json", { name: "helps", nullable: false })
   public helps: string[];
 
   @Column({ name: "total_question", nullable: true })

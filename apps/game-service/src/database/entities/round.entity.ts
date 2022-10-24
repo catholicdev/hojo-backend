@@ -35,6 +35,9 @@ export class Round {
   @Column({ name: "updated_by", nullable: true })
   public updatedBy?: string;
 
+  @Column({ name: "round_code", nullable: false })
+  public roundCode: string;
+
   // Relationships
   @OneToMany(() => Stage, (stage) => stage.round)
   public stages?: Stage[];

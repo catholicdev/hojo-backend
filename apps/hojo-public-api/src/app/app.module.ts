@@ -6,9 +6,10 @@ import { AppService } from "@pub/app/app.service";
 import { UsersModule } from "@pub/users/users.module";
 import { AuthModule } from "@pub/auth/auth.module";
 import { BibleModule } from "@pub/bible/bible.module";
+import { GameModule } from "@pub/game/game.module";
 
 @Module({
-  imports: [AuthModule, UsersModule, BibleModule],
+  imports: [AuthModule, UsersModule, BibleModule, GameModule],
   controllers: [AppController],
   providers: [AppService],
 })

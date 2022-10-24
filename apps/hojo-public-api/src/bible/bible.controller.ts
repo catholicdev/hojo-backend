@@ -1,4 +1,4 @@
-import { Controller, Body, Post, Logger } from "@nestjs/common";
+import { Controller, Body, Post, Logger, Get, Param } from "@nestjs/common";
 import { ApiTags } from "@nestjs/swagger";
 
 import { BibleService } from "@pub/bible/bible.service";
@@ -10,9 +10,8 @@ export class BibleController {
 
   constructor(private readonly bibleService: BibleService) {}
 
-  @Post("book/summary")
-  async bookSummary(@Body() payload) {
-    const { bookId } = payload;
+  @Get(":bookId/summary")
+  async bookSummary(@Param("bookId") bookId: string) {
     return this.bibleService.bookSummary(bookId);
   }
 }

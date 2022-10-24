@@ -28,7 +28,7 @@ export class UserAuthenService {
 
     const newToken = this.tokenRepo.create({
       userId: newGuest.id,
-      expiredAt: dayjs().add(24, "hours").format("MM/DD/YYYY HH:mm:ss"),
+      expiredAt: dayjs().add(Number(process.env.GUEST_EXPIRATION_TIME), "s").format("MM/DD/YYYY HH:mm:ss"),
     });
 
     const tokenId = (await this.tokenRepo.insert(newToken)).identifiers[0].id;
@@ -46,7 +46,7 @@ export class UserAuthenService {
 
     const newToken = this.tokenRepo.create({
       userId: userId,
-      expiredAt: dayjs().add(24, "hours").format("MM/DD/YYYY HH:mm:ss"),
+      expiredAt: dayjs().add(Number(process.env.GUEST_EXPIRATION_TIME), "s").format("MM/DD/YYYY HH:mm:ss"),
     });
 
     const tokenId = (await this.tokenRepo.insert(newToken)).identifiers[0].id;

@@ -16,17 +16,8 @@ export class CurrentGame {
   @Column({ name: "stage_id" })
   public stageId: string;
 
-  @Column("simple-json", { name: "help_used", nullable: false })
+  @Column("simple-json", { name: "help_used", nullable: true })
   public helpUsed?: HelpUsedInterface[];
-
-  @Column({ name: "stage_name" })
-  public name: string;
-
-  @Column({ name: "detail", type: "text" })
-  public detail: string;
-
-  @Column({ name: "total_question" })
-  public totalQuestion: number;
 
   @CreateDateColumn({
     type: "timestamp",

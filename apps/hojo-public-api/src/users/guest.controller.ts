@@ -29,7 +29,7 @@ export class GuestController {
   @Get("daily-bible")
   @UseGuards(GuestJwtAuthGuard)
   @ApiOkResponse({ type: BibleSentenceResponse })
-  // @Serialize(BibleSentenceResponse)
+  @Serialize(BibleSentenceResponse)
   async receiveDailyBible(@Guest() guest: GuestInterface) {
     const { userId } = guest;
     return this.usersService.receiveDailyBible(userId);

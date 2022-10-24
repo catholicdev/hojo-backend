@@ -4,3 +4,4 @@ export * from "./round.repository";
 export * from "./stage.repository";
 export * from "./stage-setting.repository";
 export * from "./end-game.repository";
+export * from "./current-game.repository";

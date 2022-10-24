@@ -13,6 +13,7 @@ import * as winston from "winston";
 import { AppModule } from "@pub/app/app.module";
 
 import * as dotenvConf from "dotenv";
+import { SerializeInterceptor } from "@util";
 dotenvConf.config();
 
 async function bootstrap() {
