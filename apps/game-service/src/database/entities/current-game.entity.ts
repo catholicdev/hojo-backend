@@ -1,7 +1,5 @@
 import { Column, Entity, PrimaryGeneratedColumn, CreateDateColumn, ManyToOne, JoinColumn, OneToOne } from "typeorm";
 
-import { HelpUsedInterface } from "@type";
-
 import { Stage } from "@game/database/entities/stage.entity";
 import { EndGame } from "@game/database/entities/end-game.entity";
 

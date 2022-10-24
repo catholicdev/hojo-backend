@@ -38,7 +38,7 @@ export class StageService {
     return {
       currentGame: {
         id: currentGame.id,
-        helpUsed: currentGame.helpUsed,
+        helpUsed: currentGame.helpUsed ?? null,
         isPassed: currentGame.isPassed,
         isCompleted: currentGame.isCompleted,
       },
