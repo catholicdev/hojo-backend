@@ -7,9 +7,10 @@ import { AppService } from "@game/app/app.service";
 
 import { DatabaseModule } from "@game/database/database.module";
 import { StageModule } from "@game/stage/stage.module";
+import { QuestionModule } from "@game/question/question.module";
 
 @Module({
-  imports: [ConfigModule.forRoot(), HttpModule, DatabaseModule, StageModule],
+  imports: [ConfigModule.forRoot(), HttpModule, DatabaseModule, StageModule, QuestionModule],
   controllers: [AppController],
   providers: [AppService],
 })

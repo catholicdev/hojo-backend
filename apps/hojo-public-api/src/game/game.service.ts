@@ -16,4 +16,9 @@ export class GameService {
     const result = await this.gameServiceClient.post("stage/start-game", { stageId, userId });
     return result.data;
   }
+
+  async getStageQuestions(stageId: string) {
+    const result = await this.gameServiceClient.post("question/stage-questions", { stageId });
+    return result.data;
+  }
 }

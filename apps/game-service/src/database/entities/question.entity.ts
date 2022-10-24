@@ -31,6 +31,9 @@ export class Question {
   @Column({ name: "question_score", nullable: true })
   public score?: number;
 
+  @Column({ name: "question_sequence", nullable: false })
+  public sequence: number;
+
   @CreateDateColumn({
     type: "timestamp",
     default: () => "CURRENT_TIMESTAMP",
