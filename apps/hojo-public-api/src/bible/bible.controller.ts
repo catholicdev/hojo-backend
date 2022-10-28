@@ -1,4 +1,4 @@
-import { Controller, Body, Post, Logger, Get, Param } from "@nestjs/common";
+import { Controller, Logger, Get, Param } from "@nestjs/common";
 import { ApiTags } from "@nestjs/swagger";
 
 import { BibleService } from "@pub/bible/bible.service";

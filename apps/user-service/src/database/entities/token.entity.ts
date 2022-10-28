@@ -1,4 +1,4 @@
-import { Column, ManyToOne, PrimaryGeneratedColumn, Entity } from "typeorm";
+import { Column, ManyToOne, PrimaryGeneratedColumn, Entity, JoinColumn } from "typeorm";
 
 import { User } from "@user/database/entities/user.entity";
 
@@ -14,6 +14,7 @@ export class Token {
   expiredAt: Date;
 
   // Relationship
-  @ManyToOne(() => User, (user) => user.tokens)
+  @ManyToOne(() => User)
+  @JoinColumn({ name: "user_id", referencedColumnName: "id" })
   public user: User;
 }
