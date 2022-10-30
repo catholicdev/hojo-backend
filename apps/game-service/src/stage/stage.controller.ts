@@ -1,6 +1,7 @@
 import { Body, Controller, Logger, Post } from "@nestjs/common";
 
 import { StageService } from "@game/stage/stage.service";
+import { EndGameDto } from "@dto";
 
 @Controller("stage")
 export class StageController {
@@ -20,5 +21,11 @@ export class StageController {
     this.logger.log(`use-help: ${JSON.stringify(message)}`);
     const { gameId, help } = message;
     return this.stageService.useHelp(gameId, help);
+  }
+
+  @Post("end-game")
+  async endGame(@Body() message: EndGameDto) {
+    this.logger.log(`end-game: ${JSON.stringify(message)}`);
+    return this.stageService.endGame(message);
   }
 }

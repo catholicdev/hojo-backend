@@ -13,11 +13,11 @@ export class EndGame {
   @Column({ name: "current_game_id" })
   public currentGameId: string;
 
-  @Column({ name: "total_question_passed" })
-  public totalQuestionPassed: number;
+  @Column({ name: "total_question_passed", nullable: true })
+  public totalQuestionPassed?: number;
 
-  @Column({ name: "total_score" })
-  public totalScore: number;
+  @Column({ name: "total_score", nullable: true })
+  public totalScore?: number;
 
   @CreateDateColumn({
     type: "timestamp",

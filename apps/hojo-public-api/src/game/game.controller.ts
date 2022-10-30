@@ -37,4 +37,10 @@ export class GameController {
   async guestUseHelp(@Body() useHelp: UserHelpDto) {
     return this.gameServivce.guestUseHelp(useHelp);
   }
+
+  @Post("guest/end-game")
+  @UseGuards(GuestJwtAuthGuard)
+  async guestEndGame(@Guest() guest: GuestInterface, @Body() payload) {
+    return this.gameServivce.endGame({ ...payload, userId: guest.userId });
+  }
 }

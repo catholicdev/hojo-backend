@@ -17,6 +17,7 @@ const entities = (Object.keys(dbEntities) as Array<keyof typeof dbEntities>).map
         database: process.env.GAME_DATABASE_NAME,
         synchronize: !!process.env.AUTO_SYNC,
         keepConnectionAlive: true,
+        multipleStatements: true,
         logging: !!process.env.LOG_SQL,
         entities,
       }),

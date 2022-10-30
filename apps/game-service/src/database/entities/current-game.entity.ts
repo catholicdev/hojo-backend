@@ -25,14 +25,17 @@ export class CurrentGame {
   })
   public startDate: Date;
 
-  @Column({ name: "completed_date", nullable: true })
+  @Column({ name: "is_completed", nullable: true })
+  public isCompleted: boolean;
+
+  @Column({ type: "timestamp", name: "completed_date", nullable: true })
   public completedDate?: Date;
 
   @Column({ name: "is_passed", nullable: true })
   public isPassed: boolean;
 
-  @Column({ name: "is_completed", nullable: true })
-  public isCompleted: boolean;
+  @Column({ type: "timestamp", name: "passed_date", nullable: true })
+  public passedDate?: Date;
 
   // Relationship
   @ManyToOne(() => Stage)

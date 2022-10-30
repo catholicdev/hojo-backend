@@ -12,7 +12,7 @@ import { Stage } from "@game/database/entities/stage.entity";
 
 @Entity("stage_setting")
 export class StageSetting {
-  @PrimaryGeneratedColumn("uuid")
+  @PrimaryGeneratedColumn("uuid", { name: "id" })
   public id: string;
 
   @Column({ name: "stage_id" })
@@ -32,20 +32,15 @@ export class StageSetting {
 
   @CreateDateColumn({
     type: "timestamp",
-    default: () => "CURRENT_TIMESTAMP",
-    precision: null,
     name: "created_date",
   })
   public createdDate: Date;
 
   @UpdateDateColumn({
     type: "timestamp",
-    default: () => "CURRENT_TIMESTAMP",
-    onUpdate: "CURRENT_TIMESTAMP",
-    precision: null,
     name: "updated_date",
   })
-  public updatedDate: Date;
+  public updatedDate?: Date;
 
   @Column({ name: "updated_by", nullable: true })
   public updatedBy?: string;
@@ -55,5 +50,5 @@ export class StageSetting {
     createForeignKeyConstraints: false,
   })
   @JoinColumn({ name: "stage_id", referencedColumnName: "id" })
-  readonly stage!: Stage;
+  readonly stage: Stage;
 }
