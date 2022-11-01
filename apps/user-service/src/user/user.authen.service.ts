@@ -1,10 +1,12 @@
 import { HttpException, HttpStatus, Injectable } from "@nestjs/common";
 
+import * as dayjs from "dayjs";
+import { v4 as uuidv4 } from "uuid";
+
 import { ErrorCodeConstant, ErrorMessageConstant, UserStatusEnum } from "@type";
 
 import { TokenRepository, UserRepository } from "@user/database/repositories";
 import { UsersHelperService } from "@user/user/user.helper.service";
-import dayjs = require("dayjs");
 
 @Injectable()
 export class UserAuthenService {
@@ -27,13 +29,14 @@ export class UserAuthenService {
     const newGuest = await this.userRepo.createUserGuest();
 
     const newToken = this.tokenRepo.create({
+      id: uuidv4(),
       userId: newGuest.id,
       expiredAt: dayjs().add(Number(process.env.GUEST_EXPIRATION_TIME), "s").format("MM/DD/YYYY HH:mm:ss"),
     });
 
-    const tokenId = (await this.tokenRepo.insert(newToken)).identifiers[0].id;
+    await this.tokenRepo.insert(newToken);
 
-    const payload = { userId: newGuest.id, appId: newGuest.appId, tokenId: tokenId };
+    const payload = { userId: newGuest.id, appId: newGuest.appId, tokenId: newToken.id };
     const token = this.userHelperService.encodeToken(payload);
 
     return { token, appId: newGuest.appId, userId: newGuest.id };

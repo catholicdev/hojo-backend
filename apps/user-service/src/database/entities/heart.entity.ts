@@ -6,9 +6,11 @@ import {
   JoinColumn,
   OneToOne,
   UpdateDateColumn,
+  OneToMany,
 } from "typeorm";
 
 import { User } from "@user/database/entities/user.entity";
+import { HeartLog } from "@user/database/entities/heart-log.entity";
 
 @Entity("heart")
 export class Heart {
@@ -45,4 +47,7 @@ export class Heart {
   @OneToOne(() => User)
   @JoinColumn({ name: "user_id", referencedColumnName: "id" })
   readonly user: User;
+
+  @OneToMany(() => HeartLog, (log) => log.heart)
+  public heartLogs: HeartLog[];
 }

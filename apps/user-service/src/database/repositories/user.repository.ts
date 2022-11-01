@@ -1,7 +1,6 @@
 import { EntityRepository, Repository } from "typeorm";
 
 import * as shortid from "short-uuid";
-import * as dayjs from "dayjs";
 import { v4 as uuidv4 } from "uuid";
 
 import { User } from "@user/database/entities";
@@ -23,8 +22,6 @@ export class UserRepository extends Repository<User> {
     const newUser = this.create({
       id: uuidv4(),
       appId: shortid.generate(),
-      createdDate: dayjs().format("MM/DD/YYYY HH:mm:ss"),
-      updatedDate: dayjs().format("MM/DD/YYYY HH:mm:ss"),
       userStatus: UserStatusEnum.ACTIVE,
     });
 
