@@ -37,6 +37,9 @@ export class Stage {
   @Column({ name: "total_question" })
   public totalQuestion: number;
 
+  @Column({ name: "stage_sequence" })
+  public stageSequence: number;
+
   @CreateDateColumn({
     type: "timestamp",
     default: () => "CURRENT_TIMESTAMP",

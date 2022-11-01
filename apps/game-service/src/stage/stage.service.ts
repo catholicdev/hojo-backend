@@ -63,7 +63,7 @@ export class StageService {
     if (!currentGame) throw new HttpException("game-notfound", HttpStatus.NOT_FOUND);
 
     if (currentGame.helpUsed && currentGame.helpUsed.includes(help))
-      return new HttpException("duplicate-help", HttpStatus.BAD_REQUEST);
+      throw new HttpException("duplicate-help", HttpStatus.BAD_REQUEST);
 
     this.currentGameRepo.merge(currentGame, { helpUsed: [...(currentGame.helpUsed ?? []), help] });
     await this.currentGameRepo.save(currentGame);

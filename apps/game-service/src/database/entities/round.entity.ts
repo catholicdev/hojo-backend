@@ -40,5 +40,5 @@ export class Round {
 
   // Relationships
   @OneToMany(() => Stage, (stage) => stage.round)
-  public stages?: Stage[];
+  public stages: Stage[];
 }

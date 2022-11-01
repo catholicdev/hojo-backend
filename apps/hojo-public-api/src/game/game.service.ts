@@ -8,8 +8,13 @@ import { EndGameDto, UserHelpDto } from "@dto";
 export class GameService {
   private readonly gameServiceClient: AxiosInstance = gameServiceConsumer();
 
+  async getRounds() {
+    const result = await this.gameServiceClient.post("round/get-all");
+    return result.data;
+  }
+
   async getStages(roundId: string) {
-    const result = await this.gameServiceClient.post("game/round/stages", { roundId });
+    const result = await this.gameServiceClient.post("round/stages", { roundId });
     return result.data;
   }
 

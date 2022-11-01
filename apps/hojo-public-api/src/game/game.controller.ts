@@ -13,6 +13,11 @@ import { StageQuestionResponse, UserHelpDto } from "@dto";
 export class GameController {
   constructor(private readonly gameServivce: GameService) {}
 
+  @Get("rounds")
+  async getRounds() {
+    return this.gameServivce.getRounds();
+  }
+
   @Get(":roundId/stages")
   async stages(@Param("roundId") roundId: string) {
     return this.gameServivce.getStages(roundId);
