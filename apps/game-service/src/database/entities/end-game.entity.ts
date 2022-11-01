@@ -1,6 +1,5 @@
 import { Column, Entity, PrimaryGeneratedColumn, CreateDateColumn, OneToOne, JoinColumn } from "typeorm";
-
-import { CurrentGame } from "@game/database/entities/current-game.entity";
+import { CurrentGame } from "./current-game.entity";
 
 @Entity("end_game")
 export class EndGame {
@@ -27,8 +26,7 @@ export class EndGame {
   })
   public createdDate: Date;
 
-  // Relationship
-  @OneToOne(() => CurrentGame, (current) => current.endGame)
+  @OneToOne(() => CurrentGame, (current) => current.endGame) // specify inverse side as a second parameter
   @JoinColumn({ name: "current_game_id", referencedColumnName: "id" })
-  readonly currentGame?: CurrentGame;
+  currentGame: CurrentGame;
 }

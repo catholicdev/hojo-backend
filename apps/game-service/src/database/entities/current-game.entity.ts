@@ -42,6 +42,7 @@ export class CurrentGame {
   @JoinColumn({ name: "stage_id", referencedColumnName: "id" })
   readonly stage: Stage;
 
-  @OneToOne(() => EndGame, (endGame) => endGame.currentGame)
-  public endGame?: EndGame;
+  // Relationship
+  @OneToOne(() => EndGame, (end) => end.currentGame)
+  readonly endGame: EndGame;
 }
