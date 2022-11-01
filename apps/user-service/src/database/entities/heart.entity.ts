@@ -21,7 +21,7 @@ export class Heart {
   public userId: string;
 
   @Column({ name: "current_heart" })
-  public currentHear: number;
+  public currentHeart: number;
 
   @Column({ name: "max_heart" })
   public maxHeart: number;

@@ -1,14 +1,18 @@
 import { HttpException, HttpStatus, Injectable } from "@nestjs/common";
 
 import { v4 as uuidv4 } from "uuid";
+import { AxiosInstance } from "axios";
+
+import { GameHelpEnum, HeartLogTypeEnum } from "@type";
+import { EndGameDto } from "@dto";
+import { userServiceConsumer } from "@util";
 
 import { EndGameRepository, StageRepository, StageSettingRepository } from "@game/database/repositories";
 import { CurrentGameRepository } from "@game/database/repositories/current-game.repository";
-import { GameHelpEnum } from "@type";
-import { EndGameDto } from "@dto";
-
 @Injectable()
 export class StageService {
+  private readonly userServiceClient = userServiceConsumer() as AxiosInstance;
+
   constructor(
     private readonly stageRepo: StageRepository,
     private readonly currentGameRepo: CurrentGameRepository,
@@ -18,6 +22,11 @@ export class StageService {
 
   async startGame(stageId: string, userId: string) {
     if (!userId || !stageId) throw new HttpException("incorrect-input", HttpStatus.BAD_REQUEST);
+
+    const userHeart = await (await this.userServiceClient.post("heart/user-heart", { userId })).data;
+    if (userHeart.heart <= 0) {
+      throw new HttpException("invalid-heart", HttpStatus.BAD_REQUEST);
+    }
 
     const stageSetting = await this.stageSettingRepo.findOne({ stageId });
     if (!stageSetting) throw new HttpException("missing-setting", HttpStatus.NOT_FOUND);
@@ -98,6 +107,12 @@ export class StageService {
         nextStageId: stageSetting.nextStageId,
       };
     }
+
+    await this.userServiceClient.post("heart/update/user-heart", {
+      userId: endgame.userId,
+      quantity: -1,
+      type: HeartLogTypeEnum.DECREASE,
+    });
 
     return {
       nextStageId: currentGame.id,
