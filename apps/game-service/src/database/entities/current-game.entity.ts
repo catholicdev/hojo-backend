@@ -14,6 +14,9 @@ export class CurrentGame {
   @Column({ name: "stage_id" })
   public stageId: string;
 
+  @Column({ name: "end_game_id", nullable: true })
+  public endGameId: string;
+
   @Column("simple-json", { name: "help_used", nullable: true })
   public helpUsed?: string[];
 
@@ -44,5 +47,6 @@ export class CurrentGame {
 
   // Relationship
   @OneToOne(() => EndGame, (end) => end.currentGame)
+  @JoinColumn({ name: "end_game_id", referencedColumnName: "id" })
   readonly endGame: EndGame;
 }

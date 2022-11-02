@@ -71,35 +71,37 @@ export class StageService {
     return true;
   }
 
-  async endGame(endgame: EndGameDto) {
+  async endGame(data: EndGameDto) {
     const currentGame = await this.currentGameRepo.findOne(
-      { id: endgame.gameId, userId: endgame.userId },
+      { id: data.gameId, userId: data.userId },
       { relations: ["endGame"] }
     );
     if (!currentGame) throw new HttpException("current-game-notfound", HttpStatus.NOT_FOUND);
 
-    this.currentGameRepo.update(
-      { id: currentGame.id },
-      {
-        completedDate: new Date(),
-        isCompleted: endgame.isCompleted,
-        isPassed: endgame.isPassed,
-        passedDate: endgame.isPassed ? new Date() : null,
-      }
-    );
-
+    const endGameId = uuidv4();
     if (!currentGame.endGame) {
       const newEndGame = this.endGameRepo.create({
-        userId: endgame.userId,
-        currentGameId: currentGame.id,
-        totalQuestionPassed: endgame.totalCorrectQuestion,
-        totalScore: endgame.totalScore,
+        id: endGameId,
+        userId: data.userId,
+        totalQuestionPassed: data.totalCorrectQuestion,
+        totalScore: data.totalScore,
       });
 
       await this.endGameRepo.save(newEndGame);
     }
 
-    if (endgame.isPassed) {
+    this.currentGameRepo.update(
+      { id: currentGame.id },
+      {
+        completedDate: new Date(),
+        isCompleted: data.isCompleted,
+        isPassed: data.isPassed,
+        passedDate: data.isPassed ? new Date() : null,
+        endGameId: endGameId,
+      }
+    );
+
+    if (data.isPassed) {
       const stageSetting = await this.stageSettingRepo.findOne({ stageId: currentGame.stageId });
       if (!stageSetting) throw new HttpException("missing-setting", HttpStatus.NOT_FOUND);
 
@@ -109,13 +111,13 @@ export class StageService {
     }
 
     await this.userServiceClient.post("heart/update/user-heart", {
-      userId: endgame.userId,
+      userId: data.userId,
       quantity: -1,
       type: HeartLogTypeEnum.DECREASE,
     });
 
     return {
-      nextStageId: currentGame.id,
+      nextStageId: currentGame.stageId,
     };
   }
 }

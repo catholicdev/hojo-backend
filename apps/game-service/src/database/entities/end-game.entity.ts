@@ -9,9 +9,6 @@ export class EndGame {
   @Column({ name: "user_id" })
   public userId: string;
 
-  @Column({ name: "current_game_id" })
-  public currentGameId: string;
-
   @Column({ name: "total_question_passed", nullable: true })
   public totalQuestionPassed?: number;
 
@@ -27,6 +24,5 @@ export class EndGame {
   public createdDate: Date;
 
   @OneToOne(() => CurrentGame, (current) => current.endGame) // specify inverse side as a second parameter
-  @JoinColumn({ name: "current_game_id", referencedColumnName: "id" })
   currentGame: CurrentGame;
 }
