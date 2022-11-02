@@ -1,10 +1,12 @@
-import { Column, Entity, PrimaryGeneratedColumn, CreateDateColumn, OneToOne, JoinColumn } from "typeorm";
-import { CurrentGame } from "./current-game.entity";
+import { Column, Entity, PrimaryGeneratedColumn, CreateDateColumn } from "typeorm";
 
-@Entity("end_game")
-export class EndGame {
+@Entity("game_result")
+export class GameResult {
   @PrimaryGeneratedColumn("uuid", { name: "id" })
   public id: string;
+
+  @Column({ name: "game_code", unique: true })
+  public gameCode: string;
 
   @Column({ name: "user_id" })
   public userId: string;
@@ -22,7 +24,4 @@ export class EndGame {
     name: "created_date",
   })
   public createdDate: Date;
-
-  @OneToOne(() => CurrentGame, (current) => current.endGame) // specify inverse side as a second parameter
-  currentGame: CurrentGame;
 }

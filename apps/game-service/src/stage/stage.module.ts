@@ -4,12 +4,12 @@ import { TypeOrmModule } from "@nestjs/typeorm";
 import { StageController } from "@game/stage/stage.controller";
 import { StageService } from "@game/stage/stage.service";
 
-import { CurrentGame, EndGame, Stage, StageSetting } from "@game/database/entities";
+import { CurrentGame, GameResult, Stage, StageSetting } from "@game/database/entities";
 import {
   StageRepository,
   StageSettingRepository,
   CurrentGameRepository,
-  EndGameRepository,
+  GameResultRepository,
 } from "@game/database/repositories";
 
 @Module({
@@ -17,12 +17,12 @@ import {
     TypeOrmModule.forFeature([
       Stage,
       CurrentGame,
-      EndGame,
+      GameResult,
       StageSetting,
       StageRepository,
       CurrentGameRepository,
       StageSettingRepository,
-      EndGameRepository,
+      GameResultRepository,
     ]),
   ],
   controllers: [StageController],

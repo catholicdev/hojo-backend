@@ -1,7 +1,6 @@
-import { Column, Entity, PrimaryGeneratedColumn, CreateDateColumn, ManyToOne, JoinColumn, OneToOne } from "typeorm";
+import { Column, Entity, PrimaryGeneratedColumn, CreateDateColumn, ManyToOne, JoinColumn } from "typeorm";
 
 import { Stage } from "@game/database/entities/stage.entity";
-import { EndGame } from "@game/database/entities/end-game.entity";
 
 @Entity("current_game")
 export class CurrentGame {
@@ -14,8 +13,8 @@ export class CurrentGame {
   @Column({ name: "stage_id" })
   public stageId: string;
 
-  @Column({ name: "end_game_id", nullable: true })
-  public endGameId: string;
+  @Column({ name: "code" })
+  public code: string;
 
   @Column("simple-json", { name: "help_used", nullable: true })
   public helpUsed?: string[];
@@ -44,9 +43,4 @@ export class CurrentGame {
   @ManyToOne(() => Stage)
   @JoinColumn({ name: "stage_id", referencedColumnName: "id" })
   readonly stage: Stage;
-
-  // Relationship
-  @OneToOne(() => EndGame, (end) => end.currentGame)
-  @JoinColumn({ name: "end_game_id", referencedColumnName: "id" })
-  readonly endGame: EndGame;
 }

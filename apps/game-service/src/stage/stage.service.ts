@@ -2,12 +2,13 @@ import { HttpException, HttpStatus, Injectable } from "@nestjs/common";
 
 import { v4 as uuidv4 } from "uuid";
 import { AxiosInstance } from "axios";
+import * as shortid from "short-uuid";
 
 import { GameHelpEnum, HeartLogTypeEnum } from "@type";
 import { EndGameDto } from "@dto";
 import { userServiceConsumer } from "@util";
 
-import { EndGameRepository, StageRepository, StageSettingRepository } from "@game/database/repositories";
+import { GameResultRepository, StageRepository, StageSettingRepository } from "@game/database/repositories";
 import { CurrentGameRepository } from "@game/database/repositories/current-game.repository";
 @Injectable()
 export class StageService {
@@ -17,7 +18,7 @@ export class StageService {
     private readonly stageRepo: StageRepository,
     private readonly currentGameRepo: CurrentGameRepository,
     private readonly stageSettingRepo: StageSettingRepository,
-    private readonly endGameRepo: EndGameRepository
+    private readonly gameResultRepo: GameResultRepository
   ) {}
 
   async startGame(stageId: string, userId: string) {
@@ -40,6 +41,7 @@ export class StageService {
         stageId,
         isCompleted: false,
         isPassed: false,
+        code: shortid.generate(),
       });
 
       currentGame = await this.currentGameRepo.manager.save(newGame);
@@ -67,27 +69,23 @@ export class StageService {
 
     this.currentGameRepo.merge(currentGame, { helpUsed: [...(currentGame.helpUsed ?? []), help] });
     await this.currentGameRepo.save(currentGame);
-
-    return true;
   }
 
   async endGame(data: EndGameDto) {
-    const currentGame = await this.currentGameRepo.findOne(
-      { id: data.gameId, userId: data.userId },
-      { relations: ["endGame"] }
-    );
+    const currentGame = await this.currentGameRepo.findOne({ id: data.gameId, userId: data.userId });
     if (!currentGame) throw new HttpException("current-game-notfound", HttpStatus.NOT_FOUND);
 
-    const endGameId = uuidv4();
-    if (!currentGame.endGame) {
-      const newEndGame = this.endGameRepo.create({
-        id: endGameId,
+    const gameResult = await this.gameResultRepo.findOne({ userId: data.userId, gameCode: currentGame.code });
+
+    if (!gameResult) {
+      const newEndGame = this.gameResultRepo.create({
         userId: data.userId,
         totalQuestionPassed: data.totalCorrectQuestion,
         totalScore: data.totalScore,
+        gameCode: currentGame.code,
       });
 
-      await this.endGameRepo.save(newEndGame);
+      await this.gameResultRepo.save(newEndGame);
     }
 
     this.currentGameRepo.update(
@@ -97,7 +95,6 @@ export class StageService {
         isCompleted: data.isCompleted,
         isPassed: data.isPassed,
         passedDate: data.isPassed ? new Date() : null,
-        endGameId: endGameId,
       }
     );
 
