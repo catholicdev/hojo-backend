@@ -1,7 +1,7 @@
 import { Controller, Body, Post, Logger, UseGuards, Get } from "@nestjs/common";
 import { ApiOkResponse, ApiTags } from "@nestjs/swagger";
 
-import { BibleSentenceResponse } from "@dto";
+import { BibleSentenceResponse, WeeklyBibleRespone } from "@dto";
 import { GuestInterface } from "@type";
 import { Guest, Serialize } from "@util";
 
@@ -33,5 +33,14 @@ export class GuestController {
   async receiveDailyBible(@Guest() guest: GuestInterface) {
     const { userId } = guest;
     return this.usersService.receiveDailyBible(userId);
+  }
+
+  @Get("weekly-bible")
+  @UseGuards(GuestJwtAuthGuard)
+  @ApiOkResponse({ type: Array<WeeklyBibleRespone> })
+  @Serialize(WeeklyBibleRespone)
+  async getWeekBible(@Guest() guest: GuestInterface) {
+    const { userId } = guest;
+    return await this.usersService.getWeekBible(userId);
   }
 }

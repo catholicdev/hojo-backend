@@ -29,4 +29,9 @@ export class UsersService {
     const result = await this.userServiceClient.post("user/daily-bible", { userId });
     return result.data;
   }
+
+  async getWeekBible(userId: string) {
+    const result = await this.userServiceClient.post("user/weekly-bible", { userId })
+    return result.data;
+  }
 }

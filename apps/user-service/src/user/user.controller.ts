@@ -46,6 +46,13 @@ export class UserController {
     return this.userBibleService.dailyBible(userId);
   }
 
+  @Post("weekly-bible")
+  async weeklyBible(@Body() payload) {
+    this.logger.log(`weekly-bible: ${JSON.stringify(payload)}`);
+    const { userId } = payload;
+    return this.userBibleService.weeklyBible(userId);
+  }
+
   @Post("guest/auth.verify-token")
   async validateToken(@Body() messase) {
     this.logger.log(`guest/auth.verify-token: ${JSON.stringify(messase)}`);

@@ -1,4 +1,5 @@
 import { Injectable } from "@nestjs/common";
+import { Between } from "typeorm";
 
 import * as dayjs from "dayjs";
 import { AxiosInstance } from "axios";
@@ -43,5 +44,27 @@ export class UserBibleService {
       chapterSequence: userDailyBible.chapterSequence,
       bookAbbreviation: userDailyBible.bookAbbreviation,
     };
+  }
+
+  async weeklyBible(userId: string) {
+    const from = dayjs().day(0);
+    const to = from.add(7, 'day');
+
+    return await this.dailyBibleRepo.find({
+      select: [
+        "sentence",
+        "sequence",
+        "chapterSequence",
+        "bookAbbreviation",
+        "receiveDate"
+      ],
+      where: {
+        userId,
+        receiveDate: Between(from.format('YYYY-MM-DD'), to.format('YYYY-MM-DD'))
+      },
+      order: {
+        receiveDate: "ASC"
+      }
+    })
   }
 }
