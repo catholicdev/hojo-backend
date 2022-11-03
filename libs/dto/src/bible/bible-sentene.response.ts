@@ -18,3 +18,8 @@ export class BibleSentenceResponse {
   @ApiProperty()
   public bookAbbreviation: string;
 }
+
+export class WeeklyBibleRespone extends BibleSentenceResponse {
+  @Expose()
+  receiveDate: string
+}
