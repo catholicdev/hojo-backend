@@ -29,8 +29,8 @@ export class StageService {
       throw new HttpException("invalid-heart", HttpStatus.BAD_REQUEST);
     }
 
-    const stageSetting = await this.stageSettingRepo.findOne({ stageId });
-    if (!stageSetting) throw new HttpException("missing-setting", HttpStatus.NOT_FOUND);
+    const stage = await this.stageRepo.findOne({ id: stageId }, { relations: ["stageSetting"] });
+    if (!stage.stageSetting) throw new HttpException("missing-setting", HttpStatus.NOT_FOUND);
 
     let currentGame = await this.currentGameRepo.findOne({ userId, stageId });
 
@@ -54,7 +54,7 @@ export class StageService {
         isPassed: currentGame.isPassed,
         isCompleted: currentGame.isCompleted,
       },
-      stageHelps: stageSetting.helps,
+      stageHelps: stage.stageSetting.helps,
     };
   }
 
