@@ -37,4 +37,9 @@ export class GameService {
     const result = await this.gameServiceClient.post("stage/end-game", { ...endGame });
     return result.data;
   }
+
+  async getTopThree() {
+    const result = await this.gameServiceClient.post("ranking/get-top-three");
+    return result.data;
+  }
 }
