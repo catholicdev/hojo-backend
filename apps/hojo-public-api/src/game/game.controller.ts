@@ -23,6 +23,11 @@ export class GameController {
     return this.gameServivce.getStages(roundId);
   }
 
+  @Get("get-top-three")
+  async getTopThree() {
+    return this.gameServivce.getTopThree()
+  }
+
   @Get(":stageId/questions")
   @UseGuards(GuestJwtAuthGuard)
   @Serialize(StageQuestionResponse)

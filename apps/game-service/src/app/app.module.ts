@@ -9,9 +9,10 @@ import { DatabaseModule } from "@game/database/database.module";
 import { StageModule } from "@game/stage/stage.module";
 import { QuestionModule } from "@game/question/question.module";
 import { RoundModule } from "@game/round/round.module";
+import { RankingModule } from "@game/ranking/ranking.module";
 
 @Module({
-  imports: [ConfigModule.forRoot(), HttpModule, DatabaseModule, StageModule, QuestionModule, RoundModule],
+  imports: [ConfigModule.forRoot(), HttpModule, DatabaseModule, StageModule, QuestionModule, RoundModule, RankingModule],
   controllers: [AppController],
   providers: [AppService],
 })
