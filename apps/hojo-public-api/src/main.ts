@@ -13,7 +13,6 @@ import * as winston from "winston";
 import { AppModule } from "@pub/app/app.module";
 
 import * as dotenvConf from "dotenv";
-import { SerializeInterceptor } from "@util";
 dotenvConf.config();
 
 async function bootstrap() {
@@ -52,6 +51,13 @@ async function bootstrap() {
     const document = SwaggerModule.createDocument(app, config);
     SwaggerModule.setup("api", app, document);
   }
+
+  const corsOrigin = configService.get("CORS_ORIGIN");
+  app.enableCors({
+    methods: "GET,HEAD,PUT,PATCH,POST,DELETE,OPTIONS",
+    credentials: true,
+    origin: corsOrigin ? corsOrigin.split(",") : [],
+  });
 
   const port = process.env.PORT;
   await app.listen(port);
