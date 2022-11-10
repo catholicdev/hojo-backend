@@ -42,4 +42,12 @@ export class GameService {
     const result = await this.gameServiceClient.post("ranking/get-top-three");
     return result.data;
   }
+
+  async getBook(stageId: string) {
+    const result = await this.gameServiceClient.post("stage/get-book", {
+      stageId
+    })
+
+    return result.data;
+  }
 }

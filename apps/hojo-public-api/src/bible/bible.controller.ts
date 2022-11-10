@@ -14,4 +14,9 @@ export class BibleController {
   async bookSummary(@Param("bookId") bookId: string) {
     return this.bibleService.bookSummary(bookId);
   }
+
+  @Get("chapter/:chapterId")
+  async sentenceChapter(@Param("chapterId") chapterId: string) {
+    return this.bibleService.sentenceChapter(chapterId)
+  }
 }

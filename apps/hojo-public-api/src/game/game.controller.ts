@@ -23,6 +23,11 @@ export class GameController {
     return this.gameServivce.getStages(roundId);
   }
 
+  @Get(":stageId/get-book")
+  async getBook(@Param("stageId") stageId: string) {
+    return this.gameServivce.getBook(stageId)
+  }
+
   @Get("get-top-three")
   async getTopThree() {
     return this.gameServivce.getTopThree()

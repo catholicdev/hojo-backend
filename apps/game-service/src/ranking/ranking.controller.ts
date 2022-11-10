@@ -7,10 +7,10 @@ export class RankingController {
     constructor(
         private readonly rankingService: RankingService
     ) {}
-    
+
     @Post('get-top-three')
     async getTopThree() {
-        return await this.rankingService.getTopThree();
+        return this.rankingService.getTopThree();
     }
 
 }

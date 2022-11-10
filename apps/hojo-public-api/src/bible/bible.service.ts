@@ -13,4 +13,11 @@ export class BibleService {
     });
     return result.data;
   }
+
+  async sentenceChapter(chapterId: string) {
+    const result = await this.bibleServiceClient.post("sentence/sentence-chapter", {
+      chapterId
+    })
+    return result.data;
+  }
 }
