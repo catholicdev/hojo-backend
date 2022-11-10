@@ -6,13 +6,14 @@ import * as shortid from "short-uuid";
 
 import { GameHelpEnum, HeartLogTypeEnum } from "@type";
 import { EndGameDto } from "@dto";
-import { userServiceConsumer } from "@util";
+import { userServiceConsumer, bibleServiceConsumer } from "@util";
 
 import { GameResultRepository, StageRepository, StageSettingRepository } from "@game/database/repositories";
 import { CurrentGameRepository } from "@game/database/repositories/current-game.repository";
 @Injectable()
 export class StageService {
   private readonly userServiceClient = userServiceConsumer() as AxiosInstance;
+  private readonly bibleServiceClient = bibleServiceConsumer() as AxiosInstance;
 
   constructor(
     private readonly stageRepo: StageRepository,
@@ -116,5 +117,24 @@ export class StageService {
     return {
       nextStageId: currentGame.stageId,
     };
+  }
+
+  async getBookByStage(stageId: string) {
+    const { bookId } = await this.stageRepo.findOne({
+      select: [
+        "bookId"
+      ],
+      where: {
+        id: stageId
+      }
+    })
+
+    if ( !bookId ) throw new HttpException("Notfound-Book", HttpStatus.NOT_FOUND);
+
+    const result = await this.bibleServiceClient.post("chapter/get-chapter-book", {
+      bookId
+    })
+
+    return result.data;
   }
 }

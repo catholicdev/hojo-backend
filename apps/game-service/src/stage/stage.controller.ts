@@ -28,4 +28,11 @@ export class StageController {
     this.logger.log(`end-game: ${JSON.stringify(message)}`);
     return this.stageService.endGame(message);
   }
+
+  @Post("get-book")
+  async getBook(@Body() message) {
+    this.logger.log(`get-book: ${JSON.stringify(message)}`);
+    const { stageId } = message;
+    return this.stageService.getBookByStage(stageId);
+  }
 }
