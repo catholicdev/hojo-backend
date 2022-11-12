@@ -25,12 +25,12 @@ export class GameController {
 
   @Get(":stageId/get-book")
   async getBook(@Param("stageId") stageId: string) {
-    return this.gameServivce.getBook(stageId)
+    return this.gameServivce.getBook(stageId);
   }
 
   @Get("get-top-three")
   async getTopThree() {
-    return this.gameServivce.getTopThree()
+    return this.gameServivce.getTopThree();
   }
 
   @Get(":stageId/questions")
@@ -57,5 +57,11 @@ export class GameController {
   @UseGuards(GuestJwtAuthGuard)
   async guestEndGame(@Guest() guest: GuestInterface, @Body() payload) {
     return this.gameServivce.endGame({ ...payload, userId: guest.userId });
+  }
+
+  @Get("guest/:roundId/user-stages")
+  @UseGuards(GuestJwtAuthGuard)
+  async guestStages(@Guest() guest: GuestInterface, @Param("roundId") roundId: string) {
+    return this.gameServivce.getUserStages(roundId, guest.userId);
   }
 }

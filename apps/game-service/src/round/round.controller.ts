@@ -21,4 +21,12 @@ export class RoundController {
 
     return this.roundService.getStages(roundId);
   }
+
+  @Post("user-stages")
+  async getUserStages(@Body() message) {
+    this.logger.log(`user-stages: ${JSON.stringify(message)}`);
+    const { roundId, userId } = message;
+
+    return this.roundService.getUserStages(roundId, userId);
+  }
 }

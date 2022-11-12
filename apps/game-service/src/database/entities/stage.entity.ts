@@ -13,6 +13,7 @@ import {
 import { Question } from "@game/database/entities/question.entity";
 import { Round } from "@game/database/entities/round.entity";
 import { StageSetting } from "@game/database/entities/stage-setting.entity";
+import { CurrentGame } from "@game/database/entities/current-game.entity";
 
 @Entity("stage")
 export class Stage {
@@ -67,6 +68,9 @@ export class Stage {
 
   @OneToMany(() => Question, (question) => question.stage)
   public questions?: Question[];
+
+  @OneToMany(() => CurrentGame, (current) => current.stage)
+  public currentGames?: CurrentGame[];
 
   @OneToOne(() => StageSetting, (setting) => setting.stage)
   public stageSetting: StageSetting;
