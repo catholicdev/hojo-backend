@@ -5,7 +5,7 @@ export enum BookGroupEnum {
   WISDOM = "wisdom",
   PROPHET = "prophet",
   GOSPEL = "gospel",
-  HISTORICAL_APOSTLES = 'historical_apostle',
+  HISTORICAL_APOSTLES = 'historical_apostles',
   EPISTLES = 'epistles',
   REVELATION = 'revelation'
 }
