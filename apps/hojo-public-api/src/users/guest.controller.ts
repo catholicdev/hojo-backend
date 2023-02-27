@@ -17,12 +17,16 @@ export class GuestController {
 
   @Post("app/login")
   async loginGuest() {
+    this.logger.log(`app/login`);
+
     return this.usersService.loginGuest();
   }
 
   @Post("app/relogin")
   async reloginGuest(@Body() payload) {
+    this.logger.log(`app/relogin: ${JSON.stringify(payload)}`);
     const { userId, appId } = payload;
+
     return this.usersService.reloginGuest(userId, appId);
   }
 
@@ -31,7 +35,9 @@ export class GuestController {
   @ApiOkResponse({ type: BibleSentenceResponse })
   @Serialize(BibleSentenceResponse)
   async receiveDailyBible(@Guest() guest: GuestInterface) {
+    this.logger.log(`daily-bible`);
     const { userId } = guest;
+
     return this.usersService.receiveDailyBible(userId);
   }
 
@@ -40,7 +46,9 @@ export class GuestController {
   @ApiOkResponse({ type: Array<WeeklyBibleRespone> })
   @Serialize(WeeklyBibleRespone)
   async getWeekBible(@Guest() guest: GuestInterface) {
+    this.logger.log(`weekly-bible`);
     const { userId } = guest;
+
     return await this.usersService.getWeekBible(userId);
   }
 }

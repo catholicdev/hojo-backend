@@ -12,11 +12,15 @@ export class BibleController {
 
   @Get(":bookId/summary")
   async bookSummary(@Param("bookId") bookId: string) {
+    this.logger.log(`:bookId/summary: ${bookId}`);
+
     return this.bibleService.bookSummary(bookId);
   }
 
   @Get("chapter/:chapterId")
   async sentenceChapter(@Param("chapterId") chapterId: string) {
-    return this.bibleService.sentenceChapter(chapterId)
+    this.logger.log(`chapter/:chapterId: ${chapterId}`);
+
+    return this.bibleService.sentenceChapter(chapterId);
   }
 }
