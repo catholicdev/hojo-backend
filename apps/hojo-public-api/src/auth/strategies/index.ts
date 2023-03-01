@@ -1,4 +1,2 @@
-export * from "./firebase.strategy";
-export * from "./jwt.strategy";
-
-export * from "./customer.strategy";
+export * from "./guest.strategy";
+export * from "./guest-jwt.strategy";

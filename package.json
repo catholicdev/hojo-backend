@@ -1,20 +1,30 @@
 {
   "name": "hojo-backend",
-  "version": "0.0.0",
+  "version": "1.0.0",
   "license": "MIT",
+  "engines": {
+    "node": "14.x"
+  },
   "scripts": {
     "start": "nx serve",
     "build": "nx build",
-    "test": "nx test"
+    "test": "nx test",
+    "run-all": "nx run-many --target=serve --inspect=false --all",
+    "build-all": "nx run-many --target=build --all",
+    "user": "nx serve user-service",
+    "bible": "nx serve bible-service",
+    "game": "nx serve game-service"
   },
   "private": true,
   "dependencies": {
+    "@nestjs/axios": "^0.1.0",
     "@nestjs/common": "^9.0.0",
     "@nestjs/config": "^2.2.0",
     "@nestjs/core": "^9.0.0",
     "@nestjs/jwt": "^9.0.0",
     "@nestjs/passport": "^9.0.0",
     "@nestjs/platform-express": "^9.0.0",
+    "@nestjs/swagger": "^6.1.2",
     "@nestjs/typeorm": "8.0.3",
     "axios": "^0.27.2",
     "class-transformer": "^0.5.1",
@@ -22,8 +32,14 @@
     "dayjs": "^1.11.5",
     "dotenv": "^16.0.3",
     "express": "^4.18.1",
+    "firebase-admin": "^11.2.0",
+    "jsonwebtoken": "^8.5.1",
     "jwt-decode": "^3.1.2",
+    "jwt-simple": "^0.5.6",
+    "lodash": "^4.17.21",
     "mysql2": "^2.3.3",
+    "nest-winston": "^1.8.0",
+    "passport": "^0.6.0",
     "passport-custom": "^1.1.1",
     "passport-jwt": "^4.0.0",
     "passport-local": "^1.0.0",
@@ -31,7 +47,8 @@
     "rxjs": "^7.0.0",
     "short-uuid": "^4.2.0",
     "tslib": "^2.3.0",
-    "typeorm": "0.2.44"
+    "typeorm": "0.2.44",
+    "winston": "^3.8.2"
   },
   "devDependencies": {
     "@nestjs/schematics": "^9.0.0",

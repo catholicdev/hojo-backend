@@ -1,7 +1,17 @@
 import { HttpException, ServiceUnavailableException } from "@nestjs/common";
 import axios, { AxiosInstance } from "axios";
 
-const { USER_SERVICE_HOST, USER_SERVICE_PORT } = process.env;
+import * as dotenvConf from "dotenv";
+dotenvConf.config();
+
+const {
+  USER_SERVICE_HOST,
+  USER_SERVICE_PORT,
+  BIBLE_SERVICE_HOST,
+  BIBLE_SERVICE_PORT,
+  GAME_SERVICE_HOST,
+  GAME_SERVICE_PORT,
+} = process.env;
 
 const api = (baseUrl: string, token = ""): AxiosInstance => {
   const api = axios.create();
@@ -20,4 +30,12 @@ const api = (baseUrl: string, token = ""): AxiosInstance => {
 
 export const userServiceConsumer = () => {
   return api(`http://${USER_SERVICE_HOST}:${USER_SERVICE_PORT}`);
+};
+
+export const bibleServiceConsumer = () => {
+  return api(`http://${BIBLE_SERVICE_HOST}:${BIBLE_SERVICE_PORT}`);
+};
+
+export const gameServiceConsumer = () => {
+  return api(`http://${GAME_SERVICE_HOST}:${GAME_SERVICE_PORT}`);
 };

@@ -1,4 +1,2 @@
-export * from "./firebase.guard";
-export * from "./jwt-auth.guard";
-
-export * from "./customer.guard";
+export * from "./guest-auth.guard";
+export * from "./guest-jwt.guard";

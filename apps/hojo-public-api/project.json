@@ -1,5 +1,6 @@
 {
   "name": "hojo-public-api",
+  "root": "apps/hojo-public-api",
   "$schema": "../../node_modules/nx/schemas/project-schema.json",
   "sourceRoot": "apps/hojo-public-api/src",
   "projectType": "application",
@@ -12,8 +13,7 @@
         "compiler": "tsc",
         "outputPath": "dist/apps/hojo-public-api",
         "main": "apps/hojo-public-api/src/main.ts",
-        "tsConfig": "apps/hojo-public-api/tsconfig.app.json",
-        "assets": ["apps/hojo-public-api/src/assets"]
+        "tsConfig": "apps/hojo-public-api/tsconfig.app.json"
       },
       "configurations": {
         "production": {

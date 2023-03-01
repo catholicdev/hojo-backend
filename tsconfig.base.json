@@ -15,11 +15,13 @@
     "skipDefaultLibCheck": true,
     "baseUrl": "./",
     "paths": {
+      "@bible/*": ["apps/bible-service/src/*"],
       "@dto": ["libs/dto/src/index.ts"],
-      "@types": ["libs/types/src/index.ts"],
-      "@utils": ["libs/utils/src/index.ts"],
+      "@game/*": ["apps/game-service/src/*"],
+      "@pub/*": ["apps/hojo-public-api/src/*"],
+      "@type": ["libs/types/src/index.ts"],
       "@user/*": ["apps/user-service/src/*"],
-      "@pub/*": ["apps/hojo-public-api/src/*"]
+      "@util": ["libs/utils/src/index.ts"]
     }
   },
   "exclude": ["node_modules", "tmp"]
