@@ -13,10 +13,10 @@ export class RankingService {
             .select("gameResult.userId", "userId")
             .addSelect("SUM(gameResult.totalScore)", "totalScore")
             .addSelect("SUM(gameResult.totalQuestionPassed)", "totalQuestionPass")
-            .addSelect("ROW_NUMBER() OVER (ORDER BY SUM(gameResult.totalScore) DESC, gameResult.createdDate ASC)", "rank")
+            .addSelect("Max(gameResult.createdDate)", "date")
             .groupBy("gameResult.userId")
             .orderBy("totalScore", "DESC")
-            .addOrderBy("gameResult.createdDate", "ASC")
+            .addOrderBy("date", "ASC")
             .limit(3)
             .getRawMany()
 
