@@ -1,0 +1,2 @@
+CREATE DATABASE IF NOT EXISTS hj_game;
+USE hj_game;

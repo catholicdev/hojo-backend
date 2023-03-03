@@ -1,0 +1,14 @@
+version: '3.3'
+services:
+  mysql:
+    platform: linux/x86_64
+    image: mysql
+    environment:
+      - MYSQL_ROOT_PASSWORD=123456
+    ports:
+      - "3306:3306"
+    volumes:
+      - mysql-volume:/var/lib/mysql
+
+volumes:
+  mysql-volume:
