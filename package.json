@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "license": "MIT",
   "engines": {
-    "node": "14.x"
+    "node": "16.x"
   },
   "scripts": {
     "start": "nx serve",
@@ -13,7 +13,9 @@
     "build-all": "nx run-many --target=build --all",
     "user": "nx serve user-service",
     "bible": "nx serve bible-service",
-    "game": "nx serve game-service"
+    "game": "nx serve game-service",
+    "prepare": "husky install",
+    "lint-all": "nx run-many --target=lint --all"
   },
   "private": true,
   "dependencies": {
@@ -51,6 +53,8 @@
     "winston": "^3.8.2"
   },
   "devDependencies": {
+    "@commitlint/cli": "^17.4.4",
+    "@commitlint/config-conventional": "^17.4.4",
     "@nestjs/schematics": "^9.0.0",
     "@nestjs/testing": "^9.0.0",
     "@nrwl/cli": "14.8.2",
@@ -67,6 +71,7 @@
     "@typescript-eslint/parser": "^5.36.1",
     "eslint": "~8.15.0",
     "eslint-config-prettier": "8.1.0",
+    "husky": "^8.0.0",
     "jest": "28.1.1",
     "jest-environment-jsdom": "28.1.1",
     "nx": "14.8.2",
@@ -74,5 +79,16 @@
     "ts-jest": "28.0.5",
     "ts-node": "10.9.1",
     "typescript": "~4.8.2"
+  },
+  "husky": {
+    "hooks": {
+      "commit-msg": "commitlint -E HUSKY_GIT_PARAMS",
+      "pre-commit": "npm run affected:test -- --uncommitted"
+    }
+  },
+  "lint-staged": {
+    "*.{js,jsx,json,css,scss,md,ts,tsx,html,graphql}": [
+      "yarn format --uncommitted"
+    ]
   }
 }
