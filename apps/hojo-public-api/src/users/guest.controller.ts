@@ -1,9 +1,15 @@
 import { Controller, Body, Post, Logger, UseGuards, Get } from "@nestjs/common";
-import { ApiOkResponse, ApiTags } from "@nestjs/swagger";
+import { ApiTags } from "@nestjs/swagger";
 
-import { BibleSentenceResponse, WeeklyBibleRespone } from "@dto";
+import {
+  BibleSentenceResponse,
+  WeeklyBibleRespone,
+  GuestReloginDto,
+  GuestLoginResponse,
+  GuestReloginResponse,
+} from "@dto";
 import { GuestInterface } from "@type";
-import { Guest, Serialize } from "@util";
+import { Guest, Serialize, Swagger } from "@util";
 
 import { GuestJwtAuthGuard } from "@pub/auth/guards";
 import { UsersService } from "@pub/users/users.service";
@@ -16,6 +22,8 @@ export class GuestController {
   constructor(private readonly usersService: UsersService) {}
 
   @Post("app/login")
+  @Serialize(GuestLoginResponse)
+  @Swagger({ response: GuestLoginResponse })
   async loginGuest() {
     this.logger.log(`app/login`);
 
@@ -23,7 +31,9 @@ export class GuestController {
   }
 
   @Post("app/relogin")
-  async reloginGuest(@Body() payload) {
+  @Serialize(GuestReloginResponse)
+  @Swagger({ body: GuestReloginDto, response: GuestReloginResponse })
+  async reloginGuest(@Body() payload: GuestReloginDto) {
     this.logger.log(`app/relogin: ${JSON.stringify(payload)}`);
     const { userId, appId } = payload;
 
@@ -32,8 +42,8 @@ export class GuestController {
 
   @Get("daily-bible")
   @UseGuards(GuestJwtAuthGuard)
-  @ApiOkResponse({ type: BibleSentenceResponse })
   @Serialize(BibleSentenceResponse)
+  @Swagger({ response: BibleSentenceResponse, auth: "access-token" })
   async receiveDailyBible(@Guest() guest: GuestInterface) {
     this.logger.log(`daily-bible`);
     const { userId } = guest;
@@ -43,8 +53,8 @@ export class GuestController {
 
   @Get("weekly-bible")
   @UseGuards(GuestJwtAuthGuard)
-  @ApiOkResponse({ type: Array<WeeklyBibleRespone> })
   @Serialize(WeeklyBibleRespone)
+  @Swagger({ response: [WeeklyBibleRespone], auth: "access-token" })
   async getWeekBible(@Guest() guest: GuestInterface) {
     this.logger.log(`weekly-bible`);
     const { userId } = guest;
