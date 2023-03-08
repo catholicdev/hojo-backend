@@ -18,6 +18,7 @@
       "@bible/*": ["apps/bible-service/src/*"],
       "@dto": ["libs/dto/src/index.ts"],
       "@game/*": ["apps/game-service/src/*"],
+      "@interfaces/*": ["libs/interfaces/src/models/*"],
       "@pub/*": ["apps/hojo-public-api/src/*"],
       "@type": ["libs/types/src/index.ts"],
       "@user/*": ["apps/user-service/src/*"],

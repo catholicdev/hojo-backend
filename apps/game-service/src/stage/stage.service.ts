@@ -121,19 +121,17 @@ export class StageService {
 
   async getBookByStage(stageId: string) {
     const { bookId } = await this.stageRepo.findOne({
-      select: [
-        "bookId"
-      ],
+      select: ["bookId"],
       where: {
-        id: stageId
-      }
-    })
+        id: stageId,
+      },
+    });
 
-    if ( !bookId ) throw new HttpException("Notfound-Book", HttpStatus.NOT_FOUND);
+    if (!bookId) throw new HttpException("Notfound-Book", HttpStatus.NOT_FOUND);
 
     const result = await this.bibleServiceClient.post("chapter/get-chapter-book", {
-      bookId
-    })
+      bookId,
+    });
 
     return result.data;
   }
