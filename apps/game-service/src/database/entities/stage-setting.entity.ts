@@ -8,10 +8,11 @@ import {
   JoinColumn,
 } from "typeorm";
 
+import { IStageSetting } from "@interfaces/game";
 import { Stage } from "@game/database/entities/stage.entity";
 
 @Entity("stage_setting")
-export class StageSetting {
+export class StageSetting implements IStageSetting {
   @PrimaryGeneratedColumn("uuid", { name: "id" })
   public id: string;
 

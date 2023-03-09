@@ -1,9 +1,11 @@
 import { Column, ManyToOne, PrimaryGeneratedColumn, Entity, JoinColumn } from "typeorm";
 
+import { IToken } from "@interfaces/user";
+
 import { User } from "@user/database/entities/user.entity";
 
 @Entity("token")
-export class Token {
+export class Token implements IToken {
   @PrimaryGeneratedColumn("uuid")
   id: string;
 

@@ -1,10 +1,12 @@
 import { Column, Entity, PrimaryGeneratedColumn, ManyToOne, JoinColumn, OneToMany } from "typeorm";
 
+import { IChapter } from "@interfaces/bible";
+
 import { Book } from "@bible/database/entities/book.entity";
 import { Sentence } from "@bible/database/entities/sentence.entity";
 
 @Entity("chapter")
-export class Chapter {
+export class Chapter implements IChapter {
   @PrimaryGeneratedColumn("uuid")
   public id: string;
 

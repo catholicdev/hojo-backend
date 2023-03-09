@@ -8,10 +8,12 @@ import {
   JoinColumn,
 } from "typeorm";
 
+import { IAnswer } from "@interfaces/game";
+
 import { Question } from "@game/database/entities/question.entity";
 
 @Entity("answer")
-export class Answer {
+export class Answer implements IAnswer {
   @PrimaryGeneratedColumn("increment")
   public id: string;
 

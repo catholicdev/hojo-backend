@@ -10,13 +10,15 @@ import {
   OneToOne,
 } from "typeorm";
 
+import { IStage } from "@interfaces/game";
+
 import { Question } from "@game/database/entities/question.entity";
 import { Round } from "@game/database/entities/round.entity";
 import { StageSetting } from "@game/database/entities/stage-setting.entity";
 import { CurrentGame } from "@game/database/entities/current-game.entity";
 
 @Entity("stage")
-export class Stage {
+export class Stage implements IStage {
   @PrimaryGeneratedColumn("uuid")
   public id: string;
 

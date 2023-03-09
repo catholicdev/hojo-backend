@@ -1,9 +1,11 @@
 import { Column, Entity, PrimaryGeneratedColumn, CreateDateColumn, ManyToOne, JoinColumn } from "typeorm";
 
+import { IDailyBible } from "@interfaces/user";
+
 import { User } from "@user/database/entities/user.entity";
 
 @Entity("daily_bible")
-export class DailyBible {
+export class DailyBible implements IDailyBible {
   @PrimaryGeneratedColumn("increment")
   public id: number;
 

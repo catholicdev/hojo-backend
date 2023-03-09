@@ -1,12 +1,13 @@
 import { Column, Entity, PrimaryGeneratedColumn, CreateDateColumn, UpdateDateColumn, OneToMany } from "typeorm";
 
 import { LocationInterface, UserStatusEnum } from "@type";
+import { IUser } from "@interfaces/user";
 
 import { DailyBible } from "@user/database/entities/daily-bible.entity";
 import { Token } from "@user/database/entities/token.entity";
 
 @Entity("user")
-export class User {
+export class User implements IUser {
   @PrimaryGeneratedColumn("uuid")
   public id: string;
 

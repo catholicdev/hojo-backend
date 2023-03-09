@@ -1,11 +1,12 @@
 import { Column, Entity, PrimaryGeneratedColumn, CreateDateColumn, UpdateDateColumn, OneToMany } from "typeorm";
 
 import { SystemStatusEnum } from "@type";
+import { IRound } from "@interfaces/game";
 
 import { Stage } from "@game/database/entities/stage.entity";
 
 @Entity("round")
-export class Round {
+export class Round implements IRound {
   @PrimaryGeneratedColumn("uuid")
   public id: string;
 

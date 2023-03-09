@@ -1,9 +1,11 @@
 import { Column, Entity, PrimaryGeneratedColumn, CreateDateColumn, ManyToOne, JoinColumn } from "typeorm";
 
+import { ICurrentGame } from "@interfaces/game";
+
 import { Stage } from "@game/database/entities/stage.entity";
 
 @Entity("current_game")
-export class CurrentGame {
+export class CurrentGame implements ICurrentGame {
   @PrimaryGeneratedColumn("uuid")
   public id: string;
 

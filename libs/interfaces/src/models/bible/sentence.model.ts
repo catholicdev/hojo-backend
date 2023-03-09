@@ -1,3 +1,5 @@
+import { IChapter, IPillar } from "@interfaces/bible";
+
 export interface ISentence {
   // increment
   id: number;
@@ -6,4 +8,6 @@ export interface ISentence {
   pillarId?: string;
   sequence: number;
   content: string;
+  chapter: IChapter;
+  pillar?: IPillar;
 }
