@@ -15,8 +15,8 @@ export class UserController {
   @Post("login")
   async login(@Body() payload) {
     this.logger.log(`login: ${JSON.stringify(payload)}`);
-    const { email, password } = payload;
-    return this.userAuthenService.authenticateUserPassword(email, password);
+    const { email } = payload;
+    return this.userAuthenService.authenticateUserEmail(email);
   }
 
   @Post("guest/auth.login")

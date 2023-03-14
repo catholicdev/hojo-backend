@@ -23,9 +23,6 @@ export class User implements IUser {
   @Column({ name: "email", unique: true, nullable: true })
   public email?: string;
 
-  @Column({ name: "password", nullable: true })
-  public password?: string;
-
   @CreateDateColumn({
     type: "timestamp",
     default: () => "CURRENT_TIMESTAMP",
