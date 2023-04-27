@@ -3,7 +3,7 @@
  * This is only a minimal backend to get started.
  */
 
-import { Logger } from "@nestjs/common";
+import { Logger, ValidationPipe } from "@nestjs/common";
 import { NestFactory } from "@nestjs/core";
 import { DocumentBuilder, SwaggerModule } from "@nestjs/swagger";
 import { ConfigService } from "@nestjs/config";
@@ -58,6 +58,8 @@ async function bootstrap() {
     credentials: true,
     origin: corsOrigin ? corsOrigin.split(",") : [],
   });
+
+  app.useGlobalPipes(new ValidationPipe())
 
   const port = process.env.PORT;
   await app.listen(port);

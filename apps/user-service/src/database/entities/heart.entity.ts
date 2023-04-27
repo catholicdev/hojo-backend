@@ -9,11 +9,13 @@ import {
   OneToMany,
 } from "typeorm";
 
+import { IHeart } from "@interfaces/user";
+
 import { User } from "@user/database/entities/user.entity";
 import { HeartLog } from "@user/database/entities/heart-log.entity";
 
 @Entity("heart")
-export class Heart {
+export class Heart implements IHeart {
   @PrimaryGeneratedColumn("uuid")
   public id: string;
 

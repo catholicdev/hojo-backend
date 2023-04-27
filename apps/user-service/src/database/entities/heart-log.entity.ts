@@ -2,9 +2,10 @@ import { Column, Entity, PrimaryGeneratedColumn, CreateDateColumn, JoinColumn, O
 
 import { Heart } from "@user/database/entities/heart.entity";
 import { HeartLogTypeEnum } from "@type";
+import { IHeartLog } from "@interfaces/user";
 
 @Entity("heart-log")
-export class HeartLog {
+export class HeartLog implements IHeartLog {
   @PrimaryGeneratedColumn("uuid")
   public id: string;
 

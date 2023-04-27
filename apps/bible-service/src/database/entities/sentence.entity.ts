@@ -3,8 +3,10 @@ import { Column, Entity, PrimaryGeneratedColumn, ManyToOne, JoinColumn } from "t
 import { Chapter } from "@bible/database/entities/chapter.entity";
 import { Pillar } from "@bible/database/entities/pillar.entity";
 
+import { ISentence } from "@interfaces/bible";
+
 @Entity("sentence")
-export class Sentence {
+export class Sentence implements ISentence {
   @PrimaryGeneratedColumn("increment")
   public id: number;
 
@@ -12,7 +14,7 @@ export class Sentence {
   public chapterId: string;
 
   @Column({ name: "pillar_id", nullable: true })
-  public pillarId?: string;
+  public pillarId: string;
 
   @Column({ name: "sentence_sequence" })
   public sequence: number;

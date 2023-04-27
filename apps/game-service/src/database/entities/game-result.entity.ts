@@ -1,7 +1,9 @@
 import { Column, Entity, PrimaryGeneratedColumn, CreateDateColumn } from "typeorm";
 
+import { IGameResult } from "@interfaces/game";
+
 @Entity("game_result")
-export class GameResult {
+export class GameResult implements IGameResult {
   @PrimaryGeneratedColumn("uuid", { name: "id" })
   public id: string;
 

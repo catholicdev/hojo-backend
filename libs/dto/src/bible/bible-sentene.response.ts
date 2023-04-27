@@ -21,5 +21,5 @@ export class BibleSentenceResponse {
 
 export class WeeklyBibleRespone extends BibleSentenceResponse {
   @Expose()
-  receiveDate: string
+  receiveDate: string;
 }

@@ -5,6 +5,7 @@
     "dto": "libs/dto",
     "game-service": "apps/game-service",
     "hojo-public-api": "apps/hojo-public-api",
+    "interfaces": "libs/interfaces",
     "types": "libs/types",
     "user-service": "apps/user-service",
     "utils": "libs/utils"

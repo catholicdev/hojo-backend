@@ -10,12 +10,13 @@ import {
 } from "typeorm";
 
 import { QuestionLevelEnum } from "@type";
+import { IQuestion } from "@interfaces/game";
 
 import { Stage } from "@game/database/entities/stage.entity";
 import { Answer } from "@game/database/entities/answer.entity";
 
 @Entity("question")
-export class Question {
+export class Question implements IQuestion {
   @PrimaryGeneratedColumn("uuid")
   public id: string;
 

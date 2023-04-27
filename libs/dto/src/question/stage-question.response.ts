@@ -4,7 +4,7 @@ import { Expose } from "class-transformer";
 import { QuestionResponse } from "@dto";
 
 export class StageQuestionResponse {
-  @ApiProperty()
+  @ApiProperty({ type: () => [QuestionResponse] })
   @Expose()
   public questions?: QuestionResponse[];
 

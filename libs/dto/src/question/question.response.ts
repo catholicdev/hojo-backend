@@ -26,6 +26,6 @@ export class QuestionResponse {
   public level: QuestionLevelEnum;
 
   @Expose()
-  @ApiProperty()
+  @ApiProperty({ type: () => [AnswerResponse] })
   public answers: AnswerResponse[];
 }
