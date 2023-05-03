@@ -29,4 +29,10 @@ As a contributor, here are the guidelines we would like you to follow:
   - Your code should be tested exhaustively before requesting review from colleagues.
   - Our project is using [GitLab workflow](https://docs.gitlab.com/ee/topics/gitlab_flow.html), hence every PRs should be created from / merged into branch `staging`. Do not commit or merge directly to `main`, our production branch.
 
+## Typeorm migrations
+
+- Create new migration: nx run user-service:create-migration --name=add_table_users
+- Run migrations: nx run user-service:run-migrations
+- How to write migration: https://typeorm.io/migrations
+
 Thank you for your contribution. May God bless you.

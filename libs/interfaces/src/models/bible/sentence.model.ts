@@ -1,4 +1,4 @@
-import { IChapter, IPillar } from "@interfaces/bible";
+import { IChapter, IPillar } from "@interfaces";
 
 export interface ISentence {
   // increment

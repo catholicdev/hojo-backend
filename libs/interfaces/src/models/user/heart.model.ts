@@ -1,7 +1,7 @@
-import { IUser, IHeartLog } from "@interfaces/user";
+import { IUser, IHeartLog } from "@interfaces";
 
 export interface IHeart {
-  id: string;
+  id: number;
   userId: string;
   currentHeart: number;
   maxHeart: number;

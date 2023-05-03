@@ -1,4 +1,4 @@
-import { ISentence, IBook } from "@interfaces/bible";
+import { ISentence, IBook } from "@interfaces";
 
 export interface IPillar {
   id: string;

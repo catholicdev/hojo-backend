@@ -1,4 +1,4 @@
-import { IStage } from "@interfaces/game";
+import { IStage } from "@interfaces";
 
 export interface ICurrentGame {
   id: string;
