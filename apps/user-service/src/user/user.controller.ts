@@ -1,4 +1,8 @@
-import { Body, Controller, Post, Logger } from "@nestjs/common";
+import { Body, Controller, Logger, Post } from "@nestjs/common";
+
+import { CreateUserDto, UserPasswordLoginDto } from "@dto";
+
+import { UserTokenTypeEnum } from "@type";
 
 import { UserAuthenService } from "@user/user/user.authen.service";
 import { UserBibleService } from "@user/user/user.bible.service";
@@ -13,10 +17,9 @@ export class UserController {
   ) {}
 
   @Post("login")
-  async login(@Body() payload) {
+  async login(@Body() payload: UserPasswordLoginDto) {
     this.logger.log(`login: ${JSON.stringify(payload)}`);
-    const { email } = payload;
-    return this.userAuthenService.authenticateUserEmail(email);
+    return this.userAuthenService.authenticateUserPassword(payload, UserTokenTypeEnum.CUSTOMER);
   }
 
   @Post("guest/auth.login")
@@ -58,5 +61,24 @@ export class UserController {
     this.logger.log(`guest/auth.verify-token: ${JSON.stringify(messase)}`);
     const { token } = messase;
     return this.userAuthenService.verifyGuestToken(token);
+  }
+
+  @Post("auth/verify-firebase-token")
+  async verifyFirebaseToken(@Body() payload: { token: string }) {
+    this.logger.log(`auth/verify-firebase-token: ${JSON.stringify(payload)}`);
+    const { token } = payload;
+    return this.userAuthenService.verifyFirebaseToken(token);
+  }
+
+  @Post("registration")
+  async registerNewUser(@Body() payload: CreateUserDto) {
+    this.logger.log(`registration: ${JSON.stringify(payload)}`);
+    return this.userAuthenService.registerNewUser(payload);
+  }
+
+  @Post("verify-email")
+  async verifyEmail(@Body() payload: { email: string }) {
+    this.logger.log(`verify-email: ${JSON.stringify(payload)}`);
+    return this.userAuthenService.verifyEmail(payload.email);
   }
 }

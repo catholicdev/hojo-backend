@@ -1,6 +1,6 @@
-import { Column, ManyToOne, PrimaryGeneratedColumn, Entity, JoinColumn } from "typeorm";
+import { Column, Entity, JoinColumn, ManyToOne, PrimaryGeneratedColumn } from "typeorm";
 
-import { IToken } from "@interfaces/user";
+import { IToken } from "@interfaces";
 
 import { User } from "@user/database/entities/user.entity";
 

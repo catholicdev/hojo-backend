@@ -1,25 +1,27 @@
-import { Controller, Body, Post, Logger, UseGuards, Get } from "@nestjs/common";
+import { Body, Controller, Get, Logger, Post, UseGuards } from "@nestjs/common";
 import { ApiTags } from "@nestjs/swagger";
 
 import {
   BibleSentenceResponse,
-  WeeklyBibleRespone,
-  GuestReloginDto,
   GuestLoginResponse,
+  GuestReloginDto,
   GuestReloginResponse,
+  WeeklyBibleRespone,
 } from "@dto";
-import { GuestInterface } from "@type";
+
 import { Guest, Serialize, Swagger } from "@util";
 
+import { GuestInterface } from "@interfaces";
+
 import { GuestJwtAuthGuard } from "@pub/auth/guards";
-import { UsersService } from "@pub/users/users.service";
+import { UserService } from "@pub/user/user.service";
 
 @ApiTags("Guest")
 @Controller("guest")
 export class GuestController {
   private readonly logger = new Logger(this.constructor.name);
 
-  constructor(private readonly usersService: UsersService) {}
+  constructor(private readonly usersService: UserService) {}
 
   @Post("app/login")
   @Serialize(GuestLoginResponse)

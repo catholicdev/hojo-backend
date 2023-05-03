@@ -1,8 +1,10 @@
 import { Injectable } from "@nestjs/common";
+
 import { AxiosInstance } from "axios";
 
-import { userServiceConsumer } from "@util";
 import { ErrorCodeConstant, ErrorMessageConstant } from "@type";
+
+import { userServiceConsumer } from "@util";
 
 @Injectable()
 export class AuthService {
@@ -21,6 +23,11 @@ export class AuthService {
 
   public async verifyGuestToken(token: string) {
     const result = await this.userServiceClient.post("user/guest/auth.verify-token", { token });
+    return result.data;
+  }
+
+  public async verifyFirebaseToken(token: string) {
+    const result = await this.userServiceClient.post("user/auth/verify-firebase-token", { token });
     return result.data;
   }
 }
