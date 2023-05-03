@@ -1,18 +1,18 @@
 import {
   Column,
-  Entity,
-  PrimaryGeneratedColumn,
   CreateDateColumn,
+  Entity,
   JoinColumn,
-  OneToOne,
-  UpdateDateColumn,
   OneToMany,
+  OneToOne,
+  PrimaryGeneratedColumn,
+  UpdateDateColumn,
 } from "typeorm";
 
-import { IHeart } from "@interfaces/user";
+import { IHeart } from "@interfaces";
 
-import { User } from "@user/database/entities/user.entity";
 import { HeartLog } from "@user/database/entities/heart-log.entity";
+import { User } from "@user/database/entities/user.entity";
 
 @Entity("heart")
 export class Heart implements IHeart {

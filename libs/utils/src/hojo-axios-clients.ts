@@ -1,7 +1,8 @@
 import { HttpException, ServiceUnavailableException } from "@nestjs/common";
-import axios, { AxiosInstance } from "axios";
 
 import * as dotenvConf from "dotenv";
+import axios, { AxiosInstance } from "axios";
+
 dotenvConf.config();
 
 const {
@@ -26,6 +27,10 @@ const api = (baseUrl: string, token = ""): AxiosInstance => {
     }
   );
   return api;
+};
+
+export const genericHttpConsumer = () => {
+  return api("");
 };
 
 export const userServiceConsumer = () => {

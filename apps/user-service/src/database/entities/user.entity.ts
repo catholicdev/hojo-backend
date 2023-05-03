@@ -1,13 +1,22 @@
-import { Column, Entity, PrimaryGeneratedColumn, CreateDateColumn, UpdateDateColumn, OneToMany } from "typeorm";
+import {
+  BaseEntity,
+  Column,
+  CreateDateColumn,
+  Entity,
+  OneToMany,
+  PrimaryGeneratedColumn,
+  UpdateDateColumn,
+} from "typeorm";
 
-import { LocationInterface, UserStatusEnum } from "@type";
-import { IUser } from "@interfaces/user";
+import { UserStatusEnum } from "@type";
+
+import { IUser, LocationInterface } from "@interfaces";
 
 import { DailyBible } from "@user/database/entities/daily-bible.entity";
 import { Token } from "@user/database/entities/token.entity";
 
 @Entity("user")
-export class User implements IUser {
+export class User extends BaseEntity implements IUser {
   @PrimaryGeneratedColumn("uuid")
   public id: string;
 
@@ -22,6 +31,9 @@ export class User implements IUser {
 
   @Column({ name: "email", unique: true, nullable: true })
   public email?: string;
+
+  @Column({ name: "password_hash" })
+  public passwordHash: string;
 
   @CreateDateColumn({
     type: "timestamp",

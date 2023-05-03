@@ -1,5 +1,6 @@
-import { UserStatusEnum, LocationInterface } from "@type";
-import { IDailyBible, IToken } from "@interfaces/user";
+import { UserStatusEnum } from "@type";
+
+import { IDailyBible, IToken, LocationInterface } from "@interfaces";
 
 export interface IUser {
   id: string;
@@ -7,6 +8,7 @@ export interface IUser {
   firstName?: string;
   lastName?: string;
   email?: string;
+  passwordHash: string;
   createdDate: Date;
   updatedDate: Date;
   userStatus: UserStatusEnum;

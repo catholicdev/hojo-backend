@@ -1,11 +1,13 @@
 import { Injectable } from "@nestjs/common";
+
 import { AxiosInstance } from "axios";
 
-import { userServiceConsumer } from "@util";
 import { UserPasswordLoginDto } from "@dto";
 
+import { userServiceConsumer } from "@util";
+
 @Injectable()
-export class UsersService {
+export class UserService {
   private readonly userServiceClient: AxiosInstance = userServiceConsumer();
 
   async loginApp(loginDTO: UserPasswordLoginDto) {
@@ -31,7 +33,17 @@ export class UsersService {
   }
 
   async getWeekBible(userId: string) {
-    const result = await this.userServiceClient.post("user/weekly-bible", { userId })
+    const result = await this.userServiceClient.post("user/weekly-bible", { userId });
+    return result.data;
+  }
+
+  async registerNewUser(payload: any) {
+    const result = await this.userServiceClient.post("user/registration", payload);
+    return result.data;
+  }
+
+  async verifyEmail(email: string) {
+    const result = await this.userServiceClient.post("user/verify-email", { email });
     return result.data;
   }
 }
