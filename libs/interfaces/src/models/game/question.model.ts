@@ -1,5 +1,5 @@
 import { QuestionLevelEnum } from "@type";
-import { IAnswer, IStage } from "@interfaces/game";
+import { IAnswer, IStage } from "@interfaces";
 
 export interface IQuestion {
   id: string;

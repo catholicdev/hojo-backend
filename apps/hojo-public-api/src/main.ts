@@ -30,6 +30,8 @@ async function bootstrap() {
       ],
     }),
   });
+  app.enableShutdownHooks();
+
   const configService: ConfigService<Record<string, unknown>, true> = app.get(ConfigService);
 
   const isSwaggerEnabled = configService.get("SWAGGER_ENABLED") === "true";
@@ -59,7 +61,7 @@ async function bootstrap() {
     origin: corsOrigin ? corsOrigin.split(",") : [],
   });
 
-  app.useGlobalPipes(new ValidationPipe())
+  app.useGlobalPipes(new ValidationPipe());
 
   const port = process.env.PORT;
   await app.listen(port);

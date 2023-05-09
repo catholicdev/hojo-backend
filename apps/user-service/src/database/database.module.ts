@@ -2,8 +2,10 @@ import { Module } from "@nestjs/common";
 import { TypeOrmModule } from "@nestjs/typeorm";
 
 import * as dbEntities from "@user/database/entities";
+import * as dbSubscribers from "@user/database/subscribers";
 
 const entities = (Object.keys(dbEntities) as Array<keyof typeof dbEntities>).map((key) => dbEntities[key]);
+const subscribers = (Object.keys(dbSubscribers) as Array<keyof typeof dbSubscribers>).map((key) => dbSubscribers[key]);
 
 @Module({
   imports: [
@@ -22,6 +24,6 @@ const entities = (Object.keys(dbEntities) as Array<keyof typeof dbEntities>).map
       }),
     }),
   ],
-  providers: [],
+  providers: [...subscribers],
 })
 export class DatabaseModule {}

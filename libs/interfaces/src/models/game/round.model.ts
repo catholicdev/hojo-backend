@@ -1,5 +1,5 @@
 import { SystemStatusEnum } from "@type";
-import { IStage } from "@interfaces/game";
+import { IStage } from "@interfaces";
 
 export interface IRound {
   id: string;

@@ -1,4 +1,4 @@
-import { IQuestion, IRound, ICurrentGame, IStageSetting } from "@interfaces/game";
+import { IQuestion, IRound, ICurrentGame, IStageSetting } from "@interfaces";
 
 export interface IStage {
   id: string;

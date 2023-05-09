@@ -3,6 +3,7 @@ import {
   Column,
   CreateDateColumn,
   Entity,
+  Index,
   OneToMany,
   PrimaryGeneratedColumn,
   UpdateDateColumn,
@@ -13,24 +14,25 @@ import { UserStatusEnum } from "@type";
 import { IUser, LocationInterface } from "@interfaces";
 
 import { DailyBible } from "@user/database/entities/daily-bible.entity";
-import { Token } from "@user/database/entities/token.entity";
 
-@Entity("user")
+@Entity("users")
 export class User extends BaseEntity implements IUser {
   @PrimaryGeneratedColumn("uuid")
   public id: string;
 
-  @Column({ name: "app_id", unique: true })
-  public appId: string;
+  @Index("FIREBASE_UID_INDEX")
+  @Column({ name: "firebase_uid", unique: true })
+  public firebaseUid: string;
 
-  @Column({ name: "first_name", nullable: true })
-  public firstName?: string;
+  @Column({ name: "first_name" })
+  public firstName: string;
 
-  @Column({ name: "last_name", nullable: true })
-  public lastName?: string;
+  @Column({ name: "last_name" })
+  public lastName: string;
 
-  @Column({ name: "email", unique: true, nullable: true })
-  public email?: string;
+  @Index("EMAIL_INDEX")
+  @Column({ name: "email", unique: true })
+  public email: string;
 
   @Column({ name: "password_hash" })
   public passwordHash: string;
@@ -56,13 +58,13 @@ export class User extends BaseEntity implements IUser {
   public userStatus: UserStatusEnum;
 
   @Column({ name: "device_token", nullable: true })
-  public deviceToken?: string;
+  public deviceToken: string;
 
   @Column({ name: "referred_by", nullable: true })
-  public referredBy?: string;
+  public referredBy: string;
 
   @Column({ name: "city", nullable: true })
-  public city?: string;
+  public city: string;
 
   @Column({ name: "province", nullable: true })
   public province?: string;
@@ -72,8 +74,7 @@ export class User extends BaseEntity implements IUser {
 
   // Relationship
   @OneToMany(() => DailyBible, (daily) => daily.user)
-  public dailyBibles?: DailyBible[];
+  public dailyBibles: DailyBible[];
 
-  @OneToMany(() => Token, (token) => token.user)
-  public tokens?: Token[];
+  public fullName: string;
 }

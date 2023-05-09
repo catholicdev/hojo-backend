@@ -2,7 +2,7 @@ import { Controller, Post, Body, Param, Get, UseGuards, Logger } from "@nestjs/c
 import { ApiTags } from "@nestjs/swagger";
 
 import { Guest, Serialize, Swagger } from "@util";
-import { GuestInterface } from "@type";
+import { GuestInterface } from "@interfaces";
 
 import { GuestJwtAuthGuard } from "@pub/auth/guards";
 import { GameService } from "@pub/game/game.service";

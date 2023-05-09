@@ -1,14 +1,24 @@
-import { BaseEntity, Column, CreateDateColumn, Entity, JoinColumn, ManyToOne, PrimaryGeneratedColumn } from "typeorm";
+import {
+  BaseEntity,
+  Column,
+  CreateDateColumn,
+  Entity,
+  Index,
+  JoinColumn,
+  ManyToOne,
+  PrimaryGeneratedColumn,
+} from "typeorm";
 
 import { IDailyBible } from "@interfaces";
 
 import { User } from "@user/database/entities/user.entity";
 
-@Entity("daily_bible")
+@Entity("daily_bibles")
 export class DailyBible extends BaseEntity implements IDailyBible {
   @PrimaryGeneratedColumn("increment")
   public id: number;
 
+  @Index("USER_ID_INDEX")
   @Column({ name: "user_id" })
   public userId: string;
 

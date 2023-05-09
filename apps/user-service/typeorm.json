@@ -1,0 +1,14 @@
+{
+    "type": "mysql",
+    "host": "localhost",
+    "port": 3306,
+    "username": "root",
+    "password": "Mac@2022",
+    "database": "hj_user",
+    "logging": true,
+    "synchronize": false,
+    "migrations": ["src/migrations/**/*.ts"],
+    "cli": {
+      "migrationsDir": "src/migrations"
+    }
+  }

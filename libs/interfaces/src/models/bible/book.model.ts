@@ -1,5 +1,5 @@
 import { BookGroupEnum, BookTypeEnum } from "@type";
-import { IChapter, IPillar } from "@interfaces/bible";
+import { IChapter, IPillar } from "@interfaces";
 
 export interface IBook {
   id: string;

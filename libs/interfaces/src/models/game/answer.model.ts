@@ -1,4 +1,4 @@
-import { IQuestion } from "@interfaces/game";
+import { IQuestion } from "@interfaces";
 
 export interface IAnswer {
   id: string;

@@ -1,16 +1,26 @@
-import { Column, Entity, PrimaryGeneratedColumn, CreateDateColumn, JoinColumn, OneToOne, ManyToOne } from "typeorm";
+import {
+  Column,
+  Entity,
+  PrimaryGeneratedColumn,
+  CreateDateColumn,
+  JoinColumn,
+  ManyToOne,
+  BaseEntity,
+  Index,
+} from "typeorm";
 
 import { Heart } from "@user/database/entities/heart.entity";
 import { HeartLogTypeEnum } from "@type";
-import { IHeartLog } from "@interfaces/user";
+import { IHeartLog } from "@interfaces";
 
-@Entity("heart-log")
-export class HeartLog implements IHeartLog {
-  @PrimaryGeneratedColumn("uuid")
-  public id: string;
+@Entity("heart_logs")
+export class HeartLog extends BaseEntity implements IHeartLog {
+  @PrimaryGeneratedColumn("increment")
+  public id: number;
 
+  @Index("HEART_ID_INDEX")
   @Column({ name: "heart_id" })
-  public heartId: string;
+  public heartId: number;
 
   @Column({ name: "current_heart" })
   public currentHear: number;

@@ -1,6 +1,6 @@
-import { Type } from '@nestjs/common';
-import { ApiProperty } from '@nestjs/swagger';
-import { PaginationResultInterface } from '@type';
+import { Type } from "@nestjs/common";
+import { ApiProperty } from "@nestjs/swagger";
+import { PaginationResultInterface } from "@interfaces";
 
 export class Pagination<T> {
   public results: T[];
@@ -12,12 +12,8 @@ export class Pagination<T> {
   }
 }
 
-export function StandardizedList<T>(
-  type: Type<T>,
-): Type<PaginationResultInterface<T>> {
-  class Response<PaginationEntity>
-    implements PaginationResultInterface<PaginationEntity>
-  {
+export function StandardizedList<T>(type: Type<T>): Type<PaginationResultInterface<T>> {
+  class Response<PaginationEntity> implements PaginationResultInterface<PaginationEntity> {
     @ApiProperty({ type, isArray: true })
     results!: PaginationEntity[];
 

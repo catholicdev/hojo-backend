@@ -4,10 +4,10 @@ import { IDailyBible, IToken, LocationInterface } from "@interfaces";
 
 export interface IUser {
   id: string;
-  appId: string;
-  firstName?: string;
-  lastName?: string;
-  email?: string;
+  firebaseUid: string;
+  firstName: string;
+  lastName: string;
+  email: string;
   passwordHash: string;
   createdDate: Date;
   updatedDate: Date;

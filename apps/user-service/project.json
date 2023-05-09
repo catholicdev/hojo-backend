@@ -53,6 +53,22 @@
         "jestConfig": "apps/user-service/jest.config.ts",
         "passWithNoTests": true
       }
+    },
+    "create-migration": {
+      "builder": "nx:run-commands",
+      "outputs": [],
+      "options": {
+        "command": "ts-node --project tsconfig.app.json ../../node_modules/.bin/typeorm migration:create -f typeorm.json",
+        "cwd": "apps/user-service"
+      }
+    },
+    "run-migrations": {
+      "builder": "nx:run-commands",
+      "outputs": [],
+      "options": {
+        "command": "ts-node --project tsconfig.app.json ../../node_modules/.bin/typeorm migration:run -f typeorm.json",
+        "cwd": "apps/user-service"
+      }
     }
   },
   "tags": []

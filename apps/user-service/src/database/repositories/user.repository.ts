@@ -1,10 +1,6 @@
 import { EntityRepository, Repository } from "typeorm";
 
-import * as shortid from "short-uuid";
-import { v4 as uuidv4 } from "uuid";
-
 import { User } from "@user/database/entities";
-import { UserStatusEnum } from "@type";
 
 @EntityRepository(User)
 export class UserRepository extends Repository<User> {
@@ -16,16 +12,5 @@ export class UserRepository extends Repository<User> {
   async findUserByEmail(email: string) {
     const user = await this.findOne({ where: { email } });
     return user;
-  }
-
-  async createUserGuest() {
-    const newUser = this.create({
-      id: uuidv4(),
-      appId: shortid.generate(),
-      userStatus: UserStatusEnum.ACTIVE,
-    });
-
-    await this.insert(newUser);
-    return { id: newUser.id, appId: newUser.appId };
   }
 }

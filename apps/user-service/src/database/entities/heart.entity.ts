@@ -1,7 +1,9 @@
 import {
+  BaseEntity,
   Column,
   CreateDateColumn,
   Entity,
+  Index,
   JoinColumn,
   OneToMany,
   OneToOne,
@@ -14,11 +16,12 @@ import { IHeart } from "@interfaces";
 import { HeartLog } from "@user/database/entities/heart-log.entity";
 import { User } from "@user/database/entities/user.entity";
 
-@Entity("heart")
-export class Heart implements IHeart {
-  @PrimaryGeneratedColumn("uuid")
-  public id: string;
+@Entity("hearts")
+export class Heart extends BaseEntity implements IHeart {
+  @PrimaryGeneratedColumn("increment")
+  public id: number;
 
+  @Index("USER_ID_INDEX")
   @Column({ name: "user_id" })
   public userId: string;
 

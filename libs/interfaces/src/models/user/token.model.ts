@@ -1,4 +1,4 @@
-import { IUser } from "@interfaces/user";
+import { IUser } from "@interfaces";
 
 export interface IToken {
   id: string;

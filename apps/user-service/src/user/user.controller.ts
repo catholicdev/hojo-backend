@@ -22,19 +22,6 @@ export class UserController {
     return this.userAuthenService.authenticateUserPassword(payload, UserTokenTypeEnum.CUSTOMER);
   }
 
-  @Post("guest/auth.login")
-  async loginGuest() {
-    this.logger.log(`guest/auth.login: start guest login`);
-    return this.userAuthenService.loginGuest();
-  }
-
-  @Post("guest/auth.relogin")
-  async reloginGuest(@Body() message) {
-    this.logger.log(`guest/auth.relogin: ${JSON.stringify(message)}`);
-    const { userId, appId } = message;
-    return this.userAuthenService.reloginGuest(userId, appId);
-  }
-
   @Post("auth/verify-guest")
   async verifyGuest(@Body() payload) {
     this.logger.log(`verify-guest: ${JSON.stringify(payload)}`);
@@ -54,13 +41,6 @@ export class UserController {
     this.logger.log(`weekly-bible: ${JSON.stringify(payload)}`);
     const { userId } = payload;
     return this.userBibleService.weeklyBible(userId);
-  }
-
-  @Post("guest/auth.verify-token")
-  async validateToken(@Body() messase) {
-    this.logger.log(`guest/auth.verify-token: ${JSON.stringify(messase)}`);
-    const { token } = messase;
-    return this.userAuthenService.verifyGuestToken(token);
   }
 
   @Post("auth/verify-firebase-token")
