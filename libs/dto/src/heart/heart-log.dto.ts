@@ -1,11 +1,13 @@
 import { ApiProperty } from "@nestjs/swagger";
-import { HeartLogTypeEnum } from "@type";
+
 import { Expose } from "class-transformer";
+
+import { HeartLogTypeEnum } from "@type";
 
 export class HeartLogDto {
   @Expose()
   @ApiProperty()
-  public heartId: string;
+  public heartId: number;
 
   @Expose()
   @ApiProperty()
