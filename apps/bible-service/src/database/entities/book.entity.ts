@@ -1,12 +1,13 @@
-import { Column, Entity, PrimaryGeneratedColumn, OneToMany } from "typeorm";
+import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from "typeorm";
 
 import { BookGroupEnum, BookTypeEnum } from "@type";
-import { IBook } from "@interfaces/bible";
+
+import { IBook } from "@interfaces";
 
 import { Chapter } from "@bible/database/entities/chapter.entity";
 import { Pillar } from "@bible/database/entities/pillar.entity";
 
-@Entity("book")
+@Entity("books")
 export class Book implements IBook {
   @PrimaryGeneratedColumn("uuid")
   public id: string;

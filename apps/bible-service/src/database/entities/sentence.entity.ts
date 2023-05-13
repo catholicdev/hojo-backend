@@ -1,18 +1,20 @@
-import { Column, Entity, PrimaryGeneratedColumn, ManyToOne, JoinColumn } from "typeorm";
+import { Column, Entity, Index, JoinColumn, ManyToOne, PrimaryGeneratedColumn } from "typeorm";
+
+import { ISentence } from "@interfaces";
 
 import { Chapter } from "@bible/database/entities/chapter.entity";
 import { Pillar } from "@bible/database/entities/pillar.entity";
 
-import { ISentence } from "@interfaces/bible";
-
-@Entity("sentence")
+@Entity("sentences")
 export class Sentence implements ISentence {
   @PrimaryGeneratedColumn("increment")
   public id: number;
 
+  @Index("CHAPTER_ID_INDEX")
   @Column({ name: "chapter_id" })
   public chapterId: string;
 
+  @Index("PILLAR_ID_INDEX")
   @Column({ name: "pillar_id", nullable: true })
   public pillarId: string;
 

@@ -31,8 +31,12 @@ As a contributor, here are the guidelines we would like you to follow:
 
 ## Typeorm migrations
 
-- Create new migration: nx run user-service:create-migration --name=add_table_users
-- Run migrations: nx run user-service:run-migrations
+- Create new migration:
+  - Mac/Linux: `nx run user-service:create-migration --name=add_table_users`
+  - Windows: `ts-node --project tsconfig.app.json ../../node_modules/typeorm/cli.js migration:create -d .\src\migrations --name=add_table_users`
+- Run migrations:
+  - Mac/Linux: `nx run user-service:run-migrations`
+  - Windows: `ts-node --project tsconfig.app.json ../../node_modules/typeorm/cli.js migration:run -f typeorm.json`
 - How to write migration: https://typeorm.io/migrations
 
 Thank you for your contribution. May God bless you.
