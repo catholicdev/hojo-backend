@@ -1,22 +1,24 @@
 import {
   Column,
-  Entity,
-  PrimaryGeneratedColumn,
   CreateDateColumn,
-  UpdateDateColumn,
-  ManyToOne,
+  Entity,
+  Index,
   JoinColumn,
+  ManyToOne,
+  PrimaryGeneratedColumn,
+  UpdateDateColumn,
 } from "typeorm";
 
-import { IAnswer } from "@interfaces/game";
+import { IAnswer } from "@interfaces";
 
 import { Question } from "@game/database/entities/question.entity";
 
-@Entity("answer")
+@Entity("answers")
 export class Answer implements IAnswer {
   @PrimaryGeneratedColumn("increment")
   public id: string;
 
+  @Index("QUESTION_ID_INDEX")
   @Column({ name: "question_id" })
   public questionId: string;
 

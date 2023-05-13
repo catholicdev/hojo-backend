@@ -1,27 +1,32 @@
 import {
   Column,
-  Entity,
-  PrimaryGeneratedColumn,
   CreateDateColumn,
-  UpdateDateColumn,
-  OneToOne,
+  Entity,
+  Index,
   JoinColumn,
+  OneToOne,
+  PrimaryGeneratedColumn,
+  UpdateDateColumn,
 } from "typeorm";
 
-import { IStageSetting } from "@interfaces/game";
+import { IStageSetting } from "@interfaces";
+
 import { Stage } from "@game/database/entities/stage.entity";
 
-@Entity("stage_setting")
+@Entity("stage_settings")
 export class StageSetting implements IStageSetting {
   @PrimaryGeneratedColumn("uuid", { name: "id" })
   public id: string;
 
+  @Index("STAGE_ID_INDEX")
   @Column({ name: "stage_id" })
   public stageId: string;
 
+  @Index("NEXT_STAGE_ID_INDEX")
   @Column({ name: "next_stage_id" })
   public nextStageId: string;
 
+  @Index("STAGE_REWARD_ID_INDEX")
   @Column({ name: "stage_reward_id", nullable: true })
   public rewardId?: string;
 

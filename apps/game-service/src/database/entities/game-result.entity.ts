@@ -1,8 +1,8 @@
-import { Column, Entity, PrimaryGeneratedColumn, CreateDateColumn } from "typeorm";
+import { Column, CreateDateColumn, Entity, Index, PrimaryGeneratedColumn } from "typeorm";
 
-import { IGameResult } from "@interfaces/game";
+import { IGameResult } from "@interfaces";
 
-@Entity("game_result")
+@Entity("game_results")
 export class GameResult implements IGameResult {
   @PrimaryGeneratedColumn("uuid", { name: "id" })
   public id: string;
@@ -10,6 +10,7 @@ export class GameResult implements IGameResult {
   @Column({ name: "game_code", unique: true })
   public gameCode: string;
 
+  @Index("USER_ID_INDEX")
   @Column({ name: "user_id" })
   public userId: string;
 
