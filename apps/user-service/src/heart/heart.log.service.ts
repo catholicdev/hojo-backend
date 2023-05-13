@@ -1,5 +1,6 @@
-import { HeartLogDto } from "@dto";
 import { Injectable } from "@nestjs/common";
+
+import { HeartLogDto } from "@dto";
 
 import { HeartLogRepository } from "@user/database/repositories";
 

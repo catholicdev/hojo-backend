@@ -132,9 +132,9 @@ export class UserAuthenService {
   async verifyEmail(email: string) {
     const user = await this.userRepo.findOne({ where: { email } });
     if (user) {
-      throw new BadRequestException(`Email này đã được sử dụng.`);
+      return { isValid: false };
     }
 
-    return true;
+    return { isValid: true };
   }
 }
