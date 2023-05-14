@@ -1,25 +1,28 @@
 import {
   Column,
-  Entity,
-  PrimaryGeneratedColumn,
   CreateDateColumn,
-  UpdateDateColumn,
-  ManyToOne,
+  Entity,
+  Index,
   JoinColumn,
+  ManyToOne,
   OneToMany,
+  PrimaryGeneratedColumn,
+  UpdateDateColumn,
 } from "typeorm";
 
 import { QuestionLevelEnum } from "@type";
-import { IQuestion } from "@interfaces/game";
 
-import { Stage } from "@game/database/entities/stage.entity";
+import { IQuestion } from "@interfaces";
+
 import { Answer } from "@game/database/entities/answer.entity";
+import { Stage } from "@game/database/entities/stage.entity";
 
-@Entity("question")
+@Entity("questions")
 export class Question implements IQuestion {
   @PrimaryGeneratedColumn("uuid")
   public id: string;
 
+  @Index("STAGE_ID_INDEX")
   @Column({ name: "stage_id" })
   public stageId: string;
 

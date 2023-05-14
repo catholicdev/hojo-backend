@@ -1,17 +1,19 @@
-import { Column, Entity, PrimaryGeneratedColumn, CreateDateColumn, ManyToOne, JoinColumn } from "typeorm";
+import { Column, CreateDateColumn, Entity, Index, JoinColumn, ManyToOne, PrimaryGeneratedColumn } from "typeorm";
 
-import { ICurrentGame } from "@interfaces/game";
+import { ICurrentGame } from "@interfaces";
 
 import { Stage } from "@game/database/entities/stage.entity";
 
-@Entity("current_game")
+@Entity("current_games")
 export class CurrentGame implements ICurrentGame {
   @PrimaryGeneratedColumn("uuid")
   public id: string;
 
+  @Index("USER_ID_INDEX")
   @Column({ name: "user_id" })
   public userId: string;
 
+  @Index("STAGE_ID_INDEX")
   @Column({ name: "stage_id" })
   public stageId: string;
 

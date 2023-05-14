@@ -1,33 +1,37 @@
 import {
   Column,
-  Entity,
-  PrimaryGeneratedColumn,
   CreateDateColumn,
-  UpdateDateColumn,
+  Entity,
+  Index,
+  JoinColumn,
   ManyToOne,
   OneToMany,
-  JoinColumn,
   OneToOne,
+  PrimaryGeneratedColumn,
+  UpdateDateColumn,
 } from "typeorm";
 
-import { IStage } from "@interfaces/game";
+import { IStage } from "@interfaces";
 
+import { CurrentGame } from "@game/database/entities/current-game.entity";
 import { Question } from "@game/database/entities/question.entity";
 import { Round } from "@game/database/entities/round.entity";
 import { StageSetting } from "@game/database/entities/stage-setting.entity";
-import { CurrentGame } from "@game/database/entities/current-game.entity";
 
-@Entity("stage")
+@Entity("stages")
 export class Stage implements IStage {
   @PrimaryGeneratedColumn("uuid")
   public id: string;
 
+  @Index("ROUND_ID_INDEX")
   @Column({ name: "round_id" })
   public roundId: string;
 
+  @Index("BOOK_ID_INDEX")
   @Column({ name: "book_id" })
   public bookId: string;
 
+  @Index("STAGE_REWARD_ID_INDEX")
   @Column({ name: "stage_reward_id", nullable: true })
   public rewardId?: string;
 
