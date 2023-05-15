@@ -132,9 +132,9 @@ export class UserAuthenService {
   async verifyEmail(email: string) {
     const user = await this.userRepo.findOne({ where: { email } });
     if (user) {
-      return { isUsed: false };
+      return { isUsed: true };
     }
 
-    return { isUsed: true };
+    return { isUsed: false };
   }
 }
