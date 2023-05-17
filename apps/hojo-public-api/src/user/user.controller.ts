@@ -1,8 +1,13 @@
-import { Body, Controller, Logger, Post } from "@nestjs/common";
-import { ApiTags } from "@nestjs/swagger";
+import { Body, Controller, Get, Logger, Post, UseGuards } from "@nestjs/common";
+import { ApiOkResponse, ApiTags } from "@nestjs/swagger";
 
-import { UserPasswordLoginDto } from "@dto";
+import { BibleSentenceResponse, UserPasswordLoginDto } from "@dto";
 
+import { Serialize, User } from "@util";
+
+import { UserInterface } from "@interfaces";
+
+import { FirebaseAuthGuard } from "@pub/auth/guards";
 import { UserService } from "@pub/user/user.service";
 
 @ApiTags("User")
@@ -11,6 +16,15 @@ export class UserController {
   private readonly logger = new Logger(this.constructor.name);
 
   constructor(private readonly userService: UserService) {}
+
+  @Get("daily-bible")
+  @UseGuards(FirebaseAuthGuard)
+  @ApiOkResponse({ type: BibleSentenceResponse })
+  @Serialize(BibleSentenceResponse)
+  async getDailyBible(@User() user: UserInterface) {
+    const { userId } = user;
+    return this.userService.getDailyBible(userId);
+  }
 
   @Post("app/login")
   async loginApp(@Body() body: UserPasswordLoginDto) {
@@ -27,13 +41,4 @@ export class UserController {
     const { email } = body;
     return this.userService.verifyEmail(email);
   }
-
-  // @Post("guest/daily-bible")
-  // @UseGuards(GuestJwtAuthGuard)
-  // @ApiOkResponse({ type: BibleSentenceResponse })
-  // // @Serialize(BibleSentenceResponse)
-  // async receiveDailyBible(@Guest() guest: GuestInterface) {
-  //   const { userId } = guest;
-  //   return this.usersService.receiveDailyBible(userId);
-  // }
 }

@@ -7,3 +7,4 @@ export * from "./help-used.interface";
 export * from "./location.interface";
 export * from "./pagination-result.interface";
 export * from "./firebase-verify-result.interface";
+export * from "./user.interface";

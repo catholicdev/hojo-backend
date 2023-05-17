@@ -1,4 +1,5 @@
 import { BookGroupEnum, BookTypeEnum } from "@type";
+
 import { IChapter, IPillar } from "@interfaces";
 
 export interface IBook {
@@ -11,6 +12,7 @@ export interface IBook {
   totalPillar?: number;
   summary: string;
   group: BookGroupEnum;
+
   chapters?: IChapter[];
   pillars?: IPillar[];
 }

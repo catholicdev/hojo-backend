@@ -42,16 +42,16 @@ export class GuestController {
     return this.usersService.reloginGuest(userId, appId);
   }
 
-  @Get("daily-bible")
-  @UseGuards(GuestJwtAuthGuard)
-  @Serialize(BibleSentenceResponse)
-  @Swagger({ response: BibleSentenceResponse, auth: "access-token" })
-  async receiveDailyBible(@Guest() guest: GuestInterface) {
-    this.logger.log(`daily-bible`);
-    const { userId } = guest;
+  // @Get("daily-bible")
+  // @UseGuards(GuestJwtAuthGuard)
+  // @Serialize(BibleSentenceResponse)
+  // @Swagger({ response: BibleSentenceResponse, auth: "access-token" })
+  // async receiveDailyBible(@Guest() guest: GuestInterface) {
+  //   this.logger.log(`daily-bible`);
+  //   const { userId } = guest;
 
-    return this.usersService.receiveDailyBible(userId);
-  }
+  //   return this.usersService.receiveDailyBible(userId);
+  // }
 
   @Get("weekly-bible")
   @UseGuards(GuestJwtAuthGuard)

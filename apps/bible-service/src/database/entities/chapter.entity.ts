@@ -18,7 +18,7 @@ export class Chapter implements IChapter {
   public code?: string;
 
   @Column({ name: "chapter_sequence" })
-  public sequence: string;
+  public sequence: number;
 
   @Column({ name: "chapter_name", type: "text", nullable: true })
   public name?: string;
