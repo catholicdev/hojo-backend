@@ -16,15 +16,10 @@ import { CreateUserDto, UserPasswordLoginDto } from "@dto";
 import { ErrorCodeConstant, ErrorMessageConstant, UserStatusEnum, UserTokenTypeEnum } from "@type";
 
 import { UserRepository } from "@user/database/repositories";
-import { UsersHelperService } from "@user/user/user.helper.service";
 
 @Injectable()
 export class UserAuthenService {
-  constructor(
-    private readonly userRepo: UserRepository,
-    private readonly userHelperService: UsersHelperService,
-    private readonly firebaseService: FirebaseService
-  ) {}
+  constructor(private readonly userRepo: UserRepository, private readonly firebaseService: FirebaseService) {}
 
   async authenticateUserEmail(email: string) {
     const user = await this.userRepo.findUserByEmail(email);
@@ -68,14 +63,15 @@ export class UserAuthenService {
   }
 
   async verifyFirebaseToken(token: string) {
-    return auth().verifyIdToken(token);
+    const result = await auth().verifyIdToken(token);
+    return result;
   }
 
   async registerNewUser(payload: CreateUserDto) {
     const salt = await genSalt(10);
     const newPassword = await hash(payload.password, salt);
 
-    let accessToken: string;
+    let firebaseIdToken: string;
     let uid: string;
 
     try {
@@ -87,14 +83,17 @@ export class UserAuthenService {
     }
 
     try {
-      accessToken = await this.firebaseService.getUserCustomToken(uid);
+      const accessToken = await this.firebaseService.getUserCustomToken(uid);
+      const firebaseToken = await this.firebaseService.verifyCustomToken(accessToken);
+      firebaseIdToken = firebaseToken.idToken;
     } catch (error) {
       throw new NotFoundException("Could not get custom access token for user.");
     }
 
-    if (accessToken) {
+    if (firebaseIdToken) {
       try {
         const newUser = this.userRepo.create({
+          id: uid,
           firebaseUid: uid,
           firstName: payload.firstName,
           lastName: payload.lastName,
@@ -107,7 +106,7 @@ export class UserAuthenService {
         throw new InternalServerErrorException(error);
       }
 
-      return { accessToken };
+      return { accessToken: firebaseIdToken };
     }
 
     return null;
@@ -126,7 +125,9 @@ export class UserAuthenService {
 
     const result = await this.firebaseService.verifyUser(payload.email, user.passwordHash);
     const accessToken = await this.firebaseService.getUserCustomToken(result.localId, { [userTokenType]: true });
-    return { accessToken };
+
+    const firebaseToken = await this.firebaseService.verifyCustomToken(accessToken);
+    return { accessToken: firebaseToken.idToken };
   }
 
   async verifyEmail(email: string) {

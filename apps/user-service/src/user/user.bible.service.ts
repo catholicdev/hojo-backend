@@ -1,10 +1,12 @@
 import { Injectable } from "@nestjs/common";
-import { Between } from "typeorm";
 
 import * as dayjs from "dayjs";
 import { AxiosInstance } from "axios";
+import { Between } from "typeorm";
 
 import { bibleServiceConsumer } from "@util";
+
+import { ISentence } from "@interfaces";
 
 import { DailyBibleRepository } from "@user/database/repositories";
 
@@ -14,7 +16,7 @@ export class UserBibleService {
 
   constructor(private dailyBibleRepo: DailyBibleRepository) {}
 
-  async dailyBible(userId: string) {
+  async getDailyBible(userId: string) {
     const todayBible = await this.dailyBibleRepo.findByUserId(userId);
 
     if (todayBible && dayjs().isSame(dayjs(todayBible.receiveDate), "day")) {
@@ -26,7 +28,7 @@ export class UserBibleService {
       };
     }
 
-    const dailyBible = (await this.bibleServiceClient.post("daily/bible")).data;
+    const dailyBible: ISentence = (await this.bibleServiceClient.get("daily")).data;
 
     const userDailyBible = this.dailyBibleRepo.create({
       userId,
@@ -48,23 +50,17 @@ export class UserBibleService {
 
   async weeklyBible(userId: string) {
     const from = dayjs().day(0);
-    const to = from.add(7, 'day');
+    const to = from.add(7, "day");
 
     return await this.dailyBibleRepo.find({
-      select: [
-        "sentence",
-        "sequence",
-        "chapterSequence",
-        "bookAbbreviation",
-        "receiveDate"
-      ],
+      select: ["sentence", "sequence", "chapterSequence", "bookAbbreviation", "receiveDate"],
       where: {
         userId,
-        receiveDate: Between(from.format('YYYY-MM-DD'), to.format('YYYY-MM-DD'))
+        receiveDate: Between(from.format("YYYY-MM-DD"), to.format("YYYY-MM-DD")),
       },
       order: {
-        receiveDate: "ASC"
-      }
-    })
+        receiveDate: "ASC",
+      },
+    });
   }
 }

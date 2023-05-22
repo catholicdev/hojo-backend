@@ -8,6 +8,7 @@ export interface ISentence {
   pillarId?: string;
   sequence: number;
   content: string;
+
   chapter: IChapter;
   pillar?: IPillar;
 }

@@ -1,4 +1,4 @@
-import { Body, Controller, Logger, Post } from "@nestjs/common";
+import { Body, Controller, Get, Logger, Param, Post } from "@nestjs/common";
 
 import { CreateUserDto, UserPasswordLoginDto } from "@dto";
 
@@ -16,6 +16,12 @@ export class UserController {
     private readonly userBibleService: UserBibleService
   ) {}
 
+  @Get(":userId/daily-bible")
+  async getDailyBible(@Param("userId") userId: string) {
+    this.logger.log(`daily-bible: ${userId}`);
+    return this.userBibleService.getDailyBible(userId);
+  }
+
   @Post("login")
   async login(@Body() payload: UserPasswordLoginDto) {
     this.logger.log(`login: ${JSON.stringify(payload)}`);
@@ -27,13 +33,6 @@ export class UserController {
     this.logger.log(`verify-guest: ${JSON.stringify(payload)}`);
     const { id, appId } = payload;
     return this.userAuthenService.verifyGuest(id, appId);
-  }
-
-  @Post("daily-bible")
-  async dailyBible(@Body() payload) {
-    this.logger.log(`daily-bible: ${JSON.stringify(payload)}`);
-    const { userId } = payload;
-    return this.userBibleService.dailyBible(userId);
   }
 
   @Post("weekly-bible")

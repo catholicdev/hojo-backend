@@ -27,8 +27,8 @@ export class UserService {
     return result.data;
   }
 
-  async receiveDailyBible(userId: string) {
-    const result = await this.userServiceClient.post("user/daily-bible", { userId });
+  async getDailyBible(userId: string) {
+    const result = await this.userServiceClient.get(`user/${userId}/daily-bible`);
     return result.data;
   }
 

@@ -85,4 +85,16 @@ export class FirebaseService {
   async setUserCustomClaims(uid: string, data: object) {
     return await admin.auth().setCustomUserClaims(uid, { ...data });
   }
+
+  async verifyCustomToken(token: string) {
+    return (
+      await this.httpService.post(
+        `https://www.googleapis.com/identitytoolkit/v3/relyingparty/verifyCustomToken?key=${this.apiKey}`,
+        {
+          token,
+          returnSecureToken: true,
+        }
+      )
+    ).data;
+  }
 }

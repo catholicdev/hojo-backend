@@ -1,4 +1,4 @@
-import { Logger, Controller, Post } from "@nestjs/common";
+import { Controller, Get, Logger } from "@nestjs/common";
 
 import { DailyBibleService } from "@bible/daily-bible/daily-bible.service";
 
@@ -8,10 +8,9 @@ export class DailyBibleController {
 
   constructor(private readonly dailyBibleService: DailyBibleService) {}
 
-  @Post("bible")
-  async bible() {
-    this.logger.log(`start get bible`);
-
+  @Get()
+  async getDailyBible() {
+    this.logger.log(`start get daily bible`);
     return this.dailyBibleService.randomBibleSentence();
   }
 }
