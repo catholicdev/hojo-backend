@@ -24,7 +24,6 @@ export class UserController {
 
   @Post("login")
   async login(@Body() payload: UserPasswordLoginDto) {
-    this.logger.log(`login: ${JSON.stringify(payload)}`);
     return this.userAuthenService.authenticateUserPassword(payload, UserTokenTypeEnum.CUSTOMER);
   }
 

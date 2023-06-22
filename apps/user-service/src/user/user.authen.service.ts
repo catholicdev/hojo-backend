@@ -15,6 +15,8 @@ import { CreateUserDto, UserPasswordLoginDto } from "@dto";
 
 import { ErrorCodeConstant, ErrorMessageConstant, UserStatusEnum, UserTokenTypeEnum } from "@type";
 
+import { IUser } from "@interfaces";
+
 import { UserRepository } from "@user/database/repositories";
 
 @Injectable()
@@ -113,21 +115,39 @@ export class UserAuthenService {
   }
 
   async authenticateUserPassword(payload: UserPasswordLoginDto, userTokenType: UserTokenTypeEnum) {
-    const user = await this.userRepo.findOne({ where: { email: payload.email } });
+    const user: IUser = await this.userRepo.findOne({ where: { email: payload.email } });
     if (!user) {
-      throw new NotFoundException(`User not found.`);
+      throw new NotFoundException(`Không tồn tại tài khoản này.`);
     }
 
     const valid = await compare(payload.password, user.passwordHash);
     if (!valid) {
-      throw new BadRequestException(`Wrong password`);
+      throw new BadRequestException(`Mật khẩu không chính xác.`);
     }
 
-    const result = await this.firebaseService.verifyUser(payload.email, user.passwordHash);
-    const accessToken = await this.firebaseService.getUserCustomToken(result.localId, { [userTokenType]: true });
+    try {
+      const result = await this.firebaseService.verifyUser(payload.email, user.passwordHash);
+      const accessToken = await this.firebaseService.getUserCustomToken(result.localId, { [userTokenType]: true });
 
-    const firebaseToken = await this.firebaseService.verifyCustomToken(accessToken);
-    return { accessToken: firebaseToken.idToken };
+      const firebaseToken = await this.firebaseService.verifyCustomToken(accessToken);
+      return { accessToken: firebaseToken.idToken };
+    } catch (ex) {
+      switch (ex.response.error.message) {
+        case "EMAIL_NOT_FOUND":
+          throw new BadRequestException("Sorry, you are not registered");
+
+        case "INVALID_PASSWORD":
+          throw new BadRequestException("The password you entered is incorrect. Please try again!");
+      }
+
+      if (ex.response.error.message.startsWith("TOO_MANY_ATTEMPTS_TRY_LATER")) {
+        throw new BadRequestException(
+          "Access to this account has been temporarily disabled due to many failed login attempts!"
+        );
+      }
+
+      throw new InternalServerErrorException(ex.response.error.message);
+    }
   }
 
   async verifyEmail(email: string) {

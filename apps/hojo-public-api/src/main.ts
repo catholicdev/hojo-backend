@@ -1,18 +1,16 @@
-/**
- * This is not a production server yet!
- * This is only a minimal backend to get started.
- */
-
 import { Logger, ValidationPipe } from "@nestjs/common";
+import { ConfigService } from "@nestjs/config";
 import { NestFactory } from "@nestjs/core";
 import { DocumentBuilder, SwaggerModule } from "@nestjs/swagger";
-import { ConfigService } from "@nestjs/config";
-import { utilities as nestWinstonModuleUtilities, WinstonModule } from "nest-winston";
+
+import * as dotenvConf from "dotenv";
 import * as winston from "winston";
+import { utilities as nestWinstonModuleUtilities, WinstonModule } from "nest-winston";
+
+import { ExceptionHandlerInterceptor, TransformResponseInterceptor } from "@util";
 
 import { AppModule } from "@pub/app/app.module";
 
-import * as dotenvConf from "dotenv";
 dotenvConf.config();
 
 async function bootstrap() {
@@ -62,6 +60,8 @@ async function bootstrap() {
   });
 
   app.useGlobalPipes(new ValidationPipe());
+  app.useGlobalInterceptors(new TransformResponseInterceptor());
+  app.useGlobalInterceptors(new ExceptionHandlerInterceptor());
 
   const port = process.env.PORT;
   await app.listen(port);

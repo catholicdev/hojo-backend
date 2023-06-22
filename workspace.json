@@ -6,6 +6,7 @@
     "game-service": "apps/game-service",
     "hojo-public-api": "apps/hojo-public-api",
     "interfaces": "libs/interfaces",
+    "middlewares": "libs/middlewares",
     "share-modules": "libs/share-modules",
     "types": "libs/types",
     "user-service": "apps/user-service",

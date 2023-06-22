@@ -1,11 +1,14 @@
-import { Logger } from "@nestjs/common";
-import { NestFactory } from "@nestjs/core";
+import { Logger, ValidationPipe } from "@nestjs/common";
 import { ConfigService } from "@nestjs/config";
+import { NestFactory } from "@nestjs/core";
+
+import * as dotenvConf from "dotenv";
 import * as admin from "firebase-admin";
+
+import { ExceptionHandlerInterceptor, TransformResponseInterceptor } from "@util";
 
 import { AppModule } from "@user/app/app.module";
 
-import * as dotenvConf from "dotenv";
 dotenvConf.config();
 
 async function bootstrap() {
@@ -29,6 +32,8 @@ async function bootstrap() {
     credentials: true,
     origin: corsOrigin ? corsOrigin.split(",") : [],
   });
+
+  app.useGlobalPipes(new ValidationPipe());
 
   const port = process.env.PORT;
   await app.listen(port);
