@@ -11,10 +11,9 @@ export class UserService {
   private readonly userServiceClient: AxiosInstance = userServiceConsumer();
 
   async loginApp(loginDTO: UserPasswordLoginDto) {
-    const result = await this.userServiceClient.post("user/login", {
+    return this.userServiceClient.post("user/login", {
       ...loginDTO,
     });
-    return result.data;
   }
 
   async loginGuest() {

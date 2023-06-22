@@ -1,9 +1,9 @@
+import { CallHandler, ExecutionContext, NestInterceptor, UseInterceptors } from "@nestjs/common";
+
 import { plainToInstance } from "class-transformer";
+import { isArray, isNumber } from "lodash";
 import { Observable } from "rxjs";
 import { map } from "rxjs/operators";
-
-import { CallHandler, ExecutionContext, NestInterceptor, UseInterceptors } from "@nestjs/common";
-import { isArray, isNumber } from "lodash";
 
 interface IClassConstructor {
   new (...args: []): unknown;
