@@ -1,15 +1,18 @@
-import { HttpException, HttpStatus, Injectable } from "@nestjs/common";
+import { HttpException, HttpStatus, Injectable, NotFoundException } from "@nestjs/common";
 
-import { v4 as uuidv4 } from "uuid";
-import { AxiosInstance } from "axios";
 import * as shortid from "short-uuid";
+import { AxiosInstance } from "axios";
+import { v4 as uuidv4 } from "uuid";
+
+import { EndGameDto } from "@dto";
 
 import { GameHelpEnum, HeartLogTypeEnum } from "@type";
-import { EndGameDto } from "@dto";
-import { userServiceConsumer, bibleServiceConsumer } from "@util";
+
+import { bibleServiceConsumer, userServiceConsumer } from "@util";
 
 import { GameResultRepository, StageRepository, StageSettingRepository } from "@game/database/repositories";
 import { CurrentGameRepository } from "@game/database/repositories/current-game.repository";
+
 @Injectable()
 export class StageService {
   private readonly userServiceClient = userServiceConsumer() as AxiosInstance;
@@ -127,12 +130,9 @@ export class StageService {
       },
     });
 
-    if (!bookId) throw new HttpException("Notfound-Book", HttpStatus.NOT_FOUND);
+    if (!bookId) throw new NotFoundException("Book not found.");
 
-    const result = await this.bibleServiceClient.post("chapter/get-chapter-book", {
-      bookId,
-    });
-
+    const result = await this.bibleServiceClient.get(`chapter/chapter-book/${bookId}`);
     return result.data;
   }
 }

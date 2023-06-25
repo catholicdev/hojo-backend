@@ -40,6 +40,9 @@ export class Round implements IRound {
   @Column({ name: "round_code", nullable: false })
   public roundCode: string;
 
+  @Column({ name: "image_url", nullable: true })
+  public imageUrl: string;
+
   // Relationships
   @OneToMany(() => Stage, (stage) => stage.round)
   public stages: Stage[];

@@ -1,11 +1,12 @@
 import { Injectable } from "@nestjs/common";
 
-import { RoundRepository } from "@game/database/repositories";
 import { SystemStatusEnum } from "@type";
+
+import { RoundRepository, StageRepository } from "@game/database/repositories";
 
 @Injectable()
 export class RoundService {
-  constructor(private readonly roundRepo: RoundRepository) {}
+  constructor(private readonly roundRepo: RoundRepository, private readonly stageRepo: StageRepository) {}
 
   async getRounds() {
     const rounds = await this.roundRepo.find({
@@ -19,8 +20,7 @@ export class RoundService {
   }
 
   async getStages(roundId: string) {
-    const round = await this.roundRepo.findOne({ id: roundId }, { relations: ["stages"] });
-    return round.stages;
+    return this.stageRepo.find({ where: { roundId: roundId }, order: { stageSequence: "ASC" } });
   }
 
   async getUserStages(roundId: string, userId: string) {
