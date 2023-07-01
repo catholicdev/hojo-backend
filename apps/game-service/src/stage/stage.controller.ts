@@ -1,7 +1,8 @@
-import { Body, Controller, Logger, Post } from "@nestjs/common";
+import { Body, Controller, Get, Logger, Param, Post } from "@nestjs/common";
+
+import { EndGameDto } from "@dto";
 
 import { StageService } from "@game/stage/stage.service";
-import { EndGameDto } from "@dto";
 
 @Controller("stage")
 export class StageController {
@@ -29,10 +30,8 @@ export class StageController {
     return this.stageService.endGame(message);
   }
 
-  @Post("get-book")
-  async getBook(@Body() message) {
-    this.logger.log(`get-book: ${JSON.stringify(message)}`);
-    const { stageId } = message;
+  @Get(":stageId/get-book")
+  async getBook(@Param("stageId") stageId: string) {
     return this.stageService.getBookByStage(stageId);
   }
 }

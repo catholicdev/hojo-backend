@@ -1,4 +1,4 @@
-import { Post, Logger, Controller, Body } from "@nestjs/common";
+import { Body, Controller, Get, Logger, Param, Post } from "@nestjs/common";
 
 import { RoundService } from "./round.service";
 
@@ -8,17 +8,13 @@ export class RoundController {
 
   constructor(private readonly roundService: RoundService) {}
 
-  @Post("get-all")
+  @Get("get-all")
   async getAllRounds() {
-    this.logger.log(`get-all`);
     return this.roundService.getRounds();
   }
 
-  @Post("stages")
-  async getStages(@Body() message) {
-    this.logger.log(`stages: ${JSON.stringify(message)}`);
-    const { roundId } = message;
-
+  @Get(":roundId/stages")
+  async getStages(@Param("roundId") roundId: string) {
     return this.roundService.getStages(roundId);
   }
 

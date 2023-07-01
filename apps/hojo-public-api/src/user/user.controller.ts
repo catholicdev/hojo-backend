@@ -5,7 +5,7 @@ import { BibleSentenceResponse, UserPasswordLoginDto } from "@dto";
 
 import { Serialize, User } from "@util";
 
-import { UserInterface } from "@interfaces";
+import { AuthorizedUserInterface } from "@interfaces";
 
 import { FirebaseAuthGuard } from "@pub/auth/guards";
 import { UserService } from "@pub/user/user.service";
@@ -21,7 +21,7 @@ export class UserController {
   @UseGuards(FirebaseAuthGuard)
   @ApiOkResponse({ type: BibleSentenceResponse })
   @Serialize(BibleSentenceResponse)
-  async getDailyBible(@User() user: UserInterface) {
+  async getDailyBible(@User() user: AuthorizedUserInterface) {
     const { userId } = user;
     return this.userService.getDailyBible(userId);
   }

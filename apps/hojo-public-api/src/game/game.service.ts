@@ -1,21 +1,21 @@
 import { Injectable } from "@nestjs/common";
+
 import { AxiosInstance } from "axios";
 
-import { gameServiceConsumer } from "@util";
 import { EndGameDto, UserHelpDto } from "@dto";
+
+import { gameServiceConsumer } from "@util";
 
 @Injectable()
 export class GameService {
   private readonly gameServiceClient: AxiosInstance = gameServiceConsumer();
 
   async getRounds() {
-    const result = await this.gameServiceClient.post("round/get-all");
-    return result.data;
+    return this.gameServiceClient.get("round/get-all");
   }
 
   async getStages(roundId: string) {
-    const result = await this.gameServiceClient.post("round/stages", { roundId });
-    return result.data;
+    return this.gameServiceClient.get(`round/${roundId}/stages`);
   }
 
   async startGame(userId: string, stageId: string) {
@@ -44,11 +44,7 @@ export class GameService {
   }
 
   async getBook(stageId: string) {
-    const result = await this.gameServiceClient.post("stage/get-book", {
-      stageId,
-    });
-
-    return result.data;
+    return this.gameServiceClient.get(`stage/${stageId}/get-book`);
   }
 
   async getUserStages(roundId: string, userId: string) {

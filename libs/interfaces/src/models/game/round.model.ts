@@ -1,4 +1,5 @@
 import { SystemStatusEnum } from "@type";
+
 import { IStage } from "@interfaces";
 
 export interface IRound {
@@ -9,5 +10,7 @@ export interface IRound {
   updatedDate: Date;
   updatedBy?: string;
   roundCode: string;
+  imageUrl?: string;
+
   stages: IStage[];
 }

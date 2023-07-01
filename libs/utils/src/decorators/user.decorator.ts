@@ -1,8 +1,10 @@
 import { createParamDecorator, ExecutionContext } from "@nestjs/common";
 
-import { UserInterface } from "@interfaces";
+import { AuthorizedUserInterface } from "@interfaces";
 
-export const User = createParamDecorator<UserInterface>((_data, ctx: ExecutionContext): UserInterface => {
-  const request = ctx.switchToHttp().getRequest();
-  return request.user as UserInterface;
-});
+export const User = createParamDecorator<AuthorizedUserInterface>(
+  (_data, ctx: ExecutionContext): AuthorizedUserInterface => {
+    const request = ctx.switchToHttp().getRequest();
+    return request.user as AuthorizedUserInterface;
+  }
+);
