@@ -11,9 +11,7 @@ export class UserService {
   private readonly userServiceClient: AxiosInstance = userServiceConsumer();
 
   async loginApp(loginDTO: UserPasswordLoginDto) {
-    return this.userServiceClient.post("user/login", {
-      ...loginDTO,
-    });
+    return this.userServiceClient.post("user/login", loginDTO);
   }
 
   async loginGuest() {
@@ -27,22 +25,18 @@ export class UserService {
   }
 
   async getDailyBible(userId: string) {
-    const result = await this.userServiceClient.get(`user/${userId}/daily-bible`);
-    return result.data;
+    return this.userServiceClient.get(`user/${userId}/daily-bible`);
   }
 
   async getWeekBible(userId: string) {
-    const result = await this.userServiceClient.post("user/weekly-bible", { userId });
-    return result.data;
+    return this.userServiceClient.post("user/weekly-bible", { userId });
   }
 
   async registerNewUser(payload: any) {
-    const result = await this.userServiceClient.post("user/registration", payload);
-    return result.data;
+    return this.userServiceClient.post("user/registration", payload);
   }
 
   async verifyEmail(email: string) {
-    const result = await this.userServiceClient.post("user/verify-email", { email });
-    return result.data;
+    return this.userServiceClient.post("user/verify-email", { email });
   }
 }

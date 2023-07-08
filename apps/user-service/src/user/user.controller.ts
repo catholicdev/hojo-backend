@@ -18,13 +18,12 @@ export class UserController {
 
   @Get(":userId/daily-bible")
   async getDailyBible(@Param("userId") userId: string) {
-    this.logger.log(`daily-bible: ${userId}`);
     return this.userBibleService.getDailyBible(userId);
   }
 
   @Post("login")
   async login(@Body() payload: UserPasswordLoginDto) {
-    return this.userAuthenService.authenticateUserPassword(payload, UserTokenTypeEnum.CUSTOMER);
+    return this.userAuthenService.authenticateUserPassword(payload, UserTokenTypeEnum.GAMER);
   }
 
   @Post("auth/verify-guest")
@@ -50,7 +49,6 @@ export class UserController {
 
   @Post("registration")
   async registerNewUser(@Body() payload: CreateUserDto) {
-    this.logger.log(`registration: ${JSON.stringify(payload)}`);
     return this.userAuthenService.registerNewUser(payload);
   }
 

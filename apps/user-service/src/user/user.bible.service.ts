@@ -28,7 +28,7 @@ export class UserBibleService {
       };
     }
 
-    const dailyBible: ISentence = (await this.bibleServiceClient.get("daily")).data;
+    const dailyBible: ISentence = await this.bibleServiceClient.get("daily");
 
     const userDailyBible = this.dailyBibleRepo.create({
       userId,

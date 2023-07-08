@@ -20,7 +20,7 @@ export class FirebaseStrategy extends PassportStrategy(Strategy, "firebase") {
       const token = authHeader.substring(7, authHeader.length);
 
       try {
-        const result = await this.authService.verifyFirebaseToken(token);
+        const result: any = await this.authService.verifyFirebaseToken(token);
         return {
           userId: (result as unknown as IFirebaseVerifyResult).user_id,
           phoneNumber: (result as unknown as IFirebaseVerifyResult).phone_number,

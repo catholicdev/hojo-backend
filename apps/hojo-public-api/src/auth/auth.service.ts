@@ -27,7 +27,6 @@ export class AuthService {
   }
 
   public async verifyFirebaseToken(token: string) {
-    const result = await this.userServiceClient.post("user/auth/verify-firebase-token", { token });
-    return result.data;
+    return this.userServiceClient.post("user/auth/verify-firebase-token", { token });
   }
 }

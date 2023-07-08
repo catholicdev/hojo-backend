@@ -1,4 +1,4 @@
-import { HttpException, ServiceUnavailableException } from "@nestjs/common";
+import { HttpException, RequestTimeoutException, ServiceUnavailableException } from "@nestjs/common";
 
 import * as dotenvConf from "dotenv";
 import axios, { AxiosInstance } from "axios";
@@ -20,9 +20,18 @@ const api = (baseUrl: string, token = ""): AxiosInstance => {
   if (token) api.defaults.headers.common = { Authorization: `bearer ${token}` };
 
   api.interceptors.response.use(
-    (res) => res,
+    (res) => {
+      Object.assign(res, { ...res.data });
+      return res.data;
+    },
     (err) => {
+      const { message, code, response: rawResponse = {} } = err;
+      const response = { status: rawResponse.status, data: rawResponse.data, headers: rawResponse.headers };
+
+      if (err.code === "ETIMEDOUT") return Promise.reject(new RequestTimeoutException());
+      if (err.code === "ECONNABORTED") return Promise.reject(new RequestTimeoutException());
       if (err.code === "ECONNREFUSED") return Promise.reject(new ServiceUnavailableException());
+
       return Promise.reject(new HttpException(err.response?.data, err.response?.status));
     }
   );

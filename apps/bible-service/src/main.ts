@@ -2,14 +2,16 @@
  * This is not a production server yet!
  * This is only a minimal backend to get started.
  */
-
-import { Logger } from "@nestjs/common";
-import { NestFactory } from "@nestjs/core";
+import { Logger, ValidationPipe } from "@nestjs/common";
 import { ConfigService } from "@nestjs/config";
+import { NestFactory } from "@nestjs/core";
+
+import * as dotenvConf from "dotenv";
+
+import { ExceptionHandlerInterceptor, TransformResponseInterceptor } from "@util";
 
 import { AppModule } from "@bible/app/app.module";
 
-import * as dotenvConf from "dotenv";
 dotenvConf.config();
 
 async function bootstrap() {
@@ -23,6 +25,10 @@ async function bootstrap() {
     credentials: true,
     origin: corsOrigin ? corsOrigin.split(",") : [],
   });
+
+  app.useGlobalPipes(new ValidationPipe());
+  app.useGlobalInterceptors(new TransformResponseInterceptor());
+  app.useGlobalInterceptors(new ExceptionHandlerInterceptor());
 
   const port = process.env.PORT;
   await app.listen(port);
