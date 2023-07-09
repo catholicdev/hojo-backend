@@ -48,34 +48,28 @@ export class FirebaseService {
   }
 
   async sendVerificationEmail(idToken: string) {
-    return (
-      await this.httpService.post(`https://identitytoolkit.googleapis.com/v1/accounts:sendOobCode?key=${this.apiKey}`, {
-        requestType: "VERIFY_EMAIL",
-        idToken: idToken,
-      })
-    ).data;
+    return this.httpService.post(`https://identitytoolkit.googleapis.com/v1/accounts:sendOobCode?key=${this.apiKey}`, {
+      requestType: "VERIFY_EMAIL",
+      idToken: idToken,
+    });
   }
 
   async verifyUser(email: string, password: string) {
-    return (
-      await this.httpService.post(
-        `https://www.googleapis.com/identitytoolkit/v3/relyingparty/verifyPassword?key=${this.apiKey}`,
-        {
-          email,
-          password,
-          returnSecureToken: true,
-        }
-      )
-    ).data;
+    return this.httpService.post(
+      `https://www.googleapis.com/identitytoolkit/v3/relyingparty/verifyPassword?key=${this.apiKey}`,
+      {
+        email,
+        password,
+        returnSecureToken: true,
+      }
+    );
   }
 
   async refreshToken(refreshToken: string) {
-    return (
-      await this.httpService.post(`https://securetoken.googleapis.com/v1/token?key=${this.apiKey}`, {
-        grant_type: "refresh_token",
-        refresh_token: refreshToken,
-      })
-    ).data;
+    return this.httpService.post(`https://securetoken.googleapis.com/v1/token?key=${this.apiKey}`, {
+      grant_type: "refresh_token",
+      refresh_token: refreshToken,
+    });
   }
 
   async updateUser(uid: string, { email, password }: UpdateRequest) {
@@ -87,14 +81,12 @@ export class FirebaseService {
   }
 
   async verifyCustomToken(token: string) {
-    return (
-      await this.httpService.post(
-        `https://www.googleapis.com/identitytoolkit/v3/relyingparty/verifyCustomToken?key=${this.apiKey}`,
-        {
-          token,
-          returnSecureToken: true,
-        }
-      )
-    ).data;
+    return this.httpService.post(
+      `https://www.googleapis.com/identitytoolkit/v3/relyingparty/verifyCustomToken?key=${this.apiKey}`,
+      {
+        token,
+        returnSecureToken: true,
+      }
+    );
   }
 }

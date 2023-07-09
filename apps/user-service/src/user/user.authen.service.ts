@@ -70,10 +70,12 @@ export class UserAuthenService {
   }
 
   async registerNewUser(payload: CreateUserDto) {
+    const existingUser = await this.userRepo.findOne({ email: payload.email });
+    if (existingUser) throw new BadRequestException("Email đã được sử dụng rồi.");
+
     const salt = await genSalt(10);
     const newPassword = await hash(payload.password, salt);
 
-    let firebaseIdToken: string;
     let uid: string;
 
     try {
@@ -85,33 +87,30 @@ export class UserAuthenService {
     }
 
     try {
-      const accessToken = await this.firebaseService.getUserCustomToken(uid);
+      const accessToken = await this.firebaseService.getUserCustomToken(uid, { [UserTokenTypeEnum.GAMER]: true });
       const firebaseToken = await this.firebaseService.verifyCustomToken(accessToken);
-      firebaseIdToken = firebaseToken.idToken;
+
+      if (firebaseToken) {
+        try {
+          const newUser = this.userRepo.create({
+            id: uid,
+            firebaseUid: uid,
+            firstName: payload.firstName,
+            lastName: payload.lastName,
+            email: payload.email,
+            passwordHash: newPassword,
+          });
+
+          await this.userRepo.save(newUser);
+        } catch (error) {
+          throw new InternalServerErrorException(error);
+        }
+
+        return firebaseToken;
+      }
     } catch (error) {
       throw new NotFoundException("Could not get custom access token for user.");
     }
-
-    if (firebaseIdToken) {
-      try {
-        const newUser = this.userRepo.create({
-          id: uid,
-          firebaseUid: uid,
-          firstName: payload.firstName,
-          lastName: payload.lastName,
-          email: payload.email,
-          passwordHash: newPassword,
-        });
-
-        await this.userRepo.save(newUser);
-      } catch (error) {
-        throw new InternalServerErrorException(error);
-      }
-
-      return { accessToken: firebaseIdToken };
-    }
-
-    return null;
   }
 
   async authenticateUserPassword(payload: UserPasswordLoginDto, userTokenType: UserTokenTypeEnum) {
@@ -126,11 +125,10 @@ export class UserAuthenService {
     }
 
     try {
-      const result = await this.firebaseService.verifyUser(payload.email, user.passwordHash);
+      const result: any = await this.firebaseService.verifyUser(payload.email, user.passwordHash);
       const accessToken = await this.firebaseService.getUserCustomToken(result.localId, { [userTokenType]: true });
 
-      const firebaseToken = await this.firebaseService.verifyCustomToken(accessToken);
-      return { accessToken: firebaseToken.idToken };
+      return this.firebaseService.verifyCustomToken(accessToken);
     } catch (ex) {
       switch (ex.response.error.message) {
         case "EMAIL_NOT_FOUND":

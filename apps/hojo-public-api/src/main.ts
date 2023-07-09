@@ -7,7 +7,7 @@ import * as dotenvConf from "dotenv";
 import * as winston from "winston";
 import { utilities as nestWinstonModuleUtilities, WinstonModule } from "nest-winston";
 
-import { ExceptionHandlerInterceptor, TransformResponseInterceptor } from "@util";
+import { DateFormatInterceptor, ExceptionHandlerInterceptor, TransformResponseInterceptor } from "@util";
 
 import { AppModule } from "@pub/app/app.module";
 

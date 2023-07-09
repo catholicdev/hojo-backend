@@ -34,6 +34,8 @@ async function bootstrap() {
   });
 
   app.useGlobalPipes(new ValidationPipe());
+  app.useGlobalInterceptors(new TransformResponseInterceptor());
+  app.useGlobalInterceptors(new ExceptionHandlerInterceptor());
 
   const port = process.env.PORT;
   await app.listen(port);
