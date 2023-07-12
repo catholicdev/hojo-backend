@@ -1,4 +1,4 @@
-import { Body, Controller, Get, Logger, Param, Post } from "@nestjs/common";
+import { Body, Controller, Get, Param, Post } from "@nestjs/common";
 
 import { CreateUserDto, UserPasswordLoginDto } from "@dto";
 
@@ -9,8 +9,6 @@ import { UserBibleService } from "@user/user/user.bible.service";
 
 @Controller("user")
 export class UserController {
-  private readonly logger = new Logger(this.constructor.name);
-
   constructor(
     private readonly userAuthenService: UserAuthenService,
     private readonly userBibleService: UserBibleService
@@ -28,21 +26,18 @@ export class UserController {
 
   @Post("auth/verify-guest")
   async verifyGuest(@Body() payload) {
-    this.logger.log(`verify-guest: ${JSON.stringify(payload)}`);
     const { id, appId } = payload;
     return this.userAuthenService.verifyGuest(id, appId);
   }
 
   @Post("weekly-bible")
   async weeklyBible(@Body() payload) {
-    this.logger.log(`weekly-bible: ${JSON.stringify(payload)}`);
     const { userId } = payload;
     return this.userBibleService.weeklyBible(userId);
   }
 
   @Post("auth/verify-firebase-token")
   async verifyFirebaseToken(@Body() payload: { token: string }) {
-    this.logger.log(`auth/verify-firebase-token: ${JSON.stringify(payload)}`);
     const { token } = payload;
     return this.userAuthenService.verifyFirebaseToken(token);
   }
@@ -54,7 +49,6 @@ export class UserController {
 
   @Post("verify-email")
   async verifyEmail(@Body() payload: { email: string }) {
-    this.logger.log(`verify-email: ${JSON.stringify(payload)}`);
     return this.userAuthenService.verifyEmail(payload.email);
   }
 }

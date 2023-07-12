@@ -1,4 +1,4 @@
-import { Body, Controller, Get, Logger, Param, Post, UseGuards } from "@nestjs/common";
+import { Body, Controller, Get, Param, Post, UseGuards } from "@nestjs/common";
 import { ApiTags } from "@nestjs/swagger";
 
 import {
@@ -24,7 +24,6 @@ import { GameService } from "@pub/game/game.service";
 @ApiTags("Game")
 @Controller("game")
 export class GameController {
-  private readonly logger: Logger = new Logger(this.constructor.name);
   constructor(private readonly gameService: GameService) {}
 
   @Get("rounds")
@@ -52,8 +51,6 @@ export class GameController {
   @Serialize(GetTopThreeResponse)
   @Swagger({ response: [GetTopThreeResponse] })
   async getTopThree() {
-    this.logger.log(`get-top-three`);
-
     return this.gameService.getTopThree();
   }
 
@@ -62,17 +59,14 @@ export class GameController {
   @Serialize(StageQuestionResponse)
   @Swagger({ response: StageQuestionResponse, auth: "access-token" })
   async getStageQuestions(@Param("stageId") stageId: string) {
-    this.logger.log(`:stageId/questions: ${stageId}`);
-
     return this.gameService.getStageQuestions(stageId);
   }
 
   @Post("guest/start-game")
-  @UseGuards(GuestJwtAuthGuard)
+  @UseGuards(FirebaseAuthGuard)
   @Serialize(StartGameResponse)
   @Swagger({ body: StartGameDto, response: StartGameResponse, auth: "access-token" })
   async startGuestGame(@User() user: AuthorizedUserInterface, @Body() payload: StartGameDto) {
-    this.logger.log(`guest/start-game: ${JSON.stringify(payload)}`);
     const { stageId } = payload;
 
     return this.gameService.startGame(user.userId, stageId);
@@ -82,8 +76,6 @@ export class GameController {
   @UseGuards(GuestJwtAuthGuard)
   @Swagger({ body: UserHelpDto, auth: "access-token" })
   async guestUseHelp(@Body() useHelp: UserHelpDto) {
-    this.logger.log(`guest/use-help: ${JSON.stringify(useHelp)}`);
-
     return this.gameService.guestUseHelp(useHelp);
   }
 
@@ -92,8 +84,6 @@ export class GameController {
   @Serialize(EndGameResponse)
   @Swagger({ body: EndGameDto, response: EndGameResponse, auth: "access-token" })
   async guestEndGame(@User() user: AuthorizedUserInterface, @Body() payload: EndGameDto) {
-    this.logger.log(`guest/end-game: ${JSON.stringify(payload)}`);
-
     return this.gameService.endGame({ ...payload, userId: user.userId });
   }
 
@@ -101,8 +91,6 @@ export class GameController {
   @UseGuards(GuestJwtAuthGuard)
   @Swagger({ auth: "access-token" })
   async guestStages(@User() user: AuthorizedUserInterface, @Param("roundId") roundId: string) {
-    this.logger.log(`guest/:roundId/user-stages: ${roundId}`);
-
     return this.gameService.getUserStages(roundId, user.userId);
   }
 }

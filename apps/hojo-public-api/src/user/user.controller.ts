@@ -1,4 +1,4 @@
-import { Body, Controller, Get, Logger, Post, UseGuards } from "@nestjs/common";
+import { Body, Controller, Get, Post, UseGuards } from "@nestjs/common";
 import { ApiOkResponse, ApiTags } from "@nestjs/swagger";
 
 import { BibleSentenceResponse, UserPasswordLoginDto } from "@dto";
@@ -13,8 +13,6 @@ import { UserService } from "@pub/user/user.service";
 @ApiTags("User")
 @Controller("user")
 export class UserController {
-  private readonly logger = new Logger(this.constructor.name);
-
   constructor(private readonly userService: UserService) {}
 
   @Get("daily-bible")

@@ -1,11 +1,11 @@
 import { HttpException, HttpStatus, Injectable } from "@nestjs/common";
 
-import { v4 as uuidv4 } from "uuid";
+import { UpdateHeartDto } from "@dto";
+
+import { HeartLogTypeEnum } from "@type";
 
 import { HeartRepository } from "@user/database/repositories";
 import { HeartLogService } from "@user/heart/heart.log.service";
-import { HeartLogTypeEnum } from "@type";
-import { UpdateHeartDto } from "@dto";
 
 @Injectable()
 export class HeartService {
@@ -18,7 +18,6 @@ export class HeartService {
     }
 
     const newHeart = this.heartRepo.create({
-      id: uuidv4(),
       userId,
       currentHeart: 5,
       maxHeart: 5,
