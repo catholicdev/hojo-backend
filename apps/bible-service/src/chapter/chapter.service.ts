@@ -11,15 +11,13 @@ export class ChapterService {
   ) {}
 
   async getChapters(bookId: string) {
-    const chapters = await this.chapterRepository.find({
+    return this.chapterRepository.find({
       select: ["id", "sequence"],
       where: {
         bookId,
       },
       order: { sequence: "ASC" },
     });
-
-    return chapters;
   }
 
   async getChapterOfBook(bookId: string) {

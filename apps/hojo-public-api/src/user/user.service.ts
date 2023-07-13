@@ -14,16 +14,6 @@ export class UserService {
     return this.userServiceClient.post("user/login", loginDTO);
   }
 
-  async loginGuest() {
-    const result = await this.userServiceClient.post("user/guest/auth.login");
-    return result.data;
-  }
-
-  async reloginGuest(userId: string, appId: string) {
-    const result = await this.userServiceClient.post("user/guest/auth.relogin", { userId, appId });
-    return result.data;
-  }
-
   async getDailyBible(userId: string) {
     return this.userServiceClient.get(`user/${userId}/daily-bible`);
   }

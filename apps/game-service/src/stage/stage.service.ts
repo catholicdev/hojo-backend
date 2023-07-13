@@ -28,8 +28,9 @@ export class StageService {
   async startGame(stageId: string, userId: string) {
     if (!userId || !stageId) throw new HttpException("incorrect-input", HttpStatus.BAD_REQUEST);
 
-    const userHeart = await (await this.userServiceClient.post("heart/user-heart", { userId })).data;
-    if (userHeart.heart <= 0) {
+    const userHeart = (await this.userServiceClient.post("heart/user-heart", { userId })) as any;
+
+    if (!userHeart?.heart || userHeart.heart <= 0) {
       throw new HttpException("invalid-heart", HttpStatus.BAD_REQUEST);
     }
 
@@ -132,7 +133,6 @@ export class StageService {
 
     if (!bookId) throw new NotFoundException("Book not found.");
 
-    const result = await this.bibleServiceClient.get(`chapter/chapter-book/${bookId}`);
-    return result.data;
+    return this.bibleServiceClient.get(`chapter/chapter-book/${bookId}`);
   }
 }
