@@ -24,12 +24,6 @@ export class UserController {
     return this.userAuthenService.authenticateUserPassword(payload, UserTokenTypeEnum.GAMER);
   }
 
-  @Post("auth/verify-guest")
-  async verifyGuest(@Body() payload) {
-    const { id, appId } = payload;
-    return this.userAuthenService.verifyGuest(id, appId);
-  }
-
   @Post("weekly-bible")
   async weeklyBible(@Body() payload) {
     const { userId } = payload;

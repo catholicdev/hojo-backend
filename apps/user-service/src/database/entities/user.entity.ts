@@ -5,7 +5,7 @@ import {
   Entity,
   Index,
   OneToMany,
-  PrimaryGeneratedColumn,
+  PrimaryColumn,
   UpdateDateColumn,
 } from "typeorm";
 
@@ -17,7 +17,7 @@ import { DailyBible } from "@user/database/entities/daily-bible.entity";
 
 @Entity("users")
 export class User extends BaseEntity implements IUser {
-  @PrimaryGeneratedColumn("uuid")
+  @PrimaryColumn()
   public id: string;
 
   @Index("FIREBASE_UID_INDEX")
