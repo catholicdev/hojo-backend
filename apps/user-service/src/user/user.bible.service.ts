@@ -52,7 +52,7 @@ export class UserBibleService {
     const from = dayjs().day(0);
     const to = from.add(7, "day");
 
-    return await this.dailyBibleRepo.find({
+    return this.dailyBibleRepo.find({
       select: ["sentence", "sequence", "chapterSequence", "bookAbbreviation", "receiveDate"],
       where: {
         userId,
