@@ -12,6 +12,7 @@ import {
   StartGameDto,
   StartGameResponse,
   UserHelpDto,
+  UserStageResponse,
 } from "@dto";
 
 import { Serialize, Swagger, User } from "@util";
@@ -28,21 +29,21 @@ export class GameController {
 
   @Get("rounds")
   @UseGuards(FirebaseAuthGuard)
-  @Swagger({ response: [GetRoundsResponse] })
+  @Swagger({ response: [GetRoundsResponse], auth: "access-token" })
   async getRounds() {
     return this.gameService.getRounds();
   }
 
   @Get(":roundId/stages")
   @UseGuards(FirebaseAuthGuard)
-  @Swagger({ response: [GetStageResponse] })
+  @Swagger({ response: [GetStageResponse], auth: "access-token" })
   async stages(@Param("roundId") roundId: string) {
     return this.gameService.getStages(roundId);
   }
 
   @Get(":stageId/get-book")
   @UseGuards(FirebaseAuthGuard)
-  @Swagger({ response: GetBookResponse })
+  @Swagger({ response: GetBookResponse, auth: "access-token" })
   async getBook(@Param("stageId") stageId: string) {
     return this.gameService.getBook(stageId);
   }
@@ -89,7 +90,7 @@ export class GameController {
 
   @Get(":roundId/user-stages")
   @UseGuards(FirebaseAuthGuard)
-  @Swagger({ auth: "access-token" })
+  @Swagger({ auth: "access-token", response: [UserStageResponse] })
   async userStages(@User() user: AuthorizedUserInterface, @Param("roundId") roundId: string) {
     return this.gameService.getUserStages(roundId, user.userId);
   }
