@@ -32,38 +32,6 @@ export class UserAuthenService {
     return { message: "Welcome to user-service!" };
   }
 
-  async verifyGuest(id: string, appId: string) {
-    type Response = {
-      status: boolean;
-      error?: ErrorCodeConstant;
-      message?: ErrorMessageConstant;
-    };
-
-    const response: Response = {
-      status: true,
-      error: undefined,
-      message: undefined,
-    };
-
-    const user = await this.userRepo.findOne({ where: { id, appId } });
-
-    if (!user) {
-      response.status = false;
-      response.error = ErrorCodeConstant.USER_NOT_REGISTERED;
-      response.message = ErrorMessageConstant.USER_NOT_REGISTERED;
-      return response;
-    }
-
-    if (user.userStatus === UserStatusEnum.INACTIVE) {
-      response.status = false;
-      response.error = ErrorCodeConstant.USER_INACTIVE;
-      response.message = ErrorMessageConstant.USER_INACTIVE;
-      return response;
-    }
-
-    return response;
-  }
-
   async verifyFirebaseToken(token: string) {
     const result = await auth().verifyIdToken(token);
     return result;

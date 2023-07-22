@@ -4,7 +4,7 @@ import { JwtModule } from "@nestjs/jwt";
 import { PassportModule } from "@nestjs/passport";
 
 import { AuthService } from "@pub/auth/auth.service";
-import { FirebaseStrategy, GuestJwtStrategy, GuestStrategy } from "@pub/auth/strategies";
+import { FirebaseStrategy } from "@pub/auth/strategies";
 
 @Module({
   imports: [
@@ -21,7 +21,7 @@ import { FirebaseStrategy, GuestJwtStrategy, GuestStrategy } from "@pub/auth/str
       }),
     }),
   ],
-  providers: [AuthService, GuestStrategy, GuestJwtStrategy, FirebaseStrategy],
+  providers: [AuthService, FirebaseStrategy],
   exports: [AuthService],
 })
 export class AuthModule {}

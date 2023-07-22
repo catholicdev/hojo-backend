@@ -1,16 +1,12 @@
-import { IsNotEmpty, IsUUID } from "class-validator";
 import { ApiProperty } from "@nestjs/swagger";
 
-export class EndGameDto {
+import { IsNotEmpty, IsUUID } from "class-validator";
+
+export class PublicEndGameDto {
   @ApiProperty()
   @IsNotEmpty()
   @IsUUID()
   gameId: string;
-
-  @ApiProperty()
-  @IsNotEmpty()
-  @IsUUID()
-  userId: string;
 
   @ApiProperty({ nullable: true })
   totalCorrectQuestion?: number;
@@ -25,4 +21,10 @@ export class EndGameDto {
   @ApiProperty()
   @IsNotEmpty()
   isCompleted: boolean;
+}
+
+export class EndGameDto extends PublicEndGameDto {
+  @ApiProperty()
+  @IsNotEmpty()
+  userId: string;
 }

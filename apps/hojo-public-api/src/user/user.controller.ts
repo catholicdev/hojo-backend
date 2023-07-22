@@ -1,9 +1,16 @@
-import { Body, Controller, Get, Logger, Post, UseGuards } from "@nestjs/common";
-import { ApiOkResponse, ApiTags } from "@nestjs/swagger";
+import { Body, Controller, Get, Post, UseGuards } from "@nestjs/common";
+import { ApiTags } from "@nestjs/swagger";
 
-import { BibleSentenceResponse, UserPasswordLoginDto } from "@dto";
+import {
+  BibleSentenceResponse,
+  CreateUserDto,
+  LoginResponse,
+  UserPasswordLoginDto,
+  VerifyEmailDto,
+  VerifyEmailResponse,
+} from "@dto";
 
-import { Serialize, User } from "@util";
+import { Serialize, Swagger, User } from "@util";
 
 import { AuthorizedUserInterface } from "@interfaces";
 
@@ -13,13 +20,11 @@ import { UserService } from "@pub/user/user.service";
 @ApiTags("User")
 @Controller("user")
 export class UserController {
-  private readonly logger = new Logger(this.constructor.name);
-
   constructor(private readonly userService: UserService) {}
 
   @Get("daily-bible")
   @UseGuards(FirebaseAuthGuard)
-  @ApiOkResponse({ type: BibleSentenceResponse })
+  @Swagger({ response: BibleSentenceResponse, auth: "access-token" })
   @Serialize(BibleSentenceResponse)
   async getDailyBible(@User() user: AuthorizedUserInterface) {
     const { userId } = user;
@@ -27,17 +32,20 @@ export class UserController {
   }
 
   @Post("app/login")
+  @Swagger({ body: UserPasswordLoginDto, response: LoginResponse })
   async loginApp(@Body() body: UserPasswordLoginDto) {
     return this.userService.loginApp(body);
   }
 
   @Post("app/register")
-  async registerNewUser(@Body() body: any) {
+  @Swagger({ body: CreateUserDto, response: LoginResponse })
+  async registerNewUser(@Body() body: CreateUserDto) {
     return this.userService.registerNewUser(body);
   }
 
   @Post("register/verify-email")
-  async verifyEmail(@Body() body: any) {
+  @Swagger({ body: VerifyEmailDto, response: VerifyEmailResponse })
+  async verifyEmail(@Body() body: VerifyEmailDto) {
     const { email } = body;
     return this.userService.verifyEmail(email);
   }

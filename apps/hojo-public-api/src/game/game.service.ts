@@ -19,28 +19,23 @@ export class GameService {
   }
 
   async startGame(userId: string, stageId: string) {
-    const result = await this.gameServiceClient.post("stage/start-game", { stageId, userId });
-    return result.data;
+    return this.gameServiceClient.post("stage/start-game", { stageId, userId });
   }
 
   async getStageQuestions(stageId: string) {
-    const result = await this.gameServiceClient.post("question/stage-questions", { stageId });
-    return result.data;
+    return this.gameServiceClient.post("question/stage-questions", { stageId });
   }
 
-  async guestUseHelp(useHelp: UserHelpDto) {
-    const result = await this.gameServiceClient.post("stage/use-help", { ...useHelp });
-    return result.data;
+  async useHelp(useHelp: UserHelpDto) {
+    return this.gameServiceClient.post("stage/use-help", { ...useHelp });
   }
 
   async endGame(endGame: EndGameDto) {
-    const result = await this.gameServiceClient.post("stage/end-game", { ...endGame });
-    return result.data;
+    return this.gameServiceClient.post("stage/end-game", { ...endGame });
   }
 
   async getTopThree() {
-    const result = await this.gameServiceClient.post("ranking/get-top-three");
-    return result.data;
+    return this.gameServiceClient.post("ranking/get-top-three");
   }
 
   async getBook(stageId: string) {
@@ -48,11 +43,9 @@ export class GameService {
   }
 
   async getUserStages(roundId: string, userId: string) {
-    const result = await this.gameServiceClient.post("round/user-stages", {
+    return this.gameServiceClient.post("round/user-stages", {
       roundId,
       userId,
     });
-
-    return result.data;
   }
 }
