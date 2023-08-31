@@ -1,0 +1,14 @@
+{
+  "type": "mysql",
+  "host": "103.90.235.57",
+  "port": 3306,
+  "username": "root",
+  "password": "Hojo!2022",
+  "database": "hj_user",
+  "logging": true,
+  "synchronize": false,
+  "migrations": ["src/migrations/**/*.ts"],
+  "cli": {
+    "migrationsDir": "src/migrations"
+  }
+}
