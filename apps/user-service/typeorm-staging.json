@@ -1,9 +1,9 @@
 {
     "type": "mysql",
-    "host": "localhost",
+    "host": "103.90.235.57",
     "port": 3306,
     "username": "root",
-    "password": "123456",
+    "password": "Hojo!2022",
     "database": "hj_user",
     "logging": true,
     "synchronize": false,

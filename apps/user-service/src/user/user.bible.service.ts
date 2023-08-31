@@ -20,12 +20,7 @@ export class UserBibleService {
     const todayBible = await this.dailyBibleRepo.findByUserId(userId);
 
     if (todayBible && dayjs().isSame(dayjs(todayBible.receiveDate), "day")) {
-      return {
-        sentence: todayBible.sentence,
-        sequence: todayBible.sequence,
-        chapterSequence: todayBible.chapterSequence,
-        bookAbbreviation: todayBible.bookAbbreviation,
-      };
+      return todayBible
     }
 
     const dailyBible: ISentence = await this.bibleServiceClient.get("daily");
@@ -38,14 +33,9 @@ export class UserBibleService {
       bookAbbreviation: dailyBible?.chapter?.book?.abbreviation,
     });
 
-    await this.dailyBibleRepo.insert(userDailyBible);
+    return this.dailyBibleRepo.save(userDailyBible);
 
-    return {
-      sentence: userDailyBible.sentence,
-      sequence: userDailyBible.sequence,
-      chapterSequence: userDailyBible.chapterSequence,
-      bookAbbreviation: userDailyBible.bookAbbreviation,
-    };
+
   }
 
   async weeklyBible(userId: string) {
