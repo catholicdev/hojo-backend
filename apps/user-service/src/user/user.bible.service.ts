@@ -1,8 +1,12 @@
-import { Injectable } from "@nestjs/common";
+import { Injectable, NotFoundException } from "@nestjs/common";
 
 import * as dayjs from "dayjs";
 import { AxiosInstance } from "axios";
 import { Between } from "typeorm";
+
+import { FavoriteBibleSentenceDto } from "@dto";
+
+import { ErrorMessageConstant } from "@type";
 
 import { bibleServiceConsumer } from "@util";
 
@@ -20,7 +24,7 @@ export class UserBibleService {
     const todayBible = await this.dailyBibleRepo.findByUserId(userId);
 
     if (todayBible && dayjs().isSame(dayjs(todayBible.receiveDate), "day")) {
-      return todayBible
+      return todayBible;
     }
 
     const dailyBible: ISentence = await this.bibleServiceClient.get("daily");
@@ -34,8 +38,6 @@ export class UserBibleService {
     });
 
     return this.dailyBibleRepo.save(userDailyBible);
-
-
   }
 
   async weeklyBible(userId: string) {
@@ -52,5 +54,13 @@ export class UserBibleService {
         receiveDate: "ASC",
       },
     });
+  }
+
+  async processFavoriteBibleSentence(userId: string, dto: FavoriteBibleSentenceDto) {
+    const dailyBible = await this.dailyBibleRepo.findOne({ userId, id: dto.dailyBibleSentenceId });
+    if (!dailyBible) throw new NotFoundException(ErrorMessageConstant.DAILY_BIBLE_NOT_FOUND);
+
+    this.dailyBibleRepo.merge(dailyBible, { isFavorite: dto.isFavorite });
+    return this.dailyBibleRepo.save(dailyBible);
   }
 }

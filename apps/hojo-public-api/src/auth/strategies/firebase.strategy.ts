@@ -6,6 +6,7 @@ import { Strategy } from "passport-custom";
 import { IFirebaseVerifyResult } from "@interfaces";
 
 import { AuthService } from "@pub/auth/auth.service";
+import {ErrorMessageConstant} from "@type";
 
 @Injectable()
 export class FirebaseStrategy extends PassportStrategy(Strategy, "firebase") {
@@ -28,12 +29,12 @@ export class FirebaseStrategy extends PassportStrategy(Strategy, "firebase") {
         };
       } catch (ex) {
         if (ex.code === "ECONNREFUSED") {
-          throw new InternalServerErrorException("ECONNREFUSED");
+          throw new InternalServerErrorException(ErrorMessageConstant.ECONNREFUSED);
         }
-        throw new UnauthorizedException("token_expired");
+        throw new UnauthorizedException(ErrorMessageConstant.TOKEN_EXPIRED);
       }
     }
 
-    return false; //in case there is no token
+    return false; // in case there is no token
   }
 }

@@ -42,6 +42,9 @@ export class DailyBible extends BaseEntity implements IDailyBible {
   })
   public receiveDate: Date;
 
+  @Column({ name: "is_favorite", default: false })
+  isFavorite: boolean;
+
   // Relationship
   @ManyToOne(() => User)
   @JoinColumn({ name: "user_id", referencedColumnName: "id" })

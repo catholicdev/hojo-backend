@@ -1,11 +1,13 @@
-import { Controller, Get, Param } from "@nestjs/common";
+import {Body, Controller, Get, Param, Post, UseGuards} from "@nestjs/common";
 import { ApiTags } from "@nestjs/swagger";
 
-import { BookSummaryResponse, SentenceChapterResponse } from "@dto";
+import {BookSummaryResponse, FavoriteBibleSentenceDto, SentenceChapterResponse} from "@dto";
 
-import { Serialize, Swagger } from "@util";
+import {Serialize, Swagger, User} from "@util";
 
 import { BibleService } from "@pub/bible/bible.service";
+import {FirebaseAuthGuard} from "@pub/auth/guards";
+import {AuthorizedUserInterface} from "@interfaces";
 
 @ApiTags("Bible")
 @Controller("bible")
@@ -25,4 +27,11 @@ export class BibleController {
   async sentenceChapter(@Param("chapterId") chapterId: string) {
     return this.bibleService.sentenceChapter(chapterId);
   }
+
+  @Post("sentence-favorite")
+  @UseGuards(FirebaseAuthGuard)
+  async upsertFavoriteBibleSentence(@User() user: AuthorizedUserInterface, @Body() payload: FavoriteBibleSentenceDto){
+    return this.bibleService.upsertFavoriteBibleSentence(user.userId, payload)
+  }
+
 }

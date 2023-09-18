@@ -8,6 +8,7 @@ export interface IDailyBible {
   sequence: number;
   sentence: string;
   receiveDate: Date;
+  isFavorite: boolean;
 
   user: IUser;
 }
