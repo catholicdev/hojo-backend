@@ -1,6 +1,6 @@
 import { Body, Controller, Get, Param, Post } from "@nestjs/common";
 
-import { CreateUserDto, UserPasswordLoginDto } from "@dto";
+import { CreateUserDto, FavoriteBibleSentenceDto, UserPasswordLoginDto } from "@dto";
 
 import { UserTokenTypeEnum } from "@type";
 
@@ -44,5 +44,10 @@ export class UserController {
   @Post("verify-email")
   async verifyEmail(@Body() payload: { email: string }) {
     return this.userAuthenService.verifyEmail(payload.email);
+  }
+
+  @Post(":userId/favorite-bible-sentence")
+  async favoriteBibleSentence(@Param("userId") userId: string, payload: FavoriteBibleSentenceDto) {
+    return this.userBibleService.processFavoriteBibleSentence(userId, payload);
   }
 }

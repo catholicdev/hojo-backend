@@ -3,3 +3,4 @@ export * from "./custom-error.util";
 export * from "./interceptors";
 export * from "./hash.util";
 export * from "./decorators";
+export * from "./validators";
