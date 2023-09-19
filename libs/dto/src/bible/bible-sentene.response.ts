@@ -1,7 +1,12 @@
 import { ApiProperty } from "@nestjs/swagger";
+
 import { Expose } from "class-transformer";
 
 export class BibleSentenceResponse {
+  @Expose()
+  @ApiProperty()
+  public id: number;
+
   @Expose()
   @ApiProperty()
   public sentence: string;

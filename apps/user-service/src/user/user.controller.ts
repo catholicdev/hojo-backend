@@ -47,7 +47,7 @@ export class UserController {
   }
 
   @Post(":userId/favorite-bible-sentence")
-  async favoriteBibleSentence(@Param("userId") userId: string, payload: FavoriteBibleSentenceDto) {
+  async favoriteBibleSentence(@Param("userId") userId: string, @Body() payload: FavoriteBibleSentenceDto) {
     return this.userBibleService.processFavoriteBibleSentence(userId, payload);
   }
 }
