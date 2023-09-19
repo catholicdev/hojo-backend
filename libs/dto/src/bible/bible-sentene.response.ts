@@ -22,6 +22,10 @@ export class BibleSentenceResponse {
   @Expose()
   @ApiProperty()
   public bookAbbreviation: string;
+
+  @Expose()
+  @ApiProperty()
+  public isFavorite: boolean;
 }
 
 export class WeeklyBibleRespone extends BibleSentenceResponse {
