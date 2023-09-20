@@ -31,6 +31,12 @@ export class UserController {
     return this.userService.getDailyBible(userId);
   }
 
+  @Get("check-token")
+  @UseGuards(FirebaseAuthGuard)
+  async checkToken() {
+    return "Authorized";
+  }
+
   @Post("app/login")
   @Swagger({ body: UserPasswordLoginDto, response: LoginResponse })
   async loginApp(@Body() body: UserPasswordLoginDto) {
