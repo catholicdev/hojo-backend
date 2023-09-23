@@ -31,6 +31,7 @@ As a contributor, here are the guidelines we would like you to follow:
 
 ## Typeorm migrations
 
+- For Windows: install globally `ts-node`
 - Create new migration:
   - Mac/Linux: `nx run user-service:create-migration --name=add_table_users`
   - Windows: `ts-node --project tsconfig.app.json ../../node_modules/typeorm/cli.js migration:create -d .\src\migrations --name=add_table_users`
