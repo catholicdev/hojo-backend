@@ -34,8 +34,8 @@ export class GameService {
     return this.gameServiceClient.post("stage/end-game", { ...endGame });
   }
 
-  async getTopThree() {
-    return this.gameServiceClient.post("ranking/get-top-three");
+  async getWeeklyRanking() {
+    return this.gameServiceClient.post("ranking/get-weekly-ranking");
   }
 
   async getBook(stageId: string) {

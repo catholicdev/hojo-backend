@@ -1,7 +1,8 @@
 import { ApiProperty } from "@nestjs/swagger";
+
 import { Expose } from "class-transformer";
 
-export class GetTopThreeResponse {
+export class GetRankingResponse {
   @ApiProperty({ format: "uuid" })
   @Expose()
   userId: string;
@@ -12,9 +13,9 @@ export class GetTopThreeResponse {
 
   @ApiProperty()
   @Expose()
-  totalQuestionPass: number;
+  firstName: string;
 
   @ApiProperty()
   @Expose()
-  date: string;
+  lastName: string;
 }

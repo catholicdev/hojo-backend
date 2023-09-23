@@ -6,12 +6,14 @@ import { UserTokenTypeEnum } from "@type";
 
 import { UserAuthenService } from "@user/user/user.authen.service";
 import { UserBibleService } from "@user/user/user.bible.service";
+import { UserInformService } from "@user/user/user.inform.service";
 
 @Controller("user")
 export class UserController {
   constructor(
     private readonly userAuthenService: UserAuthenService,
-    private readonly userBibleService: UserBibleService
+    private readonly userBibleService: UserBibleService,
+    private readonly userInformService: UserInformService
   ) {}
 
   @Get(":userId/daily-bible")
@@ -49,5 +51,10 @@ export class UserController {
   @Post(":userId/favorite-bible-sentence")
   async favoriteBibleSentence(@Param("userId") userId: string, @Body() payload: FavoriteBibleSentenceDto) {
     return this.userBibleService.processFavoriteBibleSentence(userId, payload);
+  }
+
+  @Post("get-user-name")
+  async getUserName(@Body("userIds") userIds: string[]) {
+    return this.userInformService.getNameUser(userIds);
   }
 }
