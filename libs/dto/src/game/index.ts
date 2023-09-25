@@ -5,6 +5,6 @@ export * from "./start-game/start-game.response";
 export * from "./get-rounds.response";
 export * from "./get-stages.response";
 export * from "./get-book.response";
-export * from "./get-top-three.response";
+export * from "./get-ranking.response";
 export * from "./use-help.dto";
 export * from "./user-stage.response";

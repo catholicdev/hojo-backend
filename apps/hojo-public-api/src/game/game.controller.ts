@@ -4,9 +4,9 @@ import { ApiTags } from "@nestjs/swagger";
 import {
   EndGameResponse,
   GetBookResponse,
+  GetRankingResponse,
   GetRoundsResponse,
   GetStageResponse,
-  GetTopThreeResponse,
   PublicEndGameDto,
   StageQuestionResponse,
   StartGameDto,
@@ -48,11 +48,16 @@ export class GameController {
     return this.gameService.getBook(stageId);
   }
 
-  @Get("get-top-three")
-  @Serialize(GetTopThreeResponse)
-  @Swagger({ response: [GetTopThreeResponse] })
-  async getTopThree() {
-    return this.gameService.getTopThree();
+  @Get("get-top-of-week")
+  @Swagger({ response: GetRankingResponse })
+  async getTopWeek() {
+    return this.gameService.getTopOfWeek();
+  }
+
+  @Get("get-top-of-game")
+  @Swagger({ response: GetRankingResponse })
+  async getTopOfGame() {
+    return this.gameService.getTopOfGame();
   }
 
   @Get(":stageId/questions")
