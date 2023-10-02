@@ -54,7 +54,7 @@ export class User extends BaseEntity implements IUser {
   })
   public updatedDate: Date;
 
-  @Column({ name: "user_status", type: "enum", enum: UserStatusEnum })
+  @Column({ name: "user_status", type: "enum", enum: UserStatusEnum, default: UserStatusEnum.ACTIVE })
   public userStatus: UserStatusEnum;
 
   @Column({ name: "device_token", nullable: true })

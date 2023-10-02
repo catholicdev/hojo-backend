@@ -11,7 +11,7 @@ export class GameService {
   private readonly gameServiceClient: AxiosInstance = gameServiceConsumer();
 
   async getRounds() {
-    return this.gameServiceClient.get("round/get-all");
+    return this.gameServiceClient.get("round");
   }
 
   async getStages(roundId: string) {
