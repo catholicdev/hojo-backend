@@ -1,4 +1,5 @@
 import { ApiProperty } from "@nestjs/swagger";
+
 import { Expose } from "class-transformer";
 
 export class GetRoundsResponse {
@@ -12,5 +13,5 @@ export class GetRoundsResponse {
 
   @ApiProperty()
   @Expose()
-  code: string;
+  image: string;
 }

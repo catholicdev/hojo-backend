@@ -6,7 +6,7 @@ import { RoundService } from "./round.service";
 export class RoundController {
   constructor(private readonly roundService: RoundService) {}
 
-  @Get("get-all")
+  @Get()
   async getAllRounds() {
     return this.roundService.getRounds();
   }

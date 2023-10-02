@@ -15,7 +15,7 @@ export class RoundService {
     });
 
     return rounds.map((round) => {
-      return { id: round.id, name: round.name, code: round.roundCode };
+      return { id: round.id, name: round.name, image: round.imageUrl };
     });
   }
 
