@@ -1,21 +1,18 @@
-import { ApiPropertyOptional } from "@nestjs/swagger";
 import { IsInt, IsOptional, Min } from "class-validator";
+import { IPaginationOptions } from "nestjs-typeorm-paginate";
 
-export class PaginationDto {
-  @IsOptional()
+export class PaginationDto implements IPaginationOptions {
   @IsInt()
-  @ApiPropertyOptional({ example: 1 })
   @Min(1)
-  pageIndex: number;
-
   @IsOptional()
-  @IsInt()
-  @ApiPropertyOptional({ example: 10 })
-  @Min(1)
-  pageSize: number;
+  page = 1;
 
-  take?: number;
-  skip?: number;
-  order?: { direction?: "ASC" | "DESC"; [key: string]: string };
-  customer?: any;
+  @IsInt()
+  @Min(1)
+  @IsOptional()
+  pageSize = 10;
+
+  get limit() {
+    return this.pageSize;
+  }
 }

@@ -42,6 +42,7 @@
     "lodash": "^4.17.21",
     "mysql2": "^2.3.3",
     "nest-winston": "^1.8.0",
+    "nestjs-typeorm-paginate": "^4.0.4",
     "passport": "^0.6.0",
     "passport-custom": "^1.1.1",
     "passport-jwt": "^4.0.0",
