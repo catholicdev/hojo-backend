@@ -29,4 +29,8 @@ export class UserService {
   async verifyEmail(email: string) {
     return this.userServiceClient.post("user/verify-email", { email });
   }
+
+  async update(userId: string, payload: any) {
+    return this.userServiceClient.put(`user/${userId}/update`, payload );
+  }
 }

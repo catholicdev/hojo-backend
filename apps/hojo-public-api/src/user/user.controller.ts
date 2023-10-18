@@ -1,4 +1,4 @@
-import { Body, Controller, Get, Post, UseGuards } from "@nestjs/common";
+import { Body, Controller, Get, Post, Put, UseGuards } from "@nestjs/common";
 import { ApiTags } from "@nestjs/swagger";
 
 import {
@@ -8,6 +8,7 @@ import {
   UserPasswordLoginDto,
   VerifyEmailDto,
   VerifyEmailResponse,
+  UpdateUserDto,
 } from "@dto";
 
 import { Serialize, Swagger, User } from "@util";
@@ -31,12 +32,6 @@ export class UserController {
     return this.userService.getDailyBible(userId);
   }
 
-  @Get("check-token")
-  @UseGuards(FirebaseAuthGuard)
-  async checkToken() {
-    return "Authorized";
-  }
-
   @Post("app/login")
   @Swagger({ body: UserPasswordLoginDto, response: LoginResponse })
   async loginApp(@Body() body: UserPasswordLoginDto) {
@@ -55,4 +50,13 @@ export class UserController {
     const { email } = body;
     return this.userService.verifyEmail(email);
   }
+
+  @Put("app/update")
+  @UseGuards(FirebaseAuthGuard)
+  @Swagger({ body: UpdateUserDto, response: LoginResponse })
+  async update(@Body() body: UpdateUserDto, @User() user: AuthorizedUserInterface) {
+    const { userId } = user;
+    return this.userService.update(userId, body);
+  }
+
 }
