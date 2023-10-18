@@ -13,7 +13,7 @@ import { auth } from "firebase-admin";
 
 import { CreateUserDto, UserPasswordLoginDto } from "@dto";
 
-import { UserStatusEnum, UserTokenTypeEnum } from "@type";
+import { UserTokenTypeEnum } from "@type";
 
 import { IUser } from "@interfaces";
 
@@ -69,13 +69,12 @@ export class UserAuthenService {
             passwordHash: newPassword,
           });
 
-          const user = await this.userRepo.save(newUser);
-
-          delete user.passwordHash;
-          return { ...firebaseToken, user };
+          await this.userRepo.save(newUser);
         } catch (error) {
           throw new InternalServerErrorException(error);
         }
+
+        return firebaseToken;
       }
     } catch (error) {
       throw new NotFoundException("Could not get custom access token for user.");
@@ -87,9 +86,6 @@ export class UserAuthenService {
     if (!user) {
       throw new NotFoundException(`Không tồn tại tài khoản này.`);
     }
-    if (user.userStatus === UserStatusEnum.INACTIVE) {
-      throw new BadRequestException(`Tài khoản đang tạm khóa. Hãy liên hệ Admin để được giúp đỡ.`);
-    }
 
     const valid = await compare(payload.password, user.passwordHash);
     if (!valid) {
@@ -100,9 +96,7 @@ export class UserAuthenService {
       const result: any = await this.firebaseService.verifyUser(payload.email, user.passwordHash);
       const accessToken = await this.firebaseService.getUserCustomToken(result.localId, { [userTokenType]: true });
 
-      const tokenResult = await this.firebaseService.verifyCustomToken(accessToken);
-      delete user.passwordHash;
-      return { ...tokenResult, user };
+      return this.firebaseService.verifyCustomToken(accessToken);
     } catch (ex) {
       switch (ex.response.error.message) {
         case "EMAIL_NOT_FOUND":
@@ -129,5 +123,33 @@ export class UserAuthenService {
     }
 
     return { isUsed: false };
+  }
+
+  async update(userId: string, newFirstName: string, newLastName: string, newBirthDate: Date) {
+    try {
+      const user = await this.userRepo.findUserById(userId);
+
+      if (!user) {
+        throw new NotFoundException(`User with ID ${userId} not found.`);
+      }
+
+      if (newFirstName) {
+        user.firstName = newFirstName;
+      }
+
+      if (newLastName) {
+        user.lastName = newLastName;
+      }
+
+      if (newBirthDate) {
+        user.birthdate = newBirthDate;
+      }
+
+      await this.userRepo.save(user);
+
+      return { message: "User information updated successfully." };
+    } catch (error) {
+      throw new InternalServerErrorException(error);
+    }
   }
 }

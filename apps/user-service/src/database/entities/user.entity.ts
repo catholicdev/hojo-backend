@@ -72,6 +72,9 @@ export class User extends BaseEntity implements IUser {
   @Column("simple-json", { name: "location", nullable: true })
   public location: LocationInterface;
 
+  @Column({ name: "birthdate", type: "date", nullable: true })
+  public birthdate: Date;
+
   // Relationship
   @OneToMany(() => DailyBible, (daily) => daily.user)
   public dailyBibles: DailyBible[];

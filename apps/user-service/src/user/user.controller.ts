@@ -1,4 +1,4 @@
-import { Body, Controller, Get, Param, Post } from "@nestjs/common";
+import { Body, Controller, Get, InternalServerErrorException, Param, Post, Put } from "@nestjs/common";
 
 import { CreateUserDto, FavoriteBibleSentenceDto, UserPasswordLoginDto } from "@dto";
 
@@ -49,5 +49,23 @@ export class UserController {
   @Post(":userId/favorite-bible-sentence")
   async favoriteBibleSentence(@Param("userId") userId: string, @Body() payload: FavoriteBibleSentenceDto) {
     return this.userBibleService.processFavoriteBibleSentence(userId, payload);
+  }
+
+  @Put(":userId/update")
+  async update(
+    @Param("userId") userId: string,
+    @Body() payload: { newFirstName: string; newLastName: string, newBirthDate: Date }
+  ) {
+    try {
+      const result = await this.userAuthenService.update(
+        userId,
+        payload.newFirstName,
+        payload.newLastName,
+        payload.newBirthDate
+      );
+      return result;
+    } catch (error) {
+      throw new InternalServerErrorException(error);
+    }
   }
 }
