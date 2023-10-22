@@ -59,7 +59,7 @@ async function bootstrap() {
     origin: corsOrigin ? corsOrigin.split(",") : [],
   });
 
-  app.useGlobalPipes(new ValidationPipe());
+  app.useGlobalPipes(new ValidationPipe({ transform: true }));
   app.useGlobalInterceptors(new TransformResponseInterceptor());
   app.useGlobalInterceptors(new ExceptionHandlerInterceptor());
 

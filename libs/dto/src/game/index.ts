@@ -8,3 +8,5 @@ export * from "./get-book.response";
 export * from "./get-top-three.response";
 export * from "./use-help.dto";
 export * from "./user-stage.response";
+export * from "./get-ranking.dto";
+export * from "./get-user-ranking.dto";

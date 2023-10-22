@@ -2,7 +2,7 @@ import { Injectable } from "@nestjs/common";
 
 import { AxiosInstance } from "axios";
 
-import { EndGameDto, UserHelpDto } from "@dto";
+import { EndGameDto, GetRankingInGameDto, GetUserRankingDto, UserHelpDto } from "@dto";
 
 import { gameServiceConsumer } from "@util";
 
@@ -34,8 +34,16 @@ export class GameService {
     return this.gameServiceClient.post("stage/end-game", { ...endGame });
   }
 
-  async getTopThree() {
-    return this.gameServiceClient.post("ranking/get-top-three");
+  async getRanking(queries: GetRankingInGameDto) {
+    return this.gameServiceClient.post("ranking/get-ranking-in-game", queries);
+  }
+
+  async getUserRanking(userId: string, payload: GetUserRankingDto) {
+    return this.gameServiceClient.post("ranking/get-user-ranking", payload, {
+      params: {
+        userId,
+      },
+    });
   }
 
   async getBook(stageId: string) {
