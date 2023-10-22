@@ -1,12 +1,13 @@
-import { Body, Controller, Get, Param, Post, UseGuards } from "@nestjs/common";
+import { Body, Controller, Get, Param, Post, Query, UseGuards } from "@nestjs/common";
 import { ApiTags } from "@nestjs/swagger";
 
 import {
   EndGameResponse,
   GetBookResponse,
+  GetRankingInGameDto,
   GetRoundsResponse,
   GetStageResponse,
-  GetTopThreeResponse,
+  GetUserRankingDto,
   PublicEndGameDto,
   StageQuestionResponse,
   StartGameDto,
@@ -48,11 +49,15 @@ export class GameController {
     return this.gameService.getBook(stageId);
   }
 
-  @Get("get-top-three")
-  @Serialize(GetTopThreeResponse)
-  @Swagger({ response: [GetTopThreeResponse] })
-  async getTopThree() {
-    return this.gameService.getTopThree();
+  @Get("get-ranking")
+  async getRanking(@Query() queries: GetRankingInGameDto) {
+    return this.gameService.getRanking(queries);
+  }
+
+  @Post("get-user-ranking")
+  @UseGuards(FirebaseAuthGuard)
+  async getUserRanking(@User() user: AuthorizedUserInterface, @Body() payload: GetUserRankingDto) {
+    return this.gameService.getUserRanking(user.userId, payload);
   }
 
   @Get(":stageId/questions")
